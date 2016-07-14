@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             ['attribute'=>'id', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
-            ['attribute' => 'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
+            ['attribute' => 'name','value'=>'userid.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
             'checktime',
             'checktype',
             //'verifycode',
