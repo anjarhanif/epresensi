@@ -102,8 +102,11 @@ class Userinfo extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getDepid()
-    {
+    public function getDepid() {
         return $this->hasOne(Departments::className(), ['DepID' => 'defaultdeptid']);
+    }
+    
+    public function getCheckinouts() {
+        return $this->hasMany(Checkinout::className(), ['userid' => 'userid']);
     }
 }

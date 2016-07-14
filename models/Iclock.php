@@ -119,4 +119,8 @@ class Iclock extends \yii\db\ActiveRecord
             'PushVersion' => 'Push Version',
         ];
     }
+    
+    public function getCheckinouts() {
+        return $this->hasMany(Checkinout::className(), ['SN' => 'SN']);
+    }
 }
