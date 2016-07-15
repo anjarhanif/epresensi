@@ -24,17 +24,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'id', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
-            ['attribute' => 'name','value'=>'userid.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
+            ['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
+            ['attribute' => 'name','value'=>'user.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:20%']],
             'checktime',
             'checktype',
             //'verifycode',
-            'SN',
+            ['attribute'=>'SN','contentOptions'=>['style'=>'width:10%']],
+            ['attribute'=>'alias','value'=>'device.Alias'],
             // 'sensorid',
             // 'WorkCode',
             // 'Reserved',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width:7%']],
         ],
     ]); ?>
 </div>

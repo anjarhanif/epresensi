@@ -15,11 +15,14 @@ class CheckinoutSearch extends Checkinout
     /**
      * @inheritdoc
      */
+    public $name;
+    public $alias;
+
     public function rules()
     {
         return [
             [['id', 'userid', 'verifycode'], 'integer'],
-            [['checktime', 'checktype', 'SN', 'sensorid', 'WorkCode', 'Reserved'], 'safe'],
+            [['name','checktime', 'checktype', 'SN','alias', 'sensorid', 'WorkCode', 'Reserved'], 'safe'],
         ];
     }
 
@@ -42,12 +45,23 @@ class CheckinoutSearch extends Checkinout
     public function search($params)
     {
         $query = Checkinout::find();
+        
+        $query->joinWith(['user','device']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $dataProvider->sort->attributes['name'] = [
+            'asc'=>['userinfo.name'=>SORT_ASC],
+            'desc'=>['userinfo.name'=>SORT_DESC],
+        ];
+        $dataProvider->sort->attributes['alias'] = [
+            'asc'=>['iclock.Alias'=>SORT_ASC],
+            'desc'=>['iclock.Alias'=>SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -61,12 +75,15 @@ class CheckinoutSearch extends Checkinout
         $query->andFilterWhere([
             'id' => $this->id,
             'userid' => $this->userid,
-            'checktime' => $this->checktime,
+            //'checktime' => $this->checktime,
             'verifycode' => $this->verifycode,
         ]);
 
-        $query->andFilterWhere(['like', 'checktype', $this->checktype])
+        $query->andFilterWhere(['like','userinfo.name', $this->name])
+            ->andFilterWhere(['like', 'checktime', $this->checktime])
+            ->andFilterWhere(['like', 'checktype', $this->checktype])
             ->andFilterWhere(['like', 'SN', $this->SN])
+            ->andFilterWhere(['like','iclock.Alias', $this->alias])
             ->andFilterWhere(['like', 'sensorid', $this->sensorid])
             ->andFilterWhere(['like', 'WorkCode', $this->WorkCode])
             ->andFilterWhere(['like', 'Reserved', $this->Reserved]);

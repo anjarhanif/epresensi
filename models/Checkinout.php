@@ -61,11 +61,11 @@ class Checkinout extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getUserid() {
+    public function getUser() {
         return $this->hasOne(Userinfo::className(), ['userid' => 'userid']);
     }
     
-    public function getSn() {
+    public function getDevice() {
         return $this->hasOne(Iclock::className(), ['SN' => 'SN']);
     }
 }
