@@ -2,9 +2,12 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use app\models\ReportForm;
+use app\models\Checkinout;
 
 class ReportController extends Controller
 {
@@ -34,6 +37,16 @@ class ReportController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    
+    public function actionDayReport() {
+        $model = new ReportForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $q = 'select';
+        } else {
+            return $this->render('report', ['model'=>$model]);
+        }
     }
 
 }
