@@ -41,9 +41,10 @@ class ReportController extends Controller
     
     public function actionDayReport() {
         $model = new ReportForm();
+        $dataProvider = 
         
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $q = 'select';
+            //$q = 'select';
         } else {
             return $this->render('report', ['model'=>$model]);
         }

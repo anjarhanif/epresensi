@@ -15,12 +15,12 @@ class ReportForm extends Model {
     public $skpd;
     public $eselon3;
     public $eselon4;
-    public $tanggal;
+    public $tgl;
 
 
     public function rules() {
         return [
-            [['skpd','tanggal'],'required'],
+            [['skpd','tgl'],'required'],
         ];
     }
     
@@ -29,6 +29,7 @@ class ReportForm extends Model {
             'skpd'=>'SKPD',
             'eselon3'=>'Struktur Eselon III',
             'eselon4'=>'Struktur Eselon IV',
+            'tgl'=>'Tanggal',
         ];
     }
 }
