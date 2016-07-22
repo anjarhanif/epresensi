@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\ReportForm;
 use app\models\Checkinout;
+use app\models\search\ReportSearch;
 
 class ReportController extends Controller
 {
@@ -41,13 +42,12 @@ class ReportController extends Controller
     
     public function actionDayReport() {
         $model = new ReportForm();
-        $dataProvider = 
+        $dataProvider = new ReportSearch();
         
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            //$q = 'select';
-        } else {
-            return $this->render('report', ['model'=>$model]);
-        }
+        return $this->render('report', [
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ]);
     }
 
 }

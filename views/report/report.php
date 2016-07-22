@@ -18,6 +18,9 @@ use yii\grid\GridView;
     'dataProvider'=>$dataProvider,
     'columns'=>[
         ['class'=>'yii\grid\SerialColumn'],
+        'userid',
+        'name',
+        'datang.checktime',
         
     ]
 ]);
