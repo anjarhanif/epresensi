@@ -16,7 +16,7 @@ use app\models\Checkinout;
 class ReportSearch extends ArrayDataProvider {
     //put your code here
     public function init() {
-        $query = Userinfo::find()->joinWith(['checkinouts']);
+        $query = Userinfo::find()->with('checkinouts');
         
         foreach ($query->all() as $usercheck) {
             $count = count($usercheck->checkinouts);
@@ -25,8 +25,8 @@ class ReportSearch extends ArrayDataProvider {
                     $datang = $usercheck->checkinouts->checktime;
                     $pulang = NULL;
                 } else {
-                    $datang = $usercheck->checkinout->checktime;
-                    $pulang = $usercheck->checkinout->checktime;
+                    $datang = $query->min('checktime');
+                    $pulang = $query->max('checktime');
                 }
                 
             }else {

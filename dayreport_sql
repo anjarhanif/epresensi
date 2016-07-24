@@ -1,0 +1,8 @@
+SELECT u.userid, u.name, IF( COUNT( c.checktime ) >0, MIN( c.checktime ) , "Nihil" ) AS Datang, IF( COUNT( c.checktime ) >1, MAX( c.checktime ) , "Nihil" ) AS Pulang
+FROM userinfo u
+LEFT JOIN checkinout c ON u.userid = c.userid
+AND DATE( c.checktime ) = '2016-7-15'
+WHERE u.defaultdeptid =2
+GROUP BY u.userid, DATE( c.checktime )
+ORDER BY u.userid ASC
+

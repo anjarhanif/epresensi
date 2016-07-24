@@ -6,7 +6,10 @@ use yii\grid\GridView;
 ?>
 <h1>Laporan Harian</h1>
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin([
+    'action' => ['day-report'],
+    'method' => 'get',
+]); ?>
 <?= $form->field($model,'skpd') ?>
 <?= $form->field($model,'eselon3') ?>
 <?= $form->field($model,'eselon4') ?>
@@ -20,7 +23,8 @@ use yii\grid\GridView;
         ['class'=>'yii\grid\SerialColumn'],
         'userid',
         'name',
-        'datang.checktime',
+        'Datang',
+        'Pulang',
         
     ]
 ]);
