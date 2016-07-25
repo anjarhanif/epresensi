@@ -10,6 +10,7 @@ use yii\data\SqlDataProvider;
 use app\models\ReportForm;
 use app\models\Checkinout;
 use app\models\search\ReportSearch;
+use app\models\Departments;
 
 class ReportController extends Controller
 {
@@ -41,6 +42,19 @@ class ReportController extends Controller
         return $this->render('index');
     }
     
+    public function actionDeptOptions($id) {
+        $count = Departments::find()->where(['supdeptid' => $id])->count();
+        
+        $depts = Departments::find()->where(['supdeptid' => $id])->all();
+        if ($count > 0) {
+            foreach ($depts as $dept) {
+                echo "<option value='".$dept->DeptID."'>".$dept->DeptName."</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+
     public function actionDayReport() {
         $model = new ReportForm();
         
