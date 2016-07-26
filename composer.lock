@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "479407875c975e7dbee0aefcb85e62d5",
-    "content-hash": "5c27dd23827e5c153817a7f3f5d227c6",
+    "hash": "cfbaa50596e521340eae504b13c303de",
+    "content-hash": "9cad934f9cf5aa10745a3cda5e3f033e",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -298,6 +298,109 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "hscstudio/yii2-export",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hscstudio/yii2-export.git",
+                "reference": "0dbb0430123ebae6bfefc194e9a7f2ba2fededdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hscstudio/yii2-export/zipball/0dbb0430123ebae6bfefc194e9a7f2ba2fededdf",
+                "reference": "0dbb0430123ebae6bfefc194e9a7f2ba2fededdf",
+                "shasum": ""
+            },
+            "require": {
+                "phpoffice/phpexcel": "1.8.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "hscstudio\\export\\": ""
+                },
+                "files": [
+                    "libraries/tbs/tbs_class.php",
+                    "libraries/tbs/plugins/tbs_plugin_opentbs.php",
+                    "libraries/mpdf60/mpdf.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Hafid Mukhlasin",
+                    "email": "hafidmukhlasin@gmail.com"
+                }
+            ],
+            "description": "Excel, Word, PDF",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-06-07 07:27:43"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2014-03-02 15:22:49"
         },
         {
             "name": "swiftmailer/swiftmailer",
