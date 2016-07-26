@@ -7,6 +7,8 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\SqlDataProvider;
+use yii\helpers\Json;
+
 use app\models\ReportForm;
 use app\models\Checkinout;
 use app\models\search\ReportSearch;
@@ -53,6 +55,20 @@ class ReportController extends Controller
         } else {
             echo "<option>-</option>";
         }
+    }
+    
+    public function actionEselon3List() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != NULL) {
+                $skpdID = $parents[0];
+                $out = Departments::deptList($skpdID);
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);
     }
 
     public function actionDayReport() {

@@ -2,6 +2,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use kartik\depdrop;
 
 use app\models\Departments;
 
@@ -15,19 +17,15 @@ use app\models\Departments;
 <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
     'prompt' => '[ Pilih SKPD ]',
     'style' => 'width:500px',
-    'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('report/dept-options?id=').'"+$(this).val(), '.
-    'function (data) {'.
-        '$("select#eselon3").html(data);'.
-    '});'
+    'id' => 'skpd-id',
 ]) ?>
-<?= $form->field($model,'eselon3')->dropDownList(Departments::deptList(), [
-    'prompt' => '[ Pilih Eselon 3]',
-    'style' => 'width:500px',
-    'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('report/dept-options?id=').'"+$(this).val(), '.
-    'function (data) {'.
-        '$("select#eselon4").html(data);'.
-    '});',
-    'id' => 'eselon3',
+<?= $form->field($model,'eselon3')->widget(depdrop\DepDrop::className(), [
+    'options' => ['id' => 'eselon3'],
+    'pluginOptions' => [
+        'depends' => ['skpd-id'],
+        'placeholder' => 'Pilih Eselon 3',
+        'url' => Url::to(['/report/eselon3-list'])
+    ]
 ]) ?>
 <?= $form->field($model,'eselon4')->dropDownList(Departments::deptList(), [
     'prompt' => '[ Pilih Eselon 4 ]',
