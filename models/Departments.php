@@ -52,8 +52,10 @@ class Departments extends \yii\db\ActiveRecord
     }
     
     public static function deptList($supdeptid = 0) {
-        $droptions = Departments::find()->where(['supdeptid' => $supdeptid])->all();
+        $droptions = Departments::find()->where(['supdeptid' => $supdeptid])->asArray()->all();
+        
         return ArrayHelper::map($droptions, 'DeptID', 'DeptName');
+        
     }
     
 }

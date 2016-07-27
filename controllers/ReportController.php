@@ -63,7 +63,26 @@ class ReportController extends Controller
             $parents = $_POST['depdrop_parents'];
             if ($parents != NULL) {
                 $skpdID = $parents[0];
-                $out = Departments::deptList($skpdID);
+                $out = Departments::find()->where(['supdeptid' => $skpdID])
+                        ->select(['DeptID as id', 'DeptName as name'])->asArray()->all();
+                echo Json::encode(['output' => $out, 'selected' => '']);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);
+    }
+    
+    public function actionEselon4List() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $ids = $_POST['depdrop_parents'];
+            $skpd_id = empty($ids[0]) ? NULL : $ids[0] ;
+            $eselon3_id = empty($ids[1]) ? NULL : $ids[1];
+            
+            if ($eselon3_id != NULL) {
+                $out = Departments::find()->where(['supdeptid' => $eselon3_id])
+                        ->select(['DeptID as id', 'DeptName as name'])->asArray()->all();
+                
                 echo Json::encode(['output' => $out, 'selected' => '']);
                 return;
             }
