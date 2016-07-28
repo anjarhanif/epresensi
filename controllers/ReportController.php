@@ -91,9 +91,19 @@ class ReportController extends Controller
     }
 
     public function actionDayReport() {
-        $model = new ReportForm();
-        
+        $model = new ReportForm(); 
         $model->load(Yii::$app->request->queryParams);
+        
+        $dataProvider = $this->searchDayReport($model);
+        
+        return $this->render('report', [
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ]);
+        
+    }
+    
+    public function searchDayReport($model) {
         
         $deptid = null;
         if (isset($model->skpd)) $deptid=$model->skpd;
@@ -115,11 +125,40 @@ class ReportController extends Controller
             'pagination' => ['pageSize'=>20]
         ]);
         
-        return $this->render('report', [
-            'model'=>$model,
-            'dataProvider'=>$dataProvider
-        ]);
+        return $dataProvider;
+    }
+    public function actionExportExcel() {
+        $model = new ReportForm;
+        $model->load(Yii::$app->request->queryParams);
         
+        $dataProvider = $this->searchDayReport($model);
+        
+        $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        //set template
+        $template = Yii::getAlias('@app/views/report').'/_dayrep.xlsx';
+        $objPHPExcel = $objReader->load($template);
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        // set orientasi dan ukuran kertas
+        $activeSheet->getPageSetup()
+                ->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+                ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        
+        $baseRow=3;
+        foreach ($dataProvider->getModels() as $absen) {
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+                    ->setCellValue('B'.$baseRow, $absen['userid'])
+                    ->setCellValue('C'.$baseRow, $absen['name'])
+                    ->setCellValue('D'.$baseRow, $absen['Datang'])
+                    ->setCellValue('E'.$baseRow, $absen['Pulang']);
+            $baseRow++;
+        }
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="_dayrep.xlsx"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        $objWriter->save('php://output');
+        exit;
     }
 
 }

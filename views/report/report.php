@@ -40,6 +40,8 @@ use app\models\Departments;
 ]) ?>
 <?= $form->field($model,'tgl') ?>
 <?= Html::submitButton('Tampilkan',['class'=>'btn btn-primary']) ?>
+&nbsp;
+
 <?php ActiveForm::end(); ?>
 
 <?= GridView::widget([
@@ -52,4 +54,5 @@ use app\models\Departments;
         'Pulang',
         
     ]
-]);
+]); ?>
+<?= Html::a('Export Excel', ['export-excel'], ['class'=>'btn btn-info']); ?>
