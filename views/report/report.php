@@ -55,4 +55,4 @@ use app\models\Departments;
         
     ]
 ]); ?>
-<?= Html::a('Export Excel', ['export-excel'], ['class'=>'btn btn-info']); ?>
+<?= Html::a('Export Excel', ['export-excel', 'tgl'=>'2016-7-18', 'deptid'=>2], ['class'=>'btn btn-info']); ?>

@@ -127,9 +127,11 @@ class ReportController extends Controller
         
         return $dataProvider;
     }
-    public function actionExportExcel() {
+    public function actionExportExcel($tgl, $deptid) {
         $model = new ReportForm;
-        $model->load(Yii::$app->request->queryParams);
+        //$model->load(Yii::$app->request->queryParams);
+        $model->tgl=$tgl;
+        $model->skpd=$deptid;
         
         $dataProvider = $this->searchDayReport($model);
         
