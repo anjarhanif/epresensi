@@ -129,7 +129,6 @@ class ReportController extends Controller
     }
     public function actionExportExcel(array $params) {
         $model = new ReportForm;
-        //$model->load(Yii::$app->request->queryString);
         $model->tgl=$params['tgl'];
         $model->skpd=$params['skpd'];
         
