@@ -127,11 +127,11 @@ class ReportController extends Controller
         
         return $dataProvider;
     }
-    public function actionExportExcel($tgl, $deptid) {
+    public function actionExportExcel(array $params) {
         $model = new ReportForm;
-        //$model->load(Yii::$app->request->queryParams);
-        $model->tgl=$tgl;
-        $model->skpd=$deptid;
+        //$model->load(Yii::$app->request->queryString);
+        $model->tgl=$params['tgl'];
+        $model->skpd=$params['skpd'];
         
         $dataProvider = $this->searchDayReport($model);
         
@@ -160,6 +160,23 @@ class ReportController extends Controller
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
         $objWriter->save('php://output');
+        exit;
+    }
+    
+    public function actionExportPdf(array $params) {
+        $model = new ReportForm;
+        $model->tgl = $params['tgl'];
+        $model->skpd = $params['skpd'];
+        
+        $dataProvider = $this->searchDayReport($model);
+        $html = $this->renderPartial('_dayrep', ['dataProvider'=>$dataProvider]);
+        
+        $mpdf = new \mPDF('c', 'A4','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+        
         exit;
     }
 

@@ -4,7 +4,6 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
-use kartik\select2;
 
 use app\models\Departments;
 
@@ -37,7 +36,7 @@ use app\models\Departments;
         'url' => Url::to(['/report/eselon4-list'])
     ],
    
-]) ?>
+]); ?>
 <?= $form->field($model,'tgl') ?>
 <?= Html::submitButton('Tampilkan',['class'=>'btn btn-primary']) ?>
 &nbsp;
@@ -55,4 +54,6 @@ use app\models\Departments;
         
     ]
 ]); ?>
-<?= Html::a('Export Excel', ['export-excel', 'tgl'=>'2016-7-18', 'deptid'=>2], ['class'=>'btn btn-info']); ?>
+
+<?= Html::a('Export Excel', ['export-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
+<?= Html::a('Export PDF', ['export-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>
