@@ -124,7 +124,7 @@ class ReportController extends Controller
                 //'LIMIT 20',
             'params' => [':tgl'=>$model->tgl, ':deptid'=>$deptid],
             'totalCount' => $count,
-            'pagination' => ['pageSize'=>20]
+            'pagination' => ['pageSize'=>30]
         ]);
         
         return $dataProvider;
@@ -135,6 +135,7 @@ class ReportController extends Controller
         $model->skpd=$params['skpd'];
         
         $dataProvider = $this->searchDayReport($model);
+        $dataProvider->pagination=FALSE;
         
         $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
         //set template
@@ -170,6 +171,8 @@ class ReportController extends Controller
         $model->skpd = $params['skpd'];
         
         $dataProvider = $this->searchDayReport($model);
+        $dataProvider->pagination = FALSE;
+        
         $html = $this->renderPartial('_dayrep', ['dataProvider'=>$dataProvider]);
         
         $mpdf = new \mPDF('c', 'A4','','',0,0,0,0,0,0);

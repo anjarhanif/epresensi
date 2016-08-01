@@ -5,7 +5,12 @@
         <meta charset="UTF-8">
         <title>Laporan Harian</title>
         <style type="text/css">
-            .page{padding: 2cm;}
+            @page {
+                margin-top: 2.5cm;
+                margin-bottom: 2cm;
+                margin-left: 2.5cm;
+                margin-right: 2cm;
+            }
             table{border-spacing: 0;border-collapse: collapse; width: 100%;}
             table td, table th{border: 1px solid #ccc;}
         </style>
