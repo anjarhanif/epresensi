@@ -4,9 +4,13 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
+use yii\jui\DatePicker;
 
 use app\models\Departments;
 
+$this->title = 'Laporan Harian';
+$this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
+$this->params['breadcrumbs'][]= $this->title;
 ?>
 <h1>Laporan Harian</h1>
 
@@ -22,7 +26,7 @@ use app\models\Departments;
 ]) ?>
 
 <?= $form->field($model,'eselon3')->widget(DepDrop::className(), [
-    'options' => ['id' => 'eselon3-id'],
+    'options' => ['id' => 'eselon3-id', 'style'=>'width: 500px'],
     'pluginOptions' => [
         'depends' => ['skpd-id'],
         'placeholder' => 'Pilih Eselon 3',
@@ -30,6 +34,7 @@ use app\models\Departments;
     ]
 ]) ?>
 <?= $form->field($model,'eselon4')->widget(DepDrop::className(), [
+    'options'=>['style'=>'width : 500px'],
     'pluginOptions' => [
         'depends' => ['skpd-id', 'eselon3-id'],
         'placeholder' => 'Pilih Eselon 4',
@@ -37,7 +42,10 @@ use app\models\Departments;
     ],
    
 ]); ?>
-<?= $form->field($model,'tgl') ?>
+<?= $form->field($model,'tgl')->widget(DatePicker::className(), [
+    'dateFormat'=>'yyyy-MM-dd',
+    'clientOptions'=>['changeYear'=>TRUE]
+]) ?>
 <?= Html::submitButton('Tampilkan',['class'=>'btn btn-primary']) ?>
 &nbsp;
 
@@ -45,13 +53,14 @@ use app\models\Departments;
 
 <?= GridView::widget([
     'dataProvider'=>$dataProvider,
+    'formatter'=>['class'=>'yii\i18n\Formatter' ,'nullDisplay'=>''],
     'columns'=>[
         ['class'=>'yii\grid\SerialColumn'],
         'userid',
         'name',
         'Datang',
         'Pulang',
-        
+        'Keterangan',
     ]
 ]); ?>
 
