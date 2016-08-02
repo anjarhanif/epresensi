@@ -16,6 +16,16 @@ WHERE u.defaultdeptid =2
 GROUP BY u.userid, DATE( c.checktime )
 ORDER BY u.userid ASC
 
-SELECT userid, statusid, IF(tgl_akhir IS NULL, COUNT(tgl_awal), SUM(DATEDIFF(tgl_akhir, tgl_awal)+1)) Jumlah FROM keterangan_absen
+SELECT userid, statusid, SUM(DATEDIFF(IF(tgl_akhir IS NULL,tgl_awal,tgl_akhir), tgl_awal)+1) Jumlah
+FROM keterangan_absen
 GROUP BY userid, statusid
+ORDER BY userid
+
+
+SELECT userid, 
+SUM(IF(statusid='S', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Sakit,
+SUM(IF(statusid='I', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Ijin,
+SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Tugas_Dinas
+FROM keterangan_absen
+GROUP BY userid
 ORDER BY userid

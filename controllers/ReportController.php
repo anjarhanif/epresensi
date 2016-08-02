@@ -117,7 +117,7 @@ class ReportController extends Controller
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime), "Nihil") AS Pulang, k.statusid AS Keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
-                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND k.tgl_akhir '.
+                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
                 'WHERE u.defaultdeptid =:deptid '.
                 'GROUP BY u.userid, DATE(c.checktime) '.
                 'ORDER BY u.userid ASC ',
