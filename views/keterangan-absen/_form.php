@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
+use app\models\StatusAbsen;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\KeteranganAbsen */
@@ -15,7 +16,10 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'userid')->textInput() ?>
 
-    <?= $form->field($model, 'statusid')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'statusid')->dropDownList(StatusAbsen::statusAbsenList(), [
+        'prompt'=>'Pilih Status',
+        'style'=>'width: 300px',
+    ]) ?>
 
     <?= $form->field($model, 'tgl_awal')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
