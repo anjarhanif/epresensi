@@ -15,3 +15,7 @@ AND DATE( c.checktime ) = '2016-7-15'
 WHERE u.defaultdeptid =2
 GROUP BY u.userid, DATE( c.checktime )
 ORDER BY u.userid ASC
+
+SELECT userid, statusid, IF(tgl_akhir IS NULL, COUNT(tgl_awal), SUM(DATEDIFF(tgl_akhir, tgl_awal)+1)) Jumlah FROM keterangan_absen
+GROUP BY userid, statusid
+ORDER BY userid
