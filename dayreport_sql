@@ -16,6 +16,15 @@ WHERE u.defaultdeptid =2
 GROUP BY u.userid, DATE( c.checktime )
 ORDER BY u.userid ASC
 
+SELECT u.userid, u.name, IF( COUNT( c.checktime ) >0, MIN( c.checktime ) , "Nihil" ) AS Datang, IF( COUNT( c.checktime ) >1, MAX( c.checktime ) , "Nihil" ) AS Pulang,
+IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > '07:30:59' OR TIME(MAX(c.checktime)) < '16:00:00', 'K',''), k.statusid) AS Keterangan
+FROM userinfo u
+LEFT JOIN checkinout c ON u.userid = c.userid AND DATE( c.checktime ) = '2016-7-18'
+LEFT JOIN keterangan_absen k ON u.userid = k.userid AND '2016-7-18' BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir))
+WHERE u.defaultdeptid =2
+GROUP BY u.userid, DATE( c.checktime )
+ORDER BY u.userid ASC
+
 SELECT userid, statusid, SUM(DATEDIFF(IF(tgl_akhir IS NULL,tgl_awal,tgl_akhir), tgl_awal)+1) Jumlah
 FROM keterangan_absen
 GROUP BY userid, statusid
@@ -29,3 +38,14 @@ SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_a
 FROM keterangan_absen
 GROUP BY userid
 ORDER BY userid
+
+SELECT u.userid, u.name, 
+SUM(IF(k.statusid='S', DATEDIFF(IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir), k.tgl_awal)+1, 0 )) AS Sakit,
+SUM(IF(k.statusid='I', DATEDIFF(IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir), k.tgl_awal)+1, 0 )) AS Ijin,
+SUM(IF(k.statusid='TD', DATEDIFF(IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir), k.tgl_awal)+1, 0 )) AS Tugas_Dinas
+FROM userinfo u
+LEFT JOIN checkinout c ON u.userid = c.userid
+LEFT JOIN keterangan_absen k ON u.userid = k.userid
+WHERE u.defaultdeptid =2
+GROUP BY u.userid, DATE(c.checktime)
+ORDER BY u.userid ASC

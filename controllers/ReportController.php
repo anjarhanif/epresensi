@@ -114,14 +114,15 @@ class ReportController extends Controller
         
         $dataProvider = new SqlDataProvider([
             'sql' => 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime), "Nihil") AS Datang, '.
-                'IF(COUNT(c.checktime) > 1, MAX(c.checktime), "Nihil") AS Pulang, k.statusid AS Keterangan '.
+                'IF(COUNT(c.checktime) > 1, MAX(c.checktime), "Nihil") AS Pulang, '.
+                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "K",""), k.statusid) AS Keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
                 'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
                 'WHERE u.defaultdeptid =:deptid '.
                 'GROUP BY u.userid, DATE(c.checktime) '.
                 'ORDER BY u.userid ASC ',
-                //'LIMIT 20',
+                
             'params' => [':tgl'=>$model->tgl, ':deptid'=>$deptid],
             'totalCount' => $count,
             'pagination' => ['pageSize'=>30]
