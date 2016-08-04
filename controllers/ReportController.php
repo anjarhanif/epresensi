@@ -7,12 +7,15 @@ use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\data\SqlDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
 
 use app\models\ReportForm;
 use app\models\Checkinout;
 use app\models\search\ReportSearch;
 use app\models\Departments;
+use app\models\Userinfo;
+use app\models\KeteranganAbsen;
 
 class ReportController extends Controller
 {
@@ -94,7 +97,13 @@ class ReportController extends Controller
         $model = new ReportForm(); 
         $model->load(Yii::$app->request->queryParams);
         
-        $dataProvider = $this->searchDayReport($model);
+        //$dataProvider = $this->searchDayReport($model);
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayDayReport($model),
+            'pagination'=> [
+                'pageSize'=>20,
+            ]
+        ]);
         
         return $this->render('report', [
             'model'=>$model,
@@ -113,8 +122,8 @@ class ReportController extends Controller
         $count = Yii::$app->db->createCommand('SELECT COUNT(*) FROM userinfo')->queryScalar();
         
         $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime), "Nihil") AS Datang, '.
-                'IF(COUNT(c.checktime) > 1, MAX(c.checktime), "Nihil") AS Pulang, '.
+            'sql' => 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
+                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
                 'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "K",""), k.statusid) AS Keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
@@ -130,6 +139,49 @@ class ReportController extends Controller
         
         return $dataProvider;
     }
+    
+    public function arrayDayReport($model) {
+        $deptid = null;
+        if (isset($model->skpd)) $deptid=$model->skpd;
+        if (isset($model->eselon3)) $deptid=$model->eselon3;
+        if (isset($model->eselon4)) $deptid=$model->eselon4;
+        
+        $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
+                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
+                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "K",""), k.statusid) AS Keterangan '.
+                'FROM userinfo u '.
+                'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
+                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
+                'WHERE u.defaultdeptid =:deptid '.
+                'GROUP BY u.userid, DATE(c.checktime) '.
+                'ORDER BY u.userid ASC ';
+        
+        $cmd = Yii::$app->db->createCommand($query);
+        $cmd->bindValues([':tgl'=>$model->tgl, ':deptid'=>$deptid]);
+        
+        return $cmd->queryAll();
+                
+    }
+    
+    public function actionResumeReport() {
+        //$deptid = null;
+        //if (isset($model->skpd)) $deptid=$model->skpd;
+        //if (isset($model->eselon3)) $deptid=$model->eselon3;
+        //if (isset($model->eselon4)) $deptid=$model->eselon4;
+        
+        $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')->all();
+        $jmlSakit = null;
+        foreach ($query as $userInfo) {
+            
+            if(count($userInfo->keteranganAbsen)) {
+                if($userInfo->keteranganAbsen->statusid == 'S') {
+                    $jmlSakit = $jmlSakit + 1;
+                } 
+            }
+        }
+        echo $jmlSakit;
+    }
+
     public function actionExportExcel(array $params) {
         $model = new ReportForm;
         $model->tgl=$params['tgl'];

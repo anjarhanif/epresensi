@@ -109,4 +109,12 @@ class Userinfo extends \yii\db\ActiveRecord
     public function getCheckinouts() {
         return $this->hasMany(Checkinout::className(), ['userid' => 'userid']);
     }
+    
+    public function getCheckinoutsDaily() {
+        return $this->hasMany(CheckinoutDaily::className(), ['userid'=>'userid']);
+    }
+    
+    public function getKeteranganAbsen() {
+        return $this->hasMany(KeteranganAbsen::className(), ['userid'=>'userid']);
+    }
 }

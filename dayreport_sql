@@ -34,7 +34,7 @@ ORDER BY userid
 SELECT userid, 
 SUM(IF(statusid='S', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Sakit,
 SUM(IF(statusid='I', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Ijin,
-SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Tugas_Dinas
+SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Tugas_Dinas,
 SUM(IF(statusid='C', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0)) AS Cuti
 FROM keterangan_absen
 GROUP BY userid
@@ -50,3 +50,9 @@ LEFT JOIN keterangan_absen k ON u.userid = k.userid
 WHERE u.defaultdeptid =2
 GROUP BY u.userid, DATE(c.checktime)
 ORDER BY u.userid ASC
+
+//View checkinout_daily
+CREATE VIEW checkinout_daily AS
+SELECT userid, IF( COUNT( checktime ) >0, MIN( checktime ) , "Nihil" ) AS datang, IF( COUNT( checktime ) >1, MAX( checktime ) , "Nihil" ) AS pulang
+FROM checkinout
+GROUP BY userid, DATE( checktime )
