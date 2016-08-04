@@ -163,23 +163,40 @@ class ReportController extends Controller
                 
     }
     
-    public function actionResumeReport() {
+    public function arrayResumeReport() {
         //$deptid = null;
         //if (isset($model->skpd)) $deptid=$model->skpd;
         //if (isset($model->eselon3)) $deptid=$model->eselon3;
         //if (isset($model->eselon4)) $deptid=$model->eselon4;
         
         $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')->all();
-        $jmlSakit = null;
+        //$query = 'SELECT u.userid, u.name, '
+        $jmlSakit = 0;
+        $jmlIjin =0;
         foreach ($query as $userInfo) {
             
             if(count($userInfo->keteranganAbsen)) {
-                if($userInfo->keteranganAbsen->statusid == 'S') {
-                    $jmlSakit = $jmlSakit + 1;
-                } 
+                foreach ($userInfo->keteranganAbsen as $ketAbsen) {
+                    $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);
+                    $tglAwal = new \DateTime($ketAbsen->tgl_awal);
+                    if($ketAbsen->statusid == 'S') {
+                        if($ketAbsen->tgl_akhir == NULL) {
+                            $jmlSakit = $jmlSakit + 1;
+                        } else {                           
+                            $jmlSakit = $jmlSakit + $tglAkhir->diff($tglAwal)->format("%a")+1;
+                        }
+                    } elseif ($ketAbsen->statusid == 'I') {
+                        if($ketAbsen->tgl_akhir == NULL) {
+                            $jmlIjin = $jmlIjin + 1;
+                        } else {                            
+                            $jmlIjin = $jmlIjin + $tglAkhir->diff($tglAwal)->format("%a")+1;
+                        }
+                    }
+                }
             }
         }
-        echo $jmlSakit;
+        echo $jmlSakit.'</br>';
+        echo $jmlIjin;
     }
 
     public function actionExportExcel(array $params) {

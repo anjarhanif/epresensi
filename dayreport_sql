@@ -32,10 +32,19 @@ ORDER BY userid
 
 
 SELECT userid, 
-SUM(IF(statusid='S', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Sakit,
-SUM(IF(statusid='I', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Ijin,
-SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0 )) AS Tugas_Dinas,
+SUM(IF(statusid='S', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0)) AS Sakit,
+SUM(IF(statusid='I', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0)) AS Ijin,
+SUM(IF(statusid='TD', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0)) AS Tugas_Dinas,
 SUM(IF(statusid='C', DATEDIFF(IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir), tgl_awal)+1, 0)) AS Cuti
+FROM keterangan_absen
+GROUP BY userid
+ORDER BY userid
+
+SELECT userid, 
+SUM(IF(statusid='S', IF(tgl_akhir IS NULL, 1, DATEDIFF(tgl_akhir, tgl_awal)+1), 0)) AS Sakit,
+SUM(IF(statusid='I', IF(tgl_akhir IS NULL, 1, DATEDIFF(tgl_akhir, tgl_awal)+1), 0)) AS Ijin,
+SUM(IF(statusid='TD', IF(tgl_akhir IS NULL, 1, DATEDIFF(tgl_akhir, tgl_awal)+1), 0)) AS Tugas_Dinas,
+SUM(IF(statusid='C', IF(tgl_akhir IS NULL, 1, DATEDIFF(tgl_akhir, tgl_awal)+1), 0)) AS Cuti
 FROM keterangan_absen
 GROUP BY userid
 ORDER BY userid
