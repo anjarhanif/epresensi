@@ -112,7 +112,24 @@ class ReportController extends Controller
         
     }
     
-    public function searchDayReport($model) {
+    public function actionResumeReport() {
+        $model = new ReportForm();
+        $model->load(\Yii::$app->request->queryParams);
+        
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport($model),
+            'pagination'=> [
+                'pageSize'=>20,
+            ]
+        ]);
+        
+        return $this->render('report-resume', [
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ]);
+    }
+
+        public function searchDayReport($model) {
         
         $deptid = null;
         if (isset($model->skpd)) $deptid=$model->skpd;
@@ -132,7 +149,7 @@ class ReportController extends Controller
                 'GROUP BY u.userid, DATE(c.checktime) '.
                 'ORDER BY u.userid ASC ',
                 
-            'params' => [':tgl'=>$model->tgl, ':deptid'=>$deptid],
+            'params' => [':tgl'=>$model->tglAwal, ':deptid'=>$deptid],
             'totalCount' => $count,
             'pagination' => ['pageSize'=>30]
         ]);
@@ -157,13 +174,13 @@ class ReportController extends Controller
                 'ORDER BY u.userid ASC ';
         
         $cmd = Yii::$app->db->createCommand($query);
-        $cmd->bindValues([':tgl'=>$model->tgl, ':deptid'=>$deptid]);
+        $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptid'=>$deptid]);
         
         return $cmd->queryAll();
                 
     }
     
-    public function arrayResumeReport() {
+    public function arrayResumeReport($model) {
         //$deptid = null;
         //if (isset($model->skpd)) $deptid=$model->skpd;
         //if (isset($model->eselon3)) $deptid=$model->eselon3;
@@ -171,14 +188,21 @@ class ReportController extends Controller
         
         $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')->all();
         //$query = 'SELECT u.userid, u.name, '
-        $jmlSakit = 0;
-        $jmlIjin =0;
+        $allModels = [];
+        
         foreach ($query as $userInfo) {
+            $jmlSakit = 0;
+            $jmlIjin =0;
+            $jmlTD=0;
+            $jmlCuti=0;
+            $jmlAlpa=0;
+            $jmlTHCP=0;
             
             if(count($userInfo->keteranganAbsen)) {
                 foreach ($userInfo->keteranganAbsen as $ketAbsen) {
                     $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);
                     $tglAwal = new \DateTime($ketAbsen->tgl_awal);
+
                     if($ketAbsen->statusid == 'S') {
                         if($ketAbsen->tgl_akhir == NULL) {
                             $jmlSakit = $jmlSakit + 1;
@@ -191,17 +215,46 @@ class ReportController extends Controller
                         } else {                            
                             $jmlIjin = $jmlIjin + $tglAkhir->diff($tglAwal)->format("%a")+1;
                         }
+                    } elseif ($ketAbsen->statusid == 'TD') {
+                        if($ketAbsen->tgl_akhir == NULL) {
+                            $jmlTD = $jmlTD + 1;
+                        } else {                            
+                            $jmlTD = $jmlTD + $tglAkhir->diff($tglAwal)->format("%a")+1;
+                        }
+                    } elseif ($ketAbsen->statusid == 'C') {
+                        if($ketAbsen->tgl_akhir == NULL) {
+                            $jmlCuti = $jmlCuti + 1;
+                        } else {                            
+                            $jmlCuti = $jmlCuti + $tglAkhir->diff($tglAwal)->format("%a")+1;
+                        }
                     }
                 }
+            } else {
+                $tglDatang = new \DateTime($userInfo->checkinoutsDaily->datang);
+                $tglPulang = new \DateTime($userInfo->checkinoutsDaily->pulang);
+                if ($tglDatang == NULL) {
+                    $jmlAlpa = $jmlAlpa +1;
+                }elseif ( $tglDatang->format ('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
+                    $jmlTHCP = $jmlTHCP +1;
+                }
             }
+            $allModels[]=[
+                'userid'=>$userInfo->userid,
+                'name'=>$userInfo->name,
+                'sakit'=>$jmlSakit,
+                'ijin'=>$jmlIjin,
+                'tugas-dinas'=>$jmlTD,
+                'cuti'=>$jmlCuti,
+                'th-cp'=>$jmlTHCP,
+                'alpa'=>$jmlAlpa,
+            ];
         }
-        echo $jmlSakit.'</br>';
-        echo $jmlIjin;
+        return $allModels;
     }
 
     public function actionExportExcel(array $params) {
         $model = new ReportForm;
-        $model->tgl=$params['tgl'];
+        $model->tglAwal=$params['tgl'];
         $model->skpd=$params['skpd'];
         
         $dataProvider = $this->searchDayReport($model);
@@ -237,7 +290,7 @@ class ReportController extends Controller
     
     public function actionExportPdf(array $params) {
         $model = new ReportForm;
-        $model->tgl = $params['tgl'];
+        $model->tglAwal = $params['tgl'];
         $model->skpd = $params['skpd'];
         
         $dataProvider = $this->searchDayReport($model);

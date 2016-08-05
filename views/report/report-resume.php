@@ -8,11 +8,11 @@ use yii\jui\DatePicker;
 
 use app\models\Departments;
 
-$this->title = 'Laporan Harian';
+$this->title = 'Laporan Resume';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
 $this->params['breadcrumbs'][]= $this->title;
 ?>
-<h1>Laporan Harian</h1>
+<h1>Laporan Resume</h1>
 <?php $form = ActiveForm::begin([
     'action' => ['day-report'],
     'method' => 'get',
@@ -66,9 +66,12 @@ $this->params['breadcrumbs'][]= $this->title;
         ['class'=>'yii\grid\SerialColumn'],
         'userid',
         'name',
-        'Datang',
-        'Pulang',
-        'Keterangan',
+        'sakit',
+        'ijin',
+        'tugas-dinas',
+        'cuti',
+        'th-cp',
+        'alpa',
     ]
 ]); ?>
 
@@ -76,4 +79,5 @@ $this->params['breadcrumbs'][]= $this->title;
 <?= Html::a('Export PDF', ['export-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
 
 <p></p>
+
 
