@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][]= $this->title;
 ?>
 <h1>Laporan Resume</h1>
 <?php $form = ActiveForm::begin([
-    'action' => ['day-report'],
+    'action' => ['resume-report'],
     'method' => 'get',
 ]); ?>
 <div class="row">
@@ -22,7 +22,13 @@ $this->params['breadcrumbs'][]= $this->title;
     <?= $form->field($model,'tglAwal')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
         'clientOptions'=>['changeYear'=>TRUE]
-    ]) ?>`    
+    ]);
+    ?>
+    <?= $form->field($model,'tglAkhir')->widget(DatePicker::className(), [
+        'dateFormat'=>'yyyy-MM-dd',
+        'clientOptions'=>['changeYear'=>TRUE]
+    ])   
+    ?>`    
     <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',

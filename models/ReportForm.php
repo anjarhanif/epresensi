@@ -22,6 +22,7 @@ class ReportForm extends Model {
     public function rules() {
         return [
             [['skpd','tglAwal'],'required'],
+            [['tglAkhir'],'safe']
         ];
     }
     

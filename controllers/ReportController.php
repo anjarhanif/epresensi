@@ -44,7 +44,9 @@ class ReportController extends Controller
     
     public function actionIndex()
     {
-        return $this->render('index');
+        //return $this->render('index');
+        $tglAkhir = Yii::$app->formatter->asDatetime(NULL, 'Y-m-d');
+        echo $tglAkhir;
     }
     
     public function actionDeptOptions($id) {
@@ -181,13 +183,18 @@ class ReportController extends Controller
     }
     
     public function arrayResumeReport($model) {
-        //$deptid = null;
-        //if (isset($model->skpd)) $deptid=$model->skpd;
-        //if (isset($model->eselon3)) $deptid=$model->eselon3;
-        //if (isset($model->eselon4)) $deptid=$model->eselon4;
+        $deptid = null;
+        if (isset($model->skpd)) $deptid=$model->skpd;
+        if (isset($model->eselon3)) $deptid=$model->eselon3;
+        if (isset($model->eselon4)) $deptid=$model->eselon4;
         
-        $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')->all();
-        //$query = 'SELECT u.userid, u.name, '
+        $renAwal = new \DateTime($model->tglAwal);
+        $renAkhir = new \DateTime($model->tglAkhir);
+        
+        $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')
+                ->where(['defaultdeptid'=>$deptid])
+                ->all();
+        
         $allModels = [];
         
         foreach ($query as $userInfo) {
@@ -200,44 +207,56 @@ class ReportController extends Controller
             
             if(count($userInfo->keteranganAbsen)) {
                 foreach ($userInfo->keteranganAbsen as $ketAbsen) {
-                    $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);
+                    
+                    if ($ketAbsen->tgl_akhir == NULL) {
+                        $tglAkhir = new \DateTime($ketAbsen->tgl_awal);
+                    } else $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);                                     
                     $tglAwal = new \DateTime($ketAbsen->tgl_awal);
-
-                    if($ketAbsen->statusid == 'S') {
-                        if($ketAbsen->tgl_akhir == NULL) {
-                            $jmlSakit = $jmlSakit + 1;
-                        } else {                           
+                    
+                    
+                    if (($tglAwal >= $renAwal AND $tglAwal <= $renAkhir) OR ($tglAkhir <= $renAkhir AND $tglAkhir >= $renAwal)) {
+                        if ($tglAwal < $renAwal) $tglAwal = $renAwal;
+                        if ($tglAkhir > $renAkhir) $tglAkhir =$renAkhir;
+                        
+                        if($ketAbsen->statusid == 'S') {                                                   
                             $jmlSakit = $jmlSakit + $tglAkhir->diff($tglAwal)->format("%a")+1;
-                        }
-                    } elseif ($ketAbsen->statusid == 'I') {
-                        if($ketAbsen->tgl_akhir == NULL) {
-                            $jmlIjin = $jmlIjin + 1;
-                        } else {                            
+                            
+                        } elseif ($ketAbsen->statusid == 'I') {                                                      
                             $jmlIjin = $jmlIjin + $tglAkhir->diff($tglAwal)->format("%a")+1;
-                        }
-                    } elseif ($ketAbsen->statusid == 'TD') {
-                        if($ketAbsen->tgl_akhir == NULL) {
-                            $jmlTD = $jmlTD + 1;
-                        } else {                            
+                            
+                        } elseif ($ketAbsen->statusid == 'TD') {                                                     
                             $jmlTD = $jmlTD + $tglAkhir->diff($tglAwal)->format("%a")+1;
-                        }
-                    } elseif ($ketAbsen->statusid == 'C') {
-                        if($ketAbsen->tgl_akhir == NULL) {
-                            $jmlCuti = $jmlCuti + 1;
-                        } else {                            
+                            
+                        } elseif ($ketAbsen->statusid == 'C') {                                                      
                             $jmlCuti = $jmlCuti + $tglAkhir->diff($tglAwal)->format("%a")+1;
+                            
                         }
-                    }
-                }
-            } else {
-                $tglDatang = new \DateTime($userInfo->checkinoutsDaily->datang);
-                $tglPulang = new \DateTime($userInfo->checkinoutsDaily->pulang);
-                if ($tglDatang == NULL) {
-                    $jmlAlpa = $jmlAlpa +1;
-                }elseif ( $tglDatang->format ('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
-                    $jmlTHCP = $jmlTHCP +1;
-                }
+                    }                   
+                }               
             }
+            if (count($userInfo->checkinoutsDaily)) {
+                foreach ($userInfo->checkinoutsDaily as $checkinout) {
+                    
+                    $tglDatang = new \DateTime($checkinout->datang);                   
+                    $tglPulang = new \DateTime($checkinout->pulang);
+                    
+                    //if ($tglDatang->format('Y-m-d') >= $renAwal AND $tglDatang->format('Y-m-d') <= $renAkhir) {
+                        $tglAwal = new \DateTime($userInfo->keteranganAbsen->tgl_awal);
+                        $tglAkhir = new \DateTime($userInfo->keteranganAbsen->tgl_akhir);
+                    
+                        $Benar = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
+                            ->andWhere(['<=', 'tgl_awal', $tglDatang->format('Y-m-d')])
+                            ->andWhere(['>=', 'tgl_akhir', $tglDatang->format('Y-m-d')])
+                            ->one();
+                    
+                        if (! $Benar) {
+                            if (  $tglDatang->format('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
+                            $jmlTHCP = $jmlTHCP +1;
+                            }
+                        }
+                    //}                    
+                }
+            } 
             $allModels[]=[
                 'userid'=>$userInfo->userid,
                 'name'=>$userInfo->name,
