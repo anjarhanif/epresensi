@@ -5,6 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Laporan';
+$this->params['breadcrumbs'][]= $this->title;
 ?>
 
 <div class="site-index">
@@ -26,7 +27,6 @@ $this->title = 'Laporan';
 
                 <p><?= Html::a('Resume Kehadiran', ['report/resume-report', 'params'=>$model], ['class'=>'btn btn-info']); ?></p>
             </div>
-
         </div>
 
     </div>

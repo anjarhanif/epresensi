@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\KeteranganAbsenSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Keterangan Absens';
+$this->title = 'Keterangan Absen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="keterangan-absen-index">
@@ -23,13 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            //'id',
             'userid',
             'statusid',
             'tgl_awal',
             'tgl_akhir',
-            // 'keterangan',
+            'keterangan',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
