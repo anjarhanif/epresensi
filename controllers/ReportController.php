@@ -44,9 +44,8 @@ class ReportController extends Controller
     
     public function actionIndex()
     {
-        //return $this->render('index');
-        $tglAkhir = Yii::$app->formatter->asDatetime(NULL, 'Y-m-d');
-        echo $tglAkhir;
+        return $this->render('index');
+        
     }
     
     public function actionDeptOptions($id) {
@@ -103,11 +102,11 @@ class ReportController extends Controller
         $dataProvider = new ArrayDataProvider([
             'allModels' => $this->arrayDayReport($model),
             'pagination'=> [
-                'pageSize'=>20,
+                'pageSize'=>30,
             ]
         ]);
         
-        return $this->render('report', [
+        return $this->render('report-day', [
             'model'=>$model,
             'dataProvider'=>$dataProvider
         ]);
@@ -130,34 +129,6 @@ class ReportController extends Controller
             'dataProvider'=>$dataProvider
         ]);
     }
-
-        public function searchDayReport($model) {
-        
-        $deptid = null;
-        if (isset($model->skpd)) $deptid=$model->skpd;
-        if (isset($model->eselon3)) $deptid=$model->eselon3;
-        if (isset($model->eselon4)) $deptid=$model->eselon4;
-        
-        $count = Yii::$app->db->createCommand('SELECT COUNT(*) FROM userinfo')->queryScalar();
-        
-        $dataProvider = new SqlDataProvider([
-            'sql' => 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
-                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
-                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "K",""), k.statusid) AS Keterangan '.
-                'FROM userinfo u '.
-                'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
-                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
-                'WHERE u.defaultdeptid =:deptid '.
-                'GROUP BY u.userid, DATE(c.checktime) '.
-                'ORDER BY u.userid ASC ',
-                
-            'params' => [':tgl'=>$model->tglAwal, ':deptid'=>$deptid],
-            'totalCount' => $count,
-            'pagination' => ['pageSize'=>30]
-        ]);
-        
-        return $dataProvider;
-    }
     
     public function arrayDayReport($model) {
         $deptid = null;
@@ -178,8 +149,7 @@ class ReportController extends Controller
         $cmd = Yii::$app->db->createCommand($query);
         $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptid'=>$deptid]);
         
-        return $cmd->queryAll();
-                
+        return $cmd->queryAll();               
     }
     
     public function arrayResumeReport($model) {
@@ -237,10 +207,13 @@ class ReportController extends Controller
             if (count($userInfo->checkinoutsDaily)) {
                 foreach ($userInfo->checkinoutsDaily as $checkinout) {
                     
-                    $tglDatang = new \DateTime($checkinout->datang);                   
-                    $tglPulang = new \DateTime($checkinout->pulang);
+                    $tglDatang = new \DateTime($checkinout->datang);
+                    if ($checkinout->pulang == NULL) {
+                        $tglPulang = $tglDatang;
+                    }else $tglPulang = new \DateTime($checkinout->pulang);
                     
-                    //if ($tglDatang->format('Y-m-d') >= $renAwal AND $tglDatang->format('Y-m-d') <= $renAkhir) {
+                    
+                    if ($tglDatang->format('Y-m-d') >= $renAwal->format('Y-m-d') AND $tglDatang->format('Y-m-d') <= $renAkhir->format('Y-m-d')) {
                         $tglAwal = new \DateTime($userInfo->keteranganAbsen->tgl_awal);
                         $tglAkhir = new \DateTime($userInfo->keteranganAbsen->tgl_akhir);
                     
@@ -254,7 +227,7 @@ class ReportController extends Controller
                             $jmlTHCP = $jmlTHCP +1;
                             }
                         }
-                    //}                    
+                    }                    
                 }
             } 
             $allModels[]=[
@@ -271,13 +244,17 @@ class ReportController extends Controller
         return $allModels;
     }
 
-    public function actionExportExcel(array $params) {
+    public function actionRepdayExcel(array $params) {
         $model = new ReportForm;
-        $model->tglAwal=$params['tgl'];
+        $model->tglAwal=$params['tglAwal'];
         $model->skpd=$params['skpd'];
-        
-        $dataProvider = $this->searchDayReport($model);
-        $dataProvider->pagination=FALSE;
+               
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayDayReport($model),
+            'pagination'=> [
+                'pageSize'=>FALSE,
+            ]
+        ]);
         
         $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
         //set template
@@ -307,13 +284,17 @@ class ReportController extends Controller
         exit;
     }
     
-    public function actionExportPdf(array $params) {
+    public function actionRepdayPdf(array $params) {
         $model = new ReportForm;
-        $model->tglAwal = $params['tgl'];
+        $model->tglAwal = $params['tglAwal'];
         $model->skpd = $params['skpd'];
         
-        $dataProvider = $this->searchDayReport($model);
-        $dataProvider->pagination = FALSE;
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayDayReport($model),
+            'pagination'=> [
+                'pageSize'=>FALSE,
+            ]
+        ]);
         
         $html = $this->renderPartial('_dayrep', ['dataProvider'=>$dataProvider]);
         

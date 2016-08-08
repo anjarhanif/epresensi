@@ -11,6 +11,7 @@ use app\models\Departments;
 $this->title = 'Laporan Harian';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
 $this->params['breadcrumbs'][]= $this->title;
+
 ?>
 <h1>Laporan Harian</h1>
 <?php $form = ActiveForm::begin([
@@ -21,7 +22,7 @@ $this->params['breadcrumbs'][]= $this->title;
     <div class="col-lg-6">
     <?= $form->field($model,'tglAwal')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
-        'clientOptions'=>['changeYear'=>TRUE]
+        'clientOptions'=>['changeYear'=>TRUE, 'defaultDate'=>date('Y-m-d')],
     ]) ?>`    
     <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
         'prompt' => '[ Pilih SKPD ]',
@@ -72,8 +73,8 @@ $this->params['breadcrumbs'][]= $this->title;
     ]
 ]); ?>
 
-<?= Html::a('Export Excel', ['export-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
-<?= Html::a('Export PDF', ['export-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
+<?= Html::a('Export Excel', ['repday-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
+<?= Html::a('Export PDF', ['repday-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
 
 <p></p>
 
