@@ -41,9 +41,9 @@ class Departments extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'DeptID' => 'Dept ID',
-            'DeptName' => 'Dept Name',
-            'supdeptid' => 'Supdeptid',
+            'DeptID' => 'ID Unit Kerja',
+            'DeptName' => 'Nama Unit Kerja',
+            'supdeptid' => 'Unit Kerja Induk',
         ];
     }
     
