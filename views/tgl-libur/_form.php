@@ -13,17 +13,13 @@ use yii\jui\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tgl_awal')->widget(DatePicker::className(), [
+    <?= $form->field($model, 'tgl_libur')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
-        'clientOptions'=> ['changeYear'=>TRUE]
+        'clientOptions'=>['changeYear'=>TRUE],
+        'options'=>['class'=>'form-control', 'style'=>'width : 500px']
     ]) ?>
 
-    <?= $form->field($model, 'tgl_akhir')->widget(DatePicker::className(), [
-        'dateFormat'=>'yyyy-MM-dd',
-        'clientOptions'=> ['changeYear'=>TRUE]
-    ]) ?>
-
-    <?= $form->field($model, 'keterangan')->textarea(['rows'=>2]) ?>
+    <?= $form->field($model, 'keterangan')->textarea(['rows'=>3]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

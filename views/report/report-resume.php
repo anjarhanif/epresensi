@@ -21,22 +21,24 @@ $this->params['breadcrumbs'][]= $this->title;
     <div class="col-lg-6">
     <?= $form->field($model,'tglAwal')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
-        'clientOptions'=>['changeYear'=>TRUE]
+        'clientOptions'=>['changeYear'=>TRUE],
+        'options'=>['class'=>'form-control', 'style'=>'width: 500px']
     ]);
     ?>
     <?= $form->field($model,'tglAkhir')->widget(DatePicker::className(), [
         'dateFormat'=>'yyyy-MM-dd',
-        'clientOptions'=>['changeYear'=>TRUE]
+        'clientOptions'=>['changeYear'=>TRUE],
+        'options'=>['class'=>'form-control', 'style'=>'width: 500px']
     ])   
-    ?>`    
+    ?>      
+    </div>
+    <div class="col-lg-6">
+    
     <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
         'id' => 'skpd-id',
     ]) ?>
-        
-    </div>
-    <div class="col-lg-6">
     <?= $form->field($model,'eselon3')->widget(DepDrop::className(), [
         'options' => ['id' => 'eselon3-id', 'style'=>'width: 500px'],
         'pluginOptions' => [
@@ -81,8 +83,8 @@ $this->params['breadcrumbs'][]= $this->title;
     ]
 ]); ?>
 
-<?= Html::a('Export Excel', ['export-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
-<?= Html::a('Export PDF', ['export-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
+<?= Html::a('Export Excel', ['represume-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
+<?= Html::a('Export PDF', ['represume-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
 
 <p></p>
 

@@ -17,9 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'tgl_awal') ?>
-
-    <?= $form->field($model, 'tgl_akhir') ?>
+    <?= $form->field($model, 'tgl_libur') ?>
 
     <?= $form->field($model, 'keterangan') ?>
 

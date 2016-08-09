@@ -306,5 +306,70 @@ class ReportController extends Controller
         
         exit;
     }
+    
+        public function actionRepresumeExcel(array $params) {
+        $model = new ReportForm;
+        $model->tglAwal=$params['tglAwal'];
+        $model->tglAkhir=$params['tglAkhir'];
+        $model->skpd=$params['skpd'];
+               
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport($model),
+            'pagination'=> ['pageSize'=>FALSE]
+        ]);
+        
+        $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        //set template
+        $template = Yii::getAlias('@app/views/report').'/_dayrep.xlsx';
+        $objPHPExcel = $objReader->load($template);
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        // set orientasi dan ukuran kertas
+        $activeSheet->getPageSetup()
+                ->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+                ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        
+        $baseRow=3;
+        foreach ($dataProvider->getModels() as $absen) {
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+                    ->setCellValue('B'.$baseRow, $absen['userid'])
+                    ->setCellValue('C'.$baseRow, $absen['name'])
+                    ->setCellValue('D'.$baseRow, $absen['sakit'])
+                    ->setCellValue('E'.$baseRow, $absen['ijin'])
+                    ->setCellValue('F'.$baseRow, $absen['tugas-dinas'])
+                    ->setCellValue('G'.$baseRow, $absen['cuti'])
+                    ->setCellValue('H'.$baseRow, $absen['th-cp'])
+                    ->setCellValue('E'.$baseRow, $absen['alpa']);
+            $baseRow++;
+        }
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="_dayrep.xlsx"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        $objWriter->save('php://output');
+        exit;
+    }
+    
+        public function actionRepresumePdf(array $params) {
+        $model = new ReportForm;
+        $model->tglAwal = $params['tglAwal'];
+        $model->tglAkhir = $params['tglAkhir'];
+        $model->skpd = $params['skpd'];
+        
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport($model),
+            'pagination'=> ['pageSize'=>FALSE]
+        ]);
+        
+        $html = $this->renderPartial('_resumerep', ['dataProvider'=>$dataProvider]);
+        
+        $mpdf = new \mPDF('c','A4','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+
+        exit;
+    }
 
 }

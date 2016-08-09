@@ -29,8 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'tgl_awal',
-            'tgl_akhir',
+            'tgl_libur',
             'keterangan',
         ],
     ]) ?>

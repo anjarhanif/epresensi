@@ -19,7 +19,7 @@ class TglLiburSearch extends TglLibur
     {
         return [
             [['id'], 'integer'],
-            [['tgl_awal', 'tgl_akhir', 'keterangan'], 'safe'],
+            [['tgl_libur', 'keterangan'], 'safe'],
         ];
     }
 
@@ -60,8 +60,7 @@ class TglLiburSearch extends TglLibur
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tgl_awal' => $this->tgl_awal,
-            'tgl_akhir' => $this->tgl_akhir,
+            'tgl_libur' => $this->tgl_libur,
         ]);
 
         $query->andFilterWhere(['like', 'keterangan', $this->keterangan]);

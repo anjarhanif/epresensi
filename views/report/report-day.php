@@ -21,9 +21,7 @@ $this->params['breadcrumbs'][]= $this->title;
 ]); ?>
 <div class="row">
     <div class="col-lg-6">
-    <!--
     
-    -->
     <?= $form->field($model,'tglAwal')->widget(DatePicker::className(), [
         'name'=>'dptglawal',
         'type'=>  DatePicker::TYPE_COMPONENT_PREPEND,

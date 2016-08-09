@@ -8,8 +8,7 @@ use Yii;
  * This is the model class for table "tgl_libur".
  *
  * @property integer $id
- * @property string $tgl_awal
- * @property string $tgl_akhir
+ * @property string $tgl_libur
  * @property string $keterangan
  */
 class TglLibur extends \yii\db\ActiveRecord
@@ -28,8 +27,8 @@ class TglLibur extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tgl_awal'], 'required'],
-            [['tgl_awal', 'tgl_akhir'], 'safe'],
+            [['tgl_libur'], 'required'],
+            [['tgl_libur'], 'safe'],
             [['keterangan'], 'string', 'max' => 255],
         ];
     }
@@ -41,8 +40,7 @@ class TglLibur extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tgl_awal' => 'Tgl Awal',
-            'tgl_akhir' => 'Tgl Akhir',
+            'tgl_libur' => 'Tgl Libur',
             'keterangan' => 'Keterangan',
         ];
     }

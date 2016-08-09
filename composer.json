@@ -21,8 +21,7 @@
         "kartik-v/yii2-export": "*",
         "hscstudio/yii2-export": "*",
         "kartik-v/yii2-widget-depdrop": "@dev",
-        "yiisoft/yii2-jui": "^2.0",
-        "kartik-v/yii2-widget-datepicker": "@dev"
+        "yiisoft/yii2-jui": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
