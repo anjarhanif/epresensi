@@ -71,15 +71,15 @@ $this->params['breadcrumbs'][]= $this->title;
         'maxButtonCount'=>5
     ],
     'columns'=>[
-        ['class'=>'yii\grid\SerialColumn'],
-        'userid',
+        ['class'=>'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :5%']],
+        ['attribute'=>'userid','contentOptions'=>['style'=>'width :7%']],
         'name',
-        'sakit',
-        'ijin',
-        'tugas-dinas',
-        'cuti',
-        'th-cp',
-        'alpa',
+        ['attribute'=>'sakit','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'ijin','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'tugas-dinas','label'=>'TD','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'cuti','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'th-cp','label'=>'TH/CP','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'alpa','contentOptions'=>['style'=>'width :7%']],
     ]
 ]); ?>
 

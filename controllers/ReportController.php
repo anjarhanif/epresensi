@@ -133,8 +133,8 @@ class ReportController extends Controller
     public function arrayDayReport($model) {
         $deptid = null;
         if (isset($model->skpd)) $deptid=$model->skpd;
-        if (isset($model->eselon3)) $deptid=$model->eselon3;
-        if (isset($model->eselon4)) $deptid=$model->eselon4;
+        //if (isset($model->eselon3)) $deptid=$model->eselon3;
+        //if (isset($model->eselon4)) $deptid=$model->eselon4;
         
         $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
@@ -155,8 +155,8 @@ class ReportController extends Controller
     public function arrayResumeReport($model) {
         $deptid = null;
         if (isset($model->skpd)) $deptid=$model->skpd;
-        if (isset($model->eselon3)) $deptid=$model->eselon3;
-        if (isset($model->eselon4)) $deptid=$model->eselon4;
+        //if (isset($model->eselon3)) $deptid=$model->eselon3;
+        //if (isset($model->eselon4)) $deptid=$model->eselon4;
         
         $renAwal = new \DateTime($model->tglAwal);
         $renAkhir = new \DateTime($model->tglAkhir);

@@ -4,8 +4,7 @@ use yii\bootstrap\ActiveForm;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
-//use yii\jui\DatePicker;
-use kartik\date\DatePicker;
+use yii\jui\DatePicker;
 
 use app\models\Departments;
 
@@ -23,13 +22,10 @@ $this->params['breadcrumbs'][]= $this->title;
     <div class="col-lg-6">
     
     <?= $form->field($model,'tglAwal')->widget(DatePicker::className(), [
-        'name'=>'dptglawal',
-        'type'=>  DatePicker::TYPE_COMPONENT_PREPEND,
-        'options'=>['style'=>'width : 400px'],
-        'pluginOptions'=>[
-            'autoclose'=>TRUE,
-            'format'=>'yyyy-mm-dd',
-            'style'=>'width : 100px'
+        'dateFormat'=>'yyyy-MM-dd',
+        'options'=>['class'=>'form-control' ,'style'=>'width : 500px'],
+        'clientOptions'=>[            
+            'changeYear'=>TRUE
         ]
     ]) ?>
     <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
