@@ -17,6 +17,10 @@ $this->params['breadcrumbs'][]= $this->title;
                 <h2>Laporan Harian</h2>
 
                 <p>Menampilkan daftar hadir harian Pegawai Pemprov NTB per SKPD</p>
+                <?php
+                    $tgl = new \DateTime(NULL);
+                    echo $tgl->format('Y-m-d');
+                ?>
 
                 <p><?= Html::a('Laporan Harian', ['report/day-report', 'params'=>$model], ['class'=>'btn btn-info']); ?></p>
             </div>

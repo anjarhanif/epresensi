@@ -139,7 +139,7 @@ class ReportController extends Controller
         
         $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
-                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "K",""), k.statusid) AS Keterangan '.
+                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "TH/CP",""), k.statusid) AS Keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
                 'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
@@ -185,7 +185,7 @@ class ReportController extends Controller
                     $tglAwal = new \DateTime($ketAbsen->tgl_awal);
                     
                     
-                    if (($tglAwal >= $renAwal AND $tglAwal <= $renAkhir) OR ($tglAkhir <= $renAkhir AND $tglAkhir >= $renAwal)) {
+                    if (($tglAwal >= $renAwal && $tglAwal <= $renAkhir) || ($tglAkhir <= $renAkhir && $tglAkhir >= $renAwal)) {
                         if ($tglAwal < $renAwal) $tglAwal = $renAwal;
                         if ($tglAkhir > $renAkhir) $tglAkhir =$renAkhir;
                         
@@ -214,17 +214,20 @@ class ReportController extends Controller
                     }else $tglPulang = new \DateTime($checkinout->pulang);
                     
                     
-                    if ($tglDatang->format('Y-m-d') >= $renAwal->format('Y-m-d') AND $tglDatang->format('Y-m-d') <= $renAkhir->format('Y-m-d')) {
+                    if ($tglDatang->format('Y-m-d') >= $renAwal->format('Y-m-d') && $tglDatang->format('Y-m-d') <= $renAkhir->format('Y-m-d')) {
                         if ( ! (TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->one() OR in_array($tglDatang->format('w'),[0,6]))) {
-                            $tglAwal = new \DateTime($userInfo->keteranganAbsen->tgl_awal);
-                            $tglAkhir = new \DateTime($userInfo->keteranganAbsen->tgl_akhir);
                     
-                            $Benar = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
-                                ->andWhere(['<=', 'tgl_awal', $tglDatang->format('Y-m-d')])
-                                ->andWhere(['>=', 'tgl_akhir', $tglDatang->format('Y-m-d')])
-                                ->one();
+                            $Ada1 = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
+                                ->andWhere(['tgl_awal'=> $tglDatang->format('Y-m-d')])
+                                ->andWhere(['IS', 'tgl_akhir', NULL])
+                                ->exists();
+                            
+                            $Ada2 = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
+                                ->andWhere(['<=','tgl_awal', $tglDatang->format('Y-m-d')])
+                                ->andWhere(['>=','tgl_akhir', $tglDatang->format('Y-m-d')])
+                                ->exists();
                     
-                            if (! $Benar) {
+                            if ( ! ($Ada1 || $Ada2) ) {
                                 if (  $tglDatang->format('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
                                 $jmlTHCP = $jmlTHCP +1;
                                 }
