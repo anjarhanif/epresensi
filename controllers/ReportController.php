@@ -16,6 +16,7 @@ use app\models\search\ReportSearch;
 use app\models\Departments;
 use app\models\Userinfo;
 use app\models\KeteranganAbsen;
+use app\models\TglLibur;
 
 class ReportController extends Controller
 {
@@ -214,19 +215,22 @@ class ReportController extends Controller
                     
                     
                     if ($tglDatang->format('Y-m-d') >= $renAwal->format('Y-m-d') AND $tglDatang->format('Y-m-d') <= $renAkhir->format('Y-m-d')) {
-                        $tglAwal = new \DateTime($userInfo->keteranganAbsen->tgl_awal);
-                        $tglAkhir = new \DateTime($userInfo->keteranganAbsen->tgl_akhir);
+                        if ( ! (TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->one() OR in_array($tglDatang->format('w'),[0,6]))) {
+                            $tglAwal = new \DateTime($userInfo->keteranganAbsen->tgl_awal);
+                            $tglAkhir = new \DateTime($userInfo->keteranganAbsen->tgl_akhir);
                     
-                        $Benar = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
-                            ->andWhere(['<=', 'tgl_awal', $tglDatang->format('Y-m-d')])
-                            ->andWhere(['>=', 'tgl_akhir', $tglDatang->format('Y-m-d')])
-                            ->one();
+                            $Benar = KeteranganAbsen::find()->where(['userid'=>$userInfo->userid])
+                                ->andWhere(['<=', 'tgl_awal', $tglDatang->format('Y-m-d')])
+                                ->andWhere(['>=', 'tgl_akhir', $tglDatang->format('Y-m-d')])
+                                ->one();
                     
-                        if (! $Benar) {
-                            if (  $tglDatang->format('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
-                            $jmlTHCP = $jmlTHCP +1;
+                            if (! $Benar) {
+                                if (  $tglDatang->format('H:i:s') > '07:30:59' OR $tglPulang->format('H:i:s') < '16:00:00') {
+                                $jmlTHCP = $jmlTHCP +1;
+                                }
                             }
                         }
+                        
                     }                    
                 }
             } 
