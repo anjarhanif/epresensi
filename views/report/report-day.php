@@ -71,8 +71,8 @@ $this->params['breadcrumbs'][]= $this->title;
         ['class'=>'yii\grid\SerialColumn'],
         'userid',
         'name',
-        'Datang',
-        'Pulang',
+        'datang',
+        'pulang',
         'Keterangan',
     ]
 ]); ?>

@@ -137,6 +137,7 @@ class ReportController extends Controller
         //if (isset($model->eselon3)) $deptid=$model->eselon3;
         //if (isset($model->eselon4)) $deptid=$model->eselon4;
         
+        /*
         $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS Datang, '.
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS Pulang, '.
                 'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > "07:30:59" OR TIME(MAX(c.checktime)) < "16:00:00", "TH/CP",""), k.statusid) AS Keterangan '.
@@ -149,8 +150,36 @@ class ReportController extends Controller
         
         $cmd = Yii::$app->db->createCommand($query);
         $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptid'=>$deptid]);
+         * 
+         */
+        $query = Userinfo::find()->with([
+            'checkinoutsDaily'=> function ($query) {
+                $query->andFilterWhere(['=','DATE(datang)',$model->tglAwal]);
+            },
+            'keteranganAbsen'        
+        ])
+        ->where(['defaultdeptid'=>$deptid])
+              //->andFilterWhere(['DATE(datang)'=>$model->tglAwal])
+        ->all();
         
-        return $cmd->queryAll();               
+        $allModels=[];
+        
+        foreach ($query as $userinfo) {
+            if(count($userinfo->checkinoutsDaily)) {
+                foreach ($userinfo->checkinoutsDaily as $checkinoutsdaily) {
+                    $allModels[]=[
+                    'userid'=> $userinfo->userid,
+                    'name'=>$userinfo->name,
+                    'datang'=>$checkinoutsdaily->datang,
+                    'pulang'=>$checkinoutsdaily->pulang,
+                    ];
+                }
+                
+            }
+        }
+        
+        //return $cmd->queryAll();
+        return $allModels;
     }
     
     public function arrayResumeReport($model) {
@@ -160,11 +189,14 @@ class ReportController extends Controller
         //if (isset($model->eselon4)) $deptid=$model->eselon4;
         
         $renAwal = new \DateTime($model->tglAwal);
-        $renAkhir = new \DateTime($model->tglAkhir);
+        if($model->tglAkhir == NULL) {
+            $renAkhir = $renAwal;
+        }else $renAkhir = new \DateTime($model->tglAkhir);
         
-        $query = Userinfo::find()->with('keteranganAbsen', 'checkinoutsDaily')
-                ->where(['defaultdeptid'=>$deptid])
-                ->all();
+                
+        $query = Userinfo::find()->with(['keteranganAbsen', 'checkinoutsDaily'])    
+        ->where(['defaultdeptid'=>$deptid])
+        ->all();
         
         $allModels = [];
         
@@ -182,8 +214,7 @@ class ReportController extends Controller
                     if ($ketAbsen->tgl_akhir == NULL) {
                         $tglAkhir = new \DateTime($ketAbsen->tgl_awal);
                     } else $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);                                     
-                    $tglAwal = new \DateTime($ketAbsen->tgl_awal);
-                    
+                    $tglAwal = new \DateTime($ketAbsen->tgl_awal);                  
                     
                     if (($tglAwal >= $renAwal && $tglAwal <= $renAkhir) || ($tglAkhir <= $renAkhir && $tglAkhir >= $renAwal)) {
                         if ($tglAwal < $renAwal) $tglAwal = $renAwal;

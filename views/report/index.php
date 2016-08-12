@@ -18,8 +18,8 @@ $this->params['breadcrumbs'][]= $this->title;
 
                 <p>Menampilkan daftar hadir harian Pegawai Pemprov NTB per SKPD</p>
                 <?php
-                    $tgl = new \DateTime(NULL);
-                    echo $tgl->format('Y-m-d');
+                    $tgl = Yii::$app->formatter->asDatetime('2016-7-15', 'Y-M-d');
+                    echo $tgl;
                 ?>
 
                 <p><?= Html::a('Laporan Harian', ['report/day-report', 'params'=>$model], ['class'=>'btn btn-info']); ?></p>
