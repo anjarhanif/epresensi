@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
 use yii\jui\DatePicker;
+//use kartik\date\DatePicker;
 
 use app\models\Departments;
 
@@ -28,6 +29,7 @@ $this->params['breadcrumbs'][]= $this->title;
             'changeYear'=>TRUE
         ]
     ]) ?>
+    
     <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
@@ -73,7 +75,7 @@ $this->params['breadcrumbs'][]= $this->title;
         'name',
         'datang',
         'pulang',
-        'Keterangan',
+        'keterangan',
     ]
 ]); ?>
 

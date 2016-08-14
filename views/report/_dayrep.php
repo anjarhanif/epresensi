@@ -33,8 +33,8 @@
                     <td><?= $no++ ?></td>
                     <td><?= $absensi['userid'] ?></td>
                     <td><?= $absensi['name'] ?></td>
-                    <td><?= $absensi['Datang'] ?></td>
-                    <td><?= $absensi['Pulang'] ?></td>
+                    <td><?= $absensi['datang'] ?></td>
+                    <td><?= $absensi['pulang'] ?></td>
                 </tr>
                 <?php
                 }

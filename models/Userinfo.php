@@ -112,6 +112,7 @@ class Userinfo extends \yii\db\ActiveRecord
     
     public function getCheckinoutsDaily() {
         return $this->hasMany(CheckinoutDaily::className(), ['userid'=>'userid']);
+            
     }
     
     public function getKeteranganAbsen() {

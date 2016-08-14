@@ -25,3 +25,47 @@ public function searchDayReport($model) {
         
         return $dataProvider;
     }
+
+ * 
+	$dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayDayReport($model),
+            'pagination'=> [
+                'pageSize'=>30,
+            ]
+        ]);
+
+
+         */
+        //$tglAwal = new \DateTime($model->tglAwal);
+        //$tglAwal = $tglAwal->format('Y-m-d');
+        //$tglAwal = \Yii::$app->formatter->asDatetime($model->tglAwal, 'Y-MM-d');
+        $tgl = $model->tglAwal;
+        $usersinfo = Userinfo::find()->with([
+            'checkinoutsDaily'=>function ($query) use($tgl){
+                $query->where('DATE(datang) = :tgl', [':tgl'=>$tgl]);
+            },
+            'keteranganAbsen'=>function ($query) use($tgl) {
+                //$query->where(['and',['<=','tgl_awal',$tgl],['>=','IF(tgl_akhir IS NULL,tgl_awal,tgl_akhir)','$tgl']]);
+                $query->where(':tgl BETWEEN tgl_awal AND (IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir))',[':tgl'=>$tgl]);
+            }
+            ])
+            ->where(['=','defaultdeptid', $deptid])
+            ->all();
+        
+        $allModels=[];
+        
+        foreach ($usersinfo as $userinfo) {
+            //if(count($userinfo->checkinoutsDaily)) {
+            //    foreach ($userinfo->checkinoutsDaily as $checkinoutsdaily) {
+                    $allModels[]=[
+                    'userid'=> $userinfo->userid,
+                    'name'=>$userinfo->name,
+                    'datang'=>$userinfo->checkinoutsDaily[0]->datang,
+                    'pulang'=>$userinfo->checkinoutsDaily[0]->pulang,
+                    'keterangan'=>$userinfo->keteranganAbsen[0]->statusid,
+                    ];
+                //}
+                
+            //}
+        }
+        return $allModels;
