@@ -77,7 +77,18 @@ class ReportController extends Controller
         echo Json::encode(['output' => '', 'selected'=>'']);
     }
     
-    public function actionEselon4List() {
+    public function actionGetEselon3s($skpd_id) {
+        $eselon3s = (new \yii\db\Query())
+                ->select('*')->from('departments')
+                ->where(['supdeptid'=>$skpd_id])
+                ->all(\yii::$app->db);
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return [
+            'eselon3s'=>$eselon3s,
+        ];
+    }
+
+        public function actionEselon4List() {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
             $ids = $_POST['depdrop_parents'];
@@ -132,9 +143,9 @@ class ReportController extends Controller
     
     public function arrayDayReport($model) {
         $deptid = null;
-        if (isset($model->skpd)) $deptid=$model->skpd;
-        //if (isset($model->eselon3)) $deptid=$model->eselon3;
-        //if (isset($model->eselon4)) $deptid=$model->eselon4;
+        if ( $model->skpd != NULL) $deptid=$model->skpd;
+        if ($model->eselon3 != NULL) $deptid=$model->eselon3;
+        if ($model->eselon4 != NULL) $deptid=$model->eselon4;
         
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
@@ -162,9 +173,9 @@ class ReportController extends Controller
     
     public function arrayResumeReport($model) {
         $deptid = null;
-        if (isset($model->skpd)) $deptid=$model->skpd;
-        //if (isset($model->eselon3)) $deptid=$model->eselon3;
-        //if (isset($model->eselon4)) $deptid=$model->eselon4;
+        if ($model->skpd != NULL) $deptid=$model->skpd;
+        if ($model->eselon3 != NULL) $deptid=$model->eselon3;
+        if ($model->eselon4 != NULL) $deptid=$model->eselon4;
         
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
