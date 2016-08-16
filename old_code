@@ -88,7 +88,32 @@ $this->registerJs('
 ');
 */ 
 
-        //->dropDownList([],[
-        //'prompt'=>'-Pilih Eselon 3-',
-        //'id'=>'eselon3-id'
-        //])
+        ->dropDownList([],[
+        'prompt'=>'-Pilih Eselon 3-',
+       'id'=>'eselon3-id'
+        ])
+
+
+public function actionDeptOptions($id) {
+        $count = Departments::find()->where(['supdeptid' => $id])->count();
+        
+        $depts = Departments::find()->where(['supdeptid' => $id])->all();
+        if ($count > 0) {
+            foreach ($depts as $dept) {
+                echo "<option value='".$dept->DeptID."'>".$dept->DeptName."</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+
+    public function actionGetEselon3s($skpd_id) {
+        $eselon3s = (new \yii\db\Query())
+                ->select('*')->from('departments')
+                ->where(['supdeptid'=>$skpd_id])
+                ->all(\yii::$app->db);
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return [
+            'eselon3s'=>$eselon3s,
+        ];
+    }

@@ -48,20 +48,7 @@ class ReportController extends Controller
         return $this->render('index');
         
     }
-    
-    public function actionDeptOptions($id) {
-        $count = Departments::find()->where(['supdeptid' => $id])->count();
-        
-        $depts = Departments::find()->where(['supdeptid' => $id])->all();
-        if ($count > 0) {
-            foreach ($depts as $dept) {
-                echo "<option value='".$dept->DeptID."'>".$dept->DeptName."</option>";
-            }
-        } else {
-            echo "<option>-</option>";
-        }
-    }
-    
+      
     public function actionEselon3List() {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
@@ -82,30 +69,24 @@ class ReportController extends Controller
         }
         echo Json::encode(['output' => '', 'selected'=>'']);
     }
-    
-    public function actionGetEselon3s($skpd_id) {
-        $eselon3s = (new \yii\db\Query())
-                ->select('*')->from('departments')
-                ->where(['supdeptid'=>$skpd_id])
-                ->all(\yii::$app->db);
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        return [
-            'eselon3s'=>$eselon3s,
-        ];
-    }
 
-        public function actionEselon4List() {
+    public function actionEselon4List() {
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
-            $ids = $_POST['depdrop_parents'];
-            $skpd_id = empty($ids[0]) ? NULL : $ids[0] ;
-            $eselon3_id = empty($ids[1]) ? NULL : $ids[1];
+            $parents = $_POST['depdrop_parents'];
+            $eselon3_id = empty($parents[0]) ? NULL : $parents[0];
             
             if ($eselon3_id != NULL) {
                 $out = Departments::find()->where(['supdeptid' => $eselon3_id])
                         ->select(['DeptID as id', 'DeptName as name'])->asArray()->all();
                 
-                echo Json::encode(['output' => $out, 'selected' => '']);
+                $params=NULL;
+                if (!empty($_POST['depdrop_params'])) {
+                    $params = $_POST['depdrop_params'];
+                    $selected = $params[0];
+                }
+                
+                echo Json::encode(['output' => $out, 'selected' => $selected]);
                 return;
             }
         }
@@ -148,11 +129,28 @@ class ReportController extends Controller
     }
     
     public function arrayDayReport($model) {
-        $deptid = null;
-        if ( $model->skpd != NULL) $deptid=$model->skpd;
-        if ($model->eselon3 != NULL) $deptid=$model->eselon3;
-        if ($model->eselon4 != NULL) $deptid=$model->eselon4;
-        
+        $deptid = NULL;
+        if ($model->eselon4 != NULL) {
+            $deptids=[$model->eselon4];
+        }elseif ($model->eselon3 != NULL) {
+            $eselon4s = Departments::find()->select('DeptID')
+                    ->where(['supdeptid'=>$model->eselon3])->asArray()->all();
+            $eselon3s = [$model->eselon3];
+            $deptids = array_merge_recursive($eselon3s, $eselon4s);
+        }elseif ($model->skpd !=NULL) {
+            $skpd = [$model->skpd];
+            $eselon3s = Departments::find()->select('DeptID')
+                    ->where(['supdeptid'=>$skpd])->asArray()->all();
+            if(count($eselon3s)) {
+                $eselon4s = [];
+                foreach ($eselon3s as $eselon3 ) {
+                    $eselon4s[] = Departments::find()->select('DeptID')
+                            ->where(['supdeptid'=>$eselon3['DeptID']])->asArray()->all();
+                }
+            }
+            $deptids = array_merge_recursive($eselon4s, $eselon3s,$skpd);
+        }
+               
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'senin-kamis'])->one();

@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][]= $this->title;
         ]
     ]) ?>
     
-    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
+    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
         'id' => 'skpd-id',
@@ -52,15 +52,17 @@ $this->params['breadcrumbs'][]= $this->title;
     <?= $form->field($model,'eselon4')->widget(DepDrop::className(), [
         'options'=>['id'=>'eselon4-id','style'=>'width : 500px'],
         'pluginOptions' => [
-            'depends' => ['skpd-id', 'eselon3-id'],
+            'depends' => ['eselon3-id'],
             'initialize'=>TRUE,
             'placeholder' => 'Pilih Eselon 4',
-            'url' => Url::to(['/report/eselon4-list'])
+            'url' => Url::to(['/report/eselon4-list']),
+            'params'=> ['input-eselon4']
         ],
     ]) ?>
     </div>
 </div>
 <?= Html::hiddenInput('input-eselon3', $model->eselon3, ['id'=>'input-eselon3']); ?>
+<?= Html::hiddenInput('input-eselon4', $model->eselon4, ['id'=>'input-eselon4']); ?>
 <?= Html::submitButton('Tampilkan',['class'=>'btn btn-primary']) ?>
 <p></p>
 <?php ActiveForm::end(); ?>
