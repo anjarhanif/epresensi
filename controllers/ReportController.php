@@ -70,7 +70,13 @@ class ReportController extends Controller
                 $skpdID = $parents[0];
                 $out = Departments::find()->where(['supdeptid' => $skpdID])
                         ->select(['DeptID as id', 'DeptName as name'])->asArray()->all();
-                echo Json::encode(['output' => $out, 'selected' => '']);
+                $params = NULL;
+                if(!empty($_POST['depdrop_params'])) {
+                    $params = $_POST['depdrop_params'];
+                    $selected = $params[0];
+                }
+               
+                echo Json::encode(['output' => $out, 'selected' =>$selected]);
                 return;
             }
         }

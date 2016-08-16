@@ -69,3 +69,26 @@ public function searchDayReport($model) {
             //}
         }
         return $allModels;
+
+/*
+$this->registerJs('
+       //$("#eselon3-id").attr("disabled",true);
+       $("#skpd-id").change(function() {
+            $.get("'.Url::to(['get-eselon3s','skpd_id'=>'']).'" + $(this).val(), function(data) {
+                select = $("#eselon3-id");
+                select.empty();
+                var options = "<option value=\'\'>-Pilih Eselon 3-</option>";
+                $.each(data.eselon3s, function(key, value) {
+                    options += "<option value=\'"+value.DeptID+"\'>" + value.DeptName +"</option>";
+                });
+                select.append(options);
+                $("#eselon3-id").attr("disabled",false);
+            });
+        });
+');
+*/ 
+
+        //->dropDownList([],[
+        //'prompt'=>'-Pilih Eselon 3-',
+        //'id'=>'eselon3-id'
+        //])
