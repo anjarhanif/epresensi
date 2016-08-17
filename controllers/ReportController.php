@@ -164,12 +164,12 @@ class ReportController extends Controller
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
                 'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
-                'WHERE u.defaultdeptid =:deptid '.
+                'WHERE u.defaultdeptid IN (:deptids) '.
                 'GROUP BY u.userid, DATE(c.checktime) '.
                 'ORDER BY u.userid ASC ';
         
         $cmd = Yii::$app->db->createCommand($query);
-        $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptid'=>$deptid]);
+        $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
         $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
         
         return $cmd->queryAll();       
