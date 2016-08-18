@@ -133,24 +133,21 @@ class ReportController extends Controller
         if ($model->eselon4 != NULL) {
             $deptids=[$model->eselon4];
         }elseif ($model->eselon3 != NULL) {
-            $eselon4s = Departments::find()->select('DeptID')
-                    ->where(['supdeptid'=>$model->eselon3])->asArray()->all();
             $eselon3s = [$model->eselon3];
-            $deptids = array_merge($eselon3s, $eselon4s);
+            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $eselon3s)->queryAll();
+            $deptids = array_merge($eselon3s, $eselon4s);          
         }elseif ($model->skpd !=NULL) {
             $skpd = [$model->skpd];
-            $eselon3s = Departments::find()->select('DeptID')
-                    ->where(['supdeptid'=>$skpd])->asArray()->all();
-            if($eselon3s == NULL) $eselon3s = array();
+            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $skpd)->queryAll();
             if(count($eselon3s)) {
-                //$eselon4s = array();
                 foreach ($eselon3s as $eselon3 ) {
-                    $eselon4s[] = Departments::find()->select('DeptID')
-                            ->where(['supdeptid'=>$eselon3->DeptID])->asArray()->all();
+                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
                 }
-                if(! $eselon4s) $eselon4s = array();
-            }
-            $deptids = array_merge($skpd, $eselon3s, $eselon4s);
+                $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
+            } else $deptids = $skpd;
         }
         $deptids = implode(",", $deptids);
                
@@ -161,43 +158,46 @@ class ReportController extends Controller
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
         }
         
-        $tgl = $model->tglAwal;
-        $usersinfo = Userinfo::find()->with([
-            'checkinoutsDaily'=>function ($query) use($tgl){
-                $query->where('DATE(datang) = :tgl', [':tgl'=>$tgl]);
-            },
-            'keteranganAbsen'=>function ($query) use($tgl) {
-                //$query->where(['and',['<=','tgl_awal',$tgl],['>=','IF(tgl_akhir IS NULL,tgl_awal,tgl_akhir)','$tgl']]);
-                $query->where(':tgl BETWEEN tgl_awal AND (IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir))',[':tgl'=>$tgl]);
-            }
-            ])
-            ->where('defaultdeptid IN (:deptids)', [':deptids'=>$deptids])
-            ->all();
+       $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, '.
+                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, '.
+                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",""), k.statusid) AS keterangan '.
+                'FROM userinfo u '.
+                'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
+                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
+                'WHERE u.defaultdeptid IN (:deptids) '.
+                'GROUP BY u.userid, DATE(c.checktime) '.
+                'ORDER BY u.userid ASC ';
         
-        $allModels=[];
+        $cmd = Yii::$app->db->createCommand($query);
+        $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
+        $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
+        $allModels = $cmd->queryAll();
         
-        foreach ($usersinfo as $userinfo) {
-            //if(count($userinfo->checkinoutsDaily)) {
-            //    foreach ($userinfo->checkinoutsDaily as $checkinoutsdaily) {
-                    $allModels[]=[
-                    'userid'=> $userinfo->userid,
-                    'name'=>$userinfo->name,
-                    'datang'=>$userinfo->checkinoutsDaily[0]->datang,
-                    'pulang'=>$userinfo->checkinoutsDaily[0]->pulang,
-                    'keterangan'=>$userinfo->keteranganAbsen[0]->statusid,
-                    ];
-                //}
-                
-            //}
-        }
         return $allModels;   
     }
     
     public function arrayResumeReport($model) {
-        $deptid = null;
-        if ($model->skpd != NULL) $deptid=$model->skpd;
-        if ($model->eselon3 != NULL) $deptid=$model->eselon3;
-        if ($model->eselon4 != NULL) $deptid=$model->eselon4;
+        $deptids = [];
+        if ($model->eselon4 != NULL) {
+            $deptids=[$model->eselon4];
+        }elseif ($model->eselon3 != NULL) {
+            $eselon3s = [$model->eselon3];
+            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $eselon3s)->queryAll();
+            $deptids = array_merge($eselon3s, $eselon4s);          
+        }elseif ($model->skpd !=NULL) {
+            $skpd = [$model->skpd];
+            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $skpd)->queryAll();
+            if(count($eselon3s)) {
+                foreach ($eselon3s as $eselon3 ) {
+                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                }
+                $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
+            } else $deptids = $skpd;
+        }
+        $deptids = implode(",", $deptids);
         
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
@@ -220,7 +220,7 @@ class ReportController extends Controller
                 $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
             }
             ])    
-        ->where(['defaultdeptid'=>$deptid])
+        ->where('defaultdeptid IN (:deptids)', [':deptids'=>$deptids])
         ->all();
         
         $allModels = [];

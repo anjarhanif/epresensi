@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][]= $this->title;
     </div>
     <div class="col-lg-6">
     
-    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(), [
+    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
         'id' => 'skpd-id',
@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][]= $this->title;
         'options' => ['id' => 'eselon3-id', 'style'=>'width: 500px'],
         'pluginOptions' => [
             'depends' => ['skpd-id'],
+            'initialize'=>true,
             'placeholder' => 'Pilih Eselon 3',
             'url' => Url::to(['/report/eselon3-list'])
         ]
@@ -51,6 +52,7 @@ $this->params['breadcrumbs'][]= $this->title;
         'options'=>['style'=>'width : 500px'],
         'pluginOptions' => [
             'depends' => ['skpd-id', 'eselon3-id'],
+            'initialize'=>true,
             'placeholder' => 'Pilih Eselon 4',
             'url' => Url::to(['/report/eselon4-list'])
         ],
