@@ -7,7 +7,9 @@ use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
-
+use app\models\Role;
+use app\models\Status;
+use app\models\ValueHelpers;
 
 /**
  * This is the model class for table "user".
@@ -24,8 +26,8 @@ use yii\behaviors\TimestampBehavior;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
+    //const STATUS_DELETED = 0;
+    const STATUS_ACTIVE = 1;
     
     /**
      * @inheritdoc
@@ -54,8 +56,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [            
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status_id', 'default', 'value' => self::STATUS_ACTIVE],
+            [['status_id'], 'in', 'range' => array_keys($this->getStatusList())],
+            ['role_id', 'default', 'value' => 1],
+            [['role_id'], 'in', 'range' => array_keys($this->getRoleList())],
             ['username','filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique'],
@@ -89,7 +93,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'status_id' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -108,7 +112,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'status_id' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -160,5 +164,34 @@ class User extends ActiveRecord implements IdentityInterface
     
     public function generateAuthKey() {
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+    
+    public function getRole() {
+        return $this->hasOne(Role::className(), ['id'=>'role_id']);
+    }
+    
+    public function getRoleName() {
+        return $this->role ? $this->role->role_name : '-no role-';
+    }
+    
+    public static function getRoleList() {
+        $droptions = Role::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'role_name');
+    }
+    
+    public function getStatus()
+    {
+        return $this->hasOne(Status::className(), ['id' => 'status_id']);
+    }
+    
+    public function getStatusName()
+    {
+        return $this->status ? $this->status->status_name : '-no status-';
+    }
+    
+    public static function getStatusList()
+    {
+        $droptions = Status::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'status_name');
     }
 }
