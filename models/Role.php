@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\User;
 
 /**
@@ -46,7 +47,12 @@ class Role extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getUsers() {
+    public static function getRoleList() {
+        $droption = Role::find()->asArray()->all();
+        return ArrayHelper::map($droption, 'id', 'role_name');
+    }
+
+        public function getUsers() {
         return $this->hasMany(User::className(), ['rode_id'=>'id']);
     }
 }

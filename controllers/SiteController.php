@@ -50,6 +50,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
+        $sql = 'select d.DeptName, count(u.userid), sum(if(time(c.datang)';
         return $this->render('index');
     }
 

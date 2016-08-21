@@ -8,6 +8,7 @@ use app\models\search\StatusAbsenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * StatusAbsenController implements the CRUD actions for StatusAbsen model.
@@ -20,6 +21,22 @@ class StatusAbsenController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','update','create','view','delete'],
+                'rules'=>[
+                    [
+                        'actions'=>['index','create','update','view','delete'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSystem') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ]
+                    
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -7,6 +7,7 @@ use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 use app\models\Role;
 use app\models\Status;
 use app\models\ValueHelpers;
@@ -60,10 +61,12 @@ class User extends ActiveRecord implements IdentityInterface
             [['status_id'], 'in', 'range' => array_keys($this->getStatusList())],
             ['role_id', 'default', 'value' => 1],
             [['role_id'], 'in', 'range' => array_keys($this->getRoleList())],
+            ['dept_id', 'required'],
+            ['dept_id', 'in', 'range'=>  array_keys(Departments::deptList(1))],
             ['username','filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique'],
-            ['username', 'string', 'min' => 6, 'max' => 255],
+            ['username', 'string', 'min' => 4, 'max' => 255],
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'unique'],
@@ -82,7 +85,9 @@ class User extends ActiveRecord implements IdentityInterface
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'status' => 'Status',
+            'dept_id' => 'SKPD',
+            'role_id' => 'Role',
+            'status_id' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -166,7 +171,11 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
     
-    public function getRole() {
+    public function getDepartment() {
+        return $this->hasOne(Departments::className(), ['DeptID'=>'dept_id']);
+    }
+
+        public function getRole() {
         return $this->hasOne(Role::className(), ['id'=>'role_id']);
     }
     

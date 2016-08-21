@@ -8,6 +8,8 @@ use app\models\search\KeteranganAbsenSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * KeteranganAbsenController implements the CRUD actions for KeteranganAbsen model.
@@ -20,6 +22,22 @@ class KeteranganAbsenController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','update','create','view','delete'],
+                'rules'=>[
+                    [
+                        'actions'=>['index','create','update','view','delete'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ]
+                    
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

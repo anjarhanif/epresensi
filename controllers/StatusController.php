@@ -3,17 +3,17 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\JamKerja;
-use app\models\search\JamKerjaSearch;
+use app\models\Status;
+use app\models\search\StatusSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * JamKerjaController implements the CRUD actions for JamKerja model.
+ * StatusController implements the CRUD actions for Status model.
  */
-class JamKerjaController extends Controller
+class StatusController extends Controller
 {
     /**
      * @inheritdoc
@@ -47,12 +47,12 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Lists all JamKerja models.
+     * Lists all Status models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new JamKerjaSearch();
+        $searchModel = new StatusSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +62,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Displays a single JamKerja model.
+     * Displays a single Status model.
      * @param integer $id
      * @return mixed
      */
@@ -74,13 +74,13 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Creates a new JamKerja model.
+     * Creates a new Status model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new JamKerja();
+        $model = new Status();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,7 +92,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Updates an existing JamKerja model.
+     * Updates an existing Status model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +111,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Deletes an existing JamKerja model.
+     * Deletes an existing Status model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,15 +124,15 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Finds the JamKerja model based on its primary key value.
+     * Finds the Status model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JamKerja the loaded model
+     * @return Status the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JamKerja::findOne($id)) !== null) {
+        if (($model = Status::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

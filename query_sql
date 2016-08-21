@@ -67,3 +67,19 @@ CREATE VIEW checkinout_daily AS
 SELECT userid, IF( COUNT( checktime ) >0, MIN( checktime ) , "Nihil" ) AS datang, IF( COUNT( checktime ) >1, MAX( checktime ) , "Nihil" ) AS pulang
 FROM checkinout
 GROUP BY userid, DATE( checktime )
+
+//Menampilkan struktur departments
+SELECT a.DeptID, a.DeptName as SKPD, b.DeptID, b.DeptName as Eselon3, c.DeptID, c.DeptName as Eselon4
+FROM departments a
+LEFT JOIN departments b ON b.supdeptid = a.DeptID
+LEFT JOIN departments c ON c.supdeptid = b.DeptID
+WHERE a.supdeptid = 1
+ORDER BY a.DeptID, b.DeptID, c.DeptID
+
+CREATE VIEW departments_struct AS
+SELECT a.DeptID as skpd_id, a.DeptName as skpd_name, b.DeptID as eselon3id, b.DeptName as eselon3_name, c.DeptID as eselon4id, c.DeptName as eselon4_name
+FROM departments a
+LEFT JOIN departments b ON b.supdeptid = a.DeptID
+LEFT JOIN departments c ON c.supdeptid = b.DeptID
+WHERE a.supdeptid = 1
+ORDER BY a.DeptID, b.DeptID, c.DeptID

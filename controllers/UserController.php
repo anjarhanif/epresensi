@@ -3,17 +3,18 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\JamKerja;
-use app\models\search\JamKerjaSearch;
+use app\models\User;
+use app\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
- * JamKerjaController implements the CRUD actions for JamKerja model.
+ * UserController implements the CRUD actions for User model.
  */
-class JamKerjaController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritdoc
@@ -47,12 +48,12 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Lists all JamKerja models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new JamKerjaSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +63,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Displays a single JamKerja model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      */
@@ -74,13 +75,13 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Creates a new JamKerja model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new JamKerja();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,7 +93,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Updates an existing JamKerja model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -111,7 +112,7 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Deletes an existing JamKerja model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,15 +125,15 @@ class JamKerjaController extends Controller
     }
 
     /**
-     * Finds the JamKerja model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JamKerja the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JamKerja::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

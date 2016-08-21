@@ -11,12 +11,12 @@ use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
 
 use app\models\ReportForm;
-use app\models\Checkinout;
 use app\models\Departments;
 use app\models\Userinfo;
 use app\models\KeteranganAbsen;
 use app\models\TglLibur;
 use app\models\JamKerja;
+use app\models\PermissionHelpers;
 
 class ReportController extends Controller
 {
@@ -24,15 +24,20 @@ class ReportController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','day-report','resume-report'],
+                'rules'=>[
                     [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
+                        'actions'=>['index','day-report','resume-report'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('User') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ]
+                    
+                ]
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

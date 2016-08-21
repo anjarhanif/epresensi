@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "status".
@@ -48,5 +49,10 @@ class Status extends \yii\db\ActiveRecord
     public function getUsers() 
     {
         return $this->hasMany(User::className(), ['status_id' => 'id']);
+    }
+    
+    public static function getStatusList() {
+        $droptions = Status::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'id', 'status_name');
     }
 }
