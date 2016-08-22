@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * StatusController implements the CRUD actions for Status model.
@@ -33,8 +34,7 @@ class StatusController extends Controller
                             return PermissionHelpers::requireMinimumRole('AdminSystem') &&
                             PermissionHelpers::requireStatus('Active');
                         }
-                    ]
-                    
+                    ]                   
                 ]
             ],
             'verbs' => [

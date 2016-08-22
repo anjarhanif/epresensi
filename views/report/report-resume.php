@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][]= $this->title;
         'pluginOptions' => [
             'depends' => ['skpd-id'],
             'initialize'=>true,
-            'placeholder' => 'Pilih Eselon 3',
+            'placeholder' => '[ Pilih Eselon 3 ]',
             'url' => Url::to(['/report/eselon3-list'])
         ]
     ]) ?> 
@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][]= $this->title;
         'pluginOptions' => [
             'depends' => ['skpd-id', 'eselon3-id'],
             'initialize'=>true,
-            'placeholder' => 'Pilih Eselon 4',
+            'placeholder' => '[ Pilih Eselon 4 ]',
             'url' => Url::to(['/report/eselon4-list'])
         ],
     ]); ?>

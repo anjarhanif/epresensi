@@ -14,7 +14,7 @@ $this->title = 'e-Presensi';
     </div>
 
     <div class="body-content">
-
+<!--
         <div class="row">
             <div class="col-lg-4">
                 <h2>Laporan Harian</h2>
@@ -38,6 +38,6 @@ $this->title = 'e-Presensi';
                 <p><?= Html::a('Keterangan Absen', ['keterangan-absen/index'], ['class'=>'btn btn-info']); ?></p>
             </div>
         </div>
-
+-->
     </div>
 </div>

@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * RoleController implements the CRUD actions for Role model.

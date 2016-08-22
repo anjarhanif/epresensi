@@ -17,7 +17,7 @@ use app\models\StatusAbsen;
     <?= $form->field($model, 'userid')->textInput() ?>
 
     <?= $form->field($model, 'statusid')->dropDownList(StatusAbsen::statusAbsenList(), [
-        'prompt'=>'Pilih Status',
+        'prompt'=>'[ Pilih Status ]',
         'style'=>'width: 300px',
     ]) ?>
 

@@ -20,17 +20,17 @@ use app\models\Status;
     <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'style'=>'width: 700px']) ?>
     
     <?= $form->field($model, 'dept_id')->dropDownList(Departments::deptList(1),[
-        'prompt'=>'-Pilih SKPD-',
+        'prompt'=>'[ Pilih SKPD ]',
         'style'=>'width: 300px',
     ])?>
 
     <?= $form->field($model, 'role_id')->dropDownList(Role::getRoleList(), [
-        'prompt'=>'-Pilih Role-',
+        'prompt'=>'[ Pilih Role ]',
         'style'=>'width: 300px',
     ]) ?>
 
     <?= $form->field($model, 'status_id')->dropDownList(Status::getStatusList(), [
-        'prompt'=>'-Pilih Status-',
+        'prompt'=>'[ Pilih Status ]',
         'style'=>'width: 300px',
     ]) ?>
 
