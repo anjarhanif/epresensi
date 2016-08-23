@@ -15,11 +15,14 @@ class KeteranganAbsenSearch extends KeteranganAbsen
     /**
      * @inheritdoc
      */
+    
+    public $username;
+    
     public function rules()
     {
         return [
             [['id', 'userid'], 'integer'],
-            [['statusid', 'tgl_awal', 'tgl_akhir', 'keterangan'], 'safe'],
+            [['username','statusid', 'tgl_awal', 'tgl_akhir', 'keterangan'], 'safe'],
         ];
     }
 
@@ -41,7 +44,7 @@ class KeteranganAbsenSearch extends KeteranganAbsen
      */
     public function search($params)
     {
-        $query = KeteranganAbsen::find();
+        $query = KeteranganAbsen::find()->joinWith('userinfo');
 
         // add conditions that should always apply here
 
@@ -66,6 +69,7 @@ class KeteranganAbsenSearch extends KeteranganAbsen
         ]);
 
         $query->andFilterWhere(['like', 'statusid', $this->statusid])
+            ->andFilterWhere(['like','userinfo.name', $this->username])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;

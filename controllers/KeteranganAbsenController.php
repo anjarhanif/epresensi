@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\PermissionHelpers;
+use app\models\Departments;
 
 /**
  * KeteranganAbsenController implements the CRUD actions for KeteranganAbsen model.
@@ -53,13 +54,19 @@ class KeteranganAbsenController extends Controller
      */
     public function actionIndex()
     {
+        if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+            $deptid = Yii::$app->user->identity->dept_id;
+            $deptids = Departments::getDeptids($deptid);
+        } else $deptids=NULL;
+
         $searchModel = new KeteranganAbsenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        //$dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'deptids' => $deptids
+            //'deptids' => $deptids
         ]);
     }
 

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             //'id',
-            ['attribute'=>'userid','contentOptions'=>['style'=>'width :8%']],
+            ['attribute'=>'username','contentOptions'=>['style'=>'width :8%']],
             ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :8%']],
             ['attribute'=>'tgl_awal','contentOptions'=>['style'=>'width :12%']],
             ['attribute'=>'tgl_akhir','contentOptions'=>['style'=>'width :12%']],

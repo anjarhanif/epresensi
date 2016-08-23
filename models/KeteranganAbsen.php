@@ -52,4 +52,8 @@ class KeteranganAbsen extends \yii\db\ActiveRecord
             'keterangan' => 'Keterangan',
         ];
     }
+    
+    public function getUserinfo() {
+        return $this->hasOne(Userinfo::className(), ['userid'=>'userid']);
+    }
 }
