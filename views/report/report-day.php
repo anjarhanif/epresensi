@@ -7,11 +7,16 @@ use kartik\depdrop\DepDrop;
 use yii\jui\DatePicker;
 //use kartik\date\DatePicker;
 use app\models\Departments;
+use app\models\PermissionHelpers;
 
 
 $this->title = 'Laporan Harian';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
 $this->params['breadcrumbs'][]= $this->title;
+
+if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+    $deptid = Yii::$app->user->identity->dept_id;
+} else $deptid=NULL;
 
 ?>
 <h1>Laporan Harian</h1>
@@ -30,7 +35,7 @@ $this->params['breadcrumbs'][]= $this->title;
         ]
     ]) ?>
     
-    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1), [
+    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1,$deptid), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
         'id' => 'skpd-id',

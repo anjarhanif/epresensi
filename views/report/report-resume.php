@@ -5,12 +5,16 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 use kartik\depdrop\DepDrop;
 use yii\jui\DatePicker;
-
+use app\models\PermissionHelpers;
 use app\models\Departments;
 
 $this->title = 'Laporan Resume';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
 $this->params['breadcrumbs'][]= $this->title;
+
+if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+    $deptid = Yii::$app->user->identity->dept_id;
+} else $deptid=NULL;
 ?>
 <h1>Laporan Resume</h1>
 <?php $form = ActiveForm::begin([
@@ -34,7 +38,7 @@ $this->params['breadcrumbs'][]= $this->title;
     </div>
     <div class="col-lg-6">
     
-    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1), [
+    <?= $form->field($model,'skpd')->dropDownList(Departments::deptList(1,$deptid), [
         'prompt' => '[ Pilih SKPD ]',
         'style' => 'width:500px',
         'id' => 'skpd-id',

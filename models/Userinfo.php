@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "userinfo".
@@ -117,5 +118,12 @@ class Userinfo extends \yii\db\ActiveRecord
     
     public function getKeteranganAbsen() {
         return $this->hasMany(KeteranganAbsen::className(), ['userid'=>'userid']);
+    }
+    
+    public static function getUserinfoList($deptids) {
+        $droptions = Userinfo::find()->select('userid, name')
+                ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])
+                ->orderBy('name')->asArray()->all();
+        return ArrayHelper::map($droptions, 'userid', 'name');
     }
 }

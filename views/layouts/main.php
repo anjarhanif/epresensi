@@ -40,7 +40,10 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label'=>'Login', 'url'=>['/site/login']];
     } else {
-        $menuItems[] = ['label'=>'Laporan', 'url'=>['/report/index']];
+        $menuItems[] = ['label'=>'Laporan', 'url'=>['/report/index'], 'items'=>[
+            ['label'=>'Laporan Harian','url'=>['report/day-report']],
+            ['label'=>'Laporan Resume','url'=>['report/resume-report']],
+        ]];
         $menuItems[] = ['label'=>'Keterangan Absen', 'url'=>['/keterangan-absen/index']];
         
         $is_admin = PermissionHelpers::requireMinimumRole('AdminSystem');

@@ -139,16 +139,16 @@ class ReportController extends Controller
             $deptids=[$model->eselon4];
         }elseif ($model->eselon3 != NULL) {
             $eselon3s = [$model->eselon3];
-            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3s)->queryAll();
             $deptids = array_merge($eselon3s, $eselon4s);          
         }elseif ($model->skpd !=NULL) {
             $skpd = [$model->skpd];
-            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $skpd)->queryAll();
             if(count($eselon3s)) {
                 foreach ($eselon3s as $eselon3 ) {
-                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
                 }
                 $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
@@ -187,16 +187,16 @@ class ReportController extends Controller
             $deptids=[$model->eselon4];
         }elseif ($model->eselon3 != NULL) {
             $eselon3s = [$model->eselon3];
-            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3s)->queryAll();
             $deptids = array_merge($eselon3s, $eselon4s);          
         }elseif ($model->skpd !=NULL) {
             $skpd = [$model->skpd];
-            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $skpd)->queryAll();
             if(count($eselon3s)) {
                 foreach ($eselon3s as $eselon3 ) {
-                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where DeptID =:deptid')
+                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
                 }
                 $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);

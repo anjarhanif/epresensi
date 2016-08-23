@@ -51,11 +51,28 @@ class Departments extends \yii\db\ActiveRecord
         return $this->hasMany(Userinfo::className(), ['defaultdeptid' => 'DeptID']);
     }
     
-    public static function deptList($supdeptid) {
-        $droptions = Departments::find()->where(['supdeptid' => $supdeptid])->asArray()->all();
+    public static function deptList($supdeptid, $deptid='') {
+        $droptions = Departments::find()->filterWhere(['supdeptid' => $supdeptid, 'DeptID'=>$deptid])->asArray()->all();
         
         return ArrayHelper::map($droptions, 'DeptID', 'DeptName');
         
+    }
+    
+    public static function getDeptids ($skpdid) {
+        $skpd = [$skpdid];
+        $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $skpd)->queryAll();
+        if(count($eselon3s)) {
+            foreach ($eselon3s as $eselon3 ) {
+                $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+            }
+            $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
+        } else $deptids = $skpd;
+        
+        $deptids = implode(",", $deptids);
+        
+        return $deptids;
     }
     
 }
