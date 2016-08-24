@@ -24,11 +24,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'userid',
-            'badgenumber',
-            'defaultdeptid',
+            ['attribute'=>'userid', 'contentOptions'=>['style'=>'width: 10%']],
+            ['attribute'=>'badgenumber', 'contentOptions'=>['style'=>'width: 12%']],
+            ['attribute'=>'deptname', 'value'=>'department.DeptName'],
             'name',
-            'Password',
+            //'Password',
             // 'Card',
             // 'Privilege',
             // 'AccGroup',
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'MinAutoSchInterval',
             // 'Image_id',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width: 8%']],
         ],
     ]); ?>
 </div>

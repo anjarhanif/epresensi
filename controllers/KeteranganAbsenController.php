@@ -37,7 +37,10 @@ class KeteranganAbsenController extends Controller
                         }
                     ]
                     
-                ]
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -61,12 +64,12 @@ class KeteranganAbsenController extends Controller
 
         $searchModel = new KeteranganAbsenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        //$dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
+        $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            //'deptids' => $deptids
+            'deptids' => $deptids
         ]);
     }
 

@@ -35,7 +35,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'user';
     }
     
     public function behaviors()
@@ -61,7 +61,6 @@ class User extends ActiveRecord implements IdentityInterface
             [['status_id'], 'in', 'range' => array_keys($this->getStatusList())],
             ['role_id', 'default', 'value' => 1],
             [['role_id'], 'in', 'range' => array_keys($this->getRoleList())],
-            ['dept_id', 'required'],
             ['dept_id', 'in', 'range'=>  array_keys(Departments::deptList(1))],
             ['username','filter', 'filter' => 'trim'],
             ['username', 'required'],
@@ -106,6 +105,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
+        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
         
     }
 
@@ -119,7 +119,36 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return static::findOne(['username' => $username, 'status_id' => self::STATUS_ACTIVE]);
     }
+    
+    /**
+     * Finds user by password reset token
+     *
+     * @param string $token password reset token
+     * @return static|null
+     */
+    public static function findByPasswordResetToken($token)
+    {
+        if (!static::isPasswordResetTokenValid($token)) {
+            return null;
+        }
 
+        return static::findOne([
+            'password_reset_token' => $token,
+            'status_id' => self::STATUS_ACTIVE,
+        ]);
+    }
+
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        $parts = explode('_', $token);
+        $timestamp = (int) end($parts);
+        return $timestamp + $expire >= time();
+    }
+    
     /**
      * @inheritdoc
      */

@@ -75,4 +75,8 @@ class Departments extends \yii\db\ActiveRecord
         return $deptids;
     }
     
+    public static function getDeptidNames ($skpdid) {
+        
+    }
+    
 }

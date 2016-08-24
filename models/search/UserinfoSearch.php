@@ -15,11 +15,13 @@ class UserinfoSearch extends Userinfo
     /**
      * @inheritdoc
      */
+    public $deptname;
+    
     public function rules()
     {
         return [
             [['userid', 'defaultdeptid', 'Privilege', 'AccGroup', 'SECURITYFLAGS', 'DelTag', 'RegisterOT', 'AutoSchPlan', 'MinAutoSchInterval', 'Image_id'], 'integer'],
-            [['badgenumber', 'name', 'Password', 'Card', 'TimeZones', 'Gender', 'Birthday', 'street', 'zip', 'ophone', 'FPHONE', 'pager', 'minzu', 'title', 'SN', 'SSN', 'UTime', 'State', 'City'], 'safe'],
+            [['deptname','badgenumber', 'name', 'Password', 'Card', 'TimeZones', 'Gender', 'Birthday', 'street', 'zip', 'ophone', 'FPHONE', 'pager', 'minzu', 'title', 'SN', 'SSN', 'UTime', 'State', 'City'], 'safe'],
         ];
     }
 
@@ -41,7 +43,7 @@ class UserinfoSearch extends Userinfo
      */
     public function search($params)
     {
-        $query = Userinfo::find();
+        $query = Userinfo::find()->joinWith('department');
 
         // add conditions that should always apply here
 
@@ -61,16 +63,8 @@ class UserinfoSearch extends Userinfo
         $query->andFilterWhere([
             'userid' => $this->userid,
             'defaultdeptid' => $this->defaultdeptid,
-            'Privilege' => $this->Privilege,
-            'AccGroup' => $this->AccGroup,
+            'departments.deptname' => $this->deptname,
             'Birthday' => $this->Birthday,
-            'UTime' => $this->UTime,
-            'SECURITYFLAGS' => $this->SECURITYFLAGS,
-            'DelTag' => $this->DelTag,
-            'RegisterOT' => $this->RegisterOT,
-            'AutoSchPlan' => $this->AutoSchPlan,
-            'MinAutoSchInterval' => $this->MinAutoSchInterval,
-            'Image_id' => $this->Image_id,
         ]);
 
         $query->andFilterWhere(['like', 'badgenumber', $this->badgenumber])

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'defaultdeptid')->textInput() ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
+<!--
     <?= $form->field($model, 'Password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Card')->textInput(['maxlength' => true]) ?>
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'AccGroup')->textInput() ?>
 
     <?= $form->field($model, 'TimeZones')->textInput(['maxlength' => true]) ?>
-
+-->
     <?= $form->field($model, 'Gender')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'Birthday')->textInput() ?>
@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'ophone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'FPHONE')->textInput(['maxlength' => true]) ?>
-
+<!--
     <?= $form->field($model, 'pager')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'minzu')->textInput(['maxlength' => true]) ?>
@@ -67,7 +67,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'MinAutoSchInterval')->textInput() ?>
 
     <?= $form->field($model, 'Image_id')->textInput() ?>
-
+-->
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

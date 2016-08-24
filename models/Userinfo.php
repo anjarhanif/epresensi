@@ -54,9 +54,8 @@ class Userinfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['badgenumber', 'DelTag'], 'required'],
             [['defaultdeptid', 'Privilege', 'AccGroup', 'SECURITYFLAGS', 'DelTag', 'RegisterOT', 'AutoSchPlan', 'MinAutoSchInterval', 'Image_id'], 'integer'],
-            [['Birthday', 'UTime'], 'safe'],
+            [['badgenumber', 'DelTag','Birthday', 'UTime'], 'safe'],
             [['badgenumber', 'Password', 'Card', 'TimeZones', 'ophone', 'FPHONE', 'pager', 'title', 'SN', 'SSN'], 'string', 'max' => 20],
             [['name', 'street'], 'string', 'max' => 40],
             [['Gender', 'State', 'City'], 'string', 'max' => 2],
@@ -71,24 +70,24 @@ class Userinfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'userid' => 'Userid',
-            'badgenumber' => 'Badgenumber',
-            'defaultdeptid' => 'Defaultdeptid',
-            'name' => 'Name',
+            'userid' => 'User Id',
+            'badgenumber' => 'NIP',
+            'defaultdeptid' => 'Unit Kerja',
+            'name' => 'Nama',
             'Password' => 'Password',
             'Card' => 'Card',
             'Privilege' => 'Privilege',
             'AccGroup' => 'Acc Group',
             'TimeZones' => 'Time Zones',
             'Gender' => 'Gender',
-            'Birthday' => 'Birthday',
-            'street' => 'Street',
-            'zip' => 'Zip',
+            'Birthday' => 'Tgl Lahir',
+            'street' => 'Jalan',
+            'zip' => 'Kode Pos',
             'ophone' => 'Ophone',
             'FPHONE' => 'Fphone',
             'pager' => 'Pager',
             'minzu' => 'Minzu',
-            'title' => 'Title',
+            'title' => 'Jabatan',
             'SN' => 'Sn',
             'SSN' => 'Ssn',
             'UTime' => 'Utime',
@@ -103,8 +102,8 @@ class Userinfo extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getDepid() {
-        return $this->hasOne(Departments::className(), ['DepID' => 'defaultdeptid']);
+    public function getDepartment() {
+        return $this->hasOne(Departments::className(), ['DeptID' => 'defaultdeptid']);
     }
     
     public function getCheckinouts() {

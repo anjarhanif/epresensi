@@ -387,7 +387,7 @@ class ReportController extends Controller
         
         $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
         //set template
-        $template = Yii::getAlias('@app/views/report').'/_dayrep.xlsx';
+        $template = Yii::getAlias('@app/views/report').'/_resumerep.xlsx';
         $objPHPExcel = $objReader->load($template);
         $activeSheet = $objPHPExcel->getActiveSheet();
         // set orientasi dan ukuran kertas

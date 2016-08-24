@@ -6,9 +6,12 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use yii\base\InvalidParamException;
+use yii\web\BadRequestHttpException;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\PermissionHelpers;
 
 class SiteController extends Controller
 {
@@ -17,12 +20,17 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['index','logout','signup'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['index','logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index','signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
                     ],
                 ],
             ],
@@ -50,7 +58,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $sql = 'select d.DeptName, count(u.userid), sum(if(time(c.datang)';
         return $this->render('index');
     }
 
@@ -101,7 +108,6 @@ class SiteController extends Controller
             //var_dump($model);
             //return "test";
             if ($user = $model->signup()) {
-                
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }

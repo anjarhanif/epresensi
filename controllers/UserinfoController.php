@@ -4,10 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Userinfo;
+use app\models\Departments;
 use app\models\search\UserinfoSearch;
+use app\models\PermissionHelpers;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserinfoController implements the CRUD actions for Userinfo model.
@@ -20,6 +23,33 @@ class UserinfoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','update','create','view','delete'],
+                'rules'=>[
+                    [
+                        'actions'=>['index','create','update','view','delete'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSystem') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ],
+                    [
+                        'actions'=>['index','update','view'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ],      
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,8 +65,14 @@ class UserinfoController extends Controller
      */
     public function actionIndex()
     {
+        if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+            $deptid = Yii::$app->user->identity->dept_id;
+            $deptids = Departments::getDeptids($deptid);
+        } else $deptids=NULL;
+        
         $searchModel = new UserinfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['IN','defaultdeptid',$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

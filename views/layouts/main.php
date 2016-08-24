@@ -38,13 +38,18 @@ AppAsset::register($this);
         ['label'=>'Home', 'url'=>['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label'=>'Signup', 'url'=>['/site/signup']];
         $menuItems[] = ['label'=>'Login', 'url'=>['/site/login']];
     } else {
         $menuItems[] = ['label'=>'Laporan', 'url'=>['/report/index'], 'items'=>[
             ['label'=>'Laporan Harian','url'=>['report/day-report']],
             ['label'=>'Laporan Resume','url'=>['report/resume-report']],
         ]];
-        $menuItems[] = ['label'=>'Keterangan Absen', 'url'=>['/keterangan-absen/index']];
+        $menuItems[] = ['label'=>'Data','items'=>[
+            ['label'=>'Keterangan Absen', 'url'=>['/keterangan-absen/index']],
+            ['label'=>'Pegawai', 'url'=>['/userinfo/index']],
+            ['label'=>'Unit Kerja', 'url'=>['/departments/index']]
+        ]];
         
         $is_admin = PermissionHelpers::requireMinimumRole('AdminSystem');
         if($is_admin) {
