@@ -2,21 +2,29 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
+use app\models\Departments;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Userinfo */
 /* @var $form yii\widgets\ActiveForm */
+
+$skpdid = Yii::$app->user->identity->dept_id;
 ?>
 
 <div class="userinfo-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'badgenumber')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'badgenumber')->textInput(['maxlength' => true,'style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'defaultdeptid')->textInput() ?>
+    <?= $form->field($model, 'defaultdeptid')->widget(Select2::className(),[
+        'data' => Departments::getDeptidNames($skpdid),
+        'options' => ['placeholder'=>'[ Pilih Unit Kerja ]'],
+        'pluginOptions'=>['allowClear'=>TRUE, 'width'=>'600px'],
+    ]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 <!--
     <?= $form->field($model, 'Password')->passwordInput(['maxlength' => true]) ?>
 
@@ -28,17 +36,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'TimeZones')->textInput(['maxlength' => true]) ?>
 -->
-    <?= $form->field($model, 'Gender')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'Gender')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'Birthday')->textInput() ?>
+    <?= $form->field($model, 'Birthday')->textInput(['style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'street')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'street')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'zip')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'zip')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'ophone')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'ophone')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
-    <?= $form->field($model, 'FPHONE')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'FPHONE')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 <!--
     <?= $form->field($model, 'pager')->textInput(['maxlength' => true]) ?>
 

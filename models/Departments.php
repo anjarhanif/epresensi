@@ -47,6 +47,14 @@ class Departments extends \yii\db\ActiveRecord
         ];
     }
     
+    public function getSupdept() {
+        return $this->hasOne(Departments::className(), ['DeptID'=>'supdeptid'])->from(Departments::tableName().' sup_dept');
+    }
+    
+    public function getSubdepts() {
+        return $this->hasMany(Departments::className(), ['supdeptid'=>'DeptID'])->from(Departments::tableName().' sub_dept');
+    }
+
     public function getUserinfos() {
         return $this->hasMany(Userinfo::className(), ['defaultdeptid' => 'DeptID']);
     }
@@ -76,7 +84,24 @@ class Departments extends \yii\db\ActiveRecord
     }
     
     public static function getDeptidNames ($skpdid) {
-        
+        $depts = [];
+        $depts[] = Yii::$app->db->createCommand('select DeptID, DeptName from departments where DeptID =:deptid')
+                ->bindValue(':deptid', $skpdid)->queryOne();
+        $eselon3s = Yii::$app->db->createCommand('select DeptID, DeptName from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $skpdid)->queryAll();
+        if(count($eselon3s)) {
+            foreach ($eselon3s as $eselon3) {
+                $depts[] = $eselon3;
+                $eselon4s = Yii::$app->db->createCommand('select DeptID, DeptName from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                if(count($eselon4s)) {
+                    foreach ($eselon4s as $eselon4) {
+                        $depts[] = $eselon4;
+                    }
+                }
+            }
+        }
+        return ArrayHelper::map($depts, 'DeptID', 'DeptName');
     }
     
 }

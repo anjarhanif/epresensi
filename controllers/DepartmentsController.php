@@ -8,6 +8,8 @@ use app\models\search\DepartmentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * DepartmentsController implements the CRUD actions for Departments model.
@@ -20,6 +22,25 @@ class DepartmentsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','update','create','view','delete'],
+                'rules'=>[
+                    [
+                        'actions'=>['index','create','update','view','delete'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSystem') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ]
+                    
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

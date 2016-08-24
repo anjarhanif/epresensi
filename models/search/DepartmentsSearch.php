@@ -15,11 +15,13 @@ class DepartmentsSearch extends Departments
     /**
      * @inheritdoc
      */
+    public $sup_dept;
+    
     public function rules()
     {
         return [
             [['DeptID', 'supdeptid'], 'integer'],
-            [['DeptName'], 'safe'],
+            [['DeptName','sup_dept'], 'safe'],
         ];
     }
 
@@ -41,7 +43,7 @@ class DepartmentsSearch extends Departments
      */
     public function search($params)
     {
-        $query = Departments::find();
+        $query = Departments::find()->joinWith('supdept');
 
         // add conditions that should always apply here
 
@@ -63,7 +65,8 @@ class DepartmentsSearch extends Departments
             'supdeptid' => $this->supdeptid,
         ]);
 
-        $query->andFilterWhere(['like', 'DeptName', $this->DeptName]);
+        $query->andFilterWhere(['like', 'DeptName', $this->DeptName])
+                ->andFilterWhere(['like', 'sup_dept.DeptName', $this->sup_dept]);
 
         return $dataProvider;
     }
