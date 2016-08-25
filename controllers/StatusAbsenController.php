@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * StatusAbsenController implements the CRUD actions for StatusAbsen model.

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\TglLiburSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tgl Liburs';
+$this->title = 'Tgl Libur';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tgl-libur-index">

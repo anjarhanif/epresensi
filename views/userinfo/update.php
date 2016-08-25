@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Userinfo */
 
 $this->title = 'Update Userinfo: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Userinfos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Userinfo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->userid]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

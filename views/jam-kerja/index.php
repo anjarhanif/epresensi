@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\JamKerjaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Jam Kerjas';
+$this->title = 'Jam Kerja';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jam-kerja-index">
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :5%']],
 
-            ['attribute'=>'id','contentOptions'=>['style'=>'width : 10%']],
+            ['attribute'=>'id','contentOptions'=>['style'=>'width : 7%']],
             'nama_jamker',
             ['attribute'=>'jam_masuk', 'contentOptions'=>['style'=>'width : 10%']],
             ['attribute'=>'jam_pulang', 'contentOptions'=>['style'=>'width : 10%']],

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Userinfo */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Userinfos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Userinfo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="userinfo-view">

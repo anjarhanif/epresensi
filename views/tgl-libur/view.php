@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\TglLibur */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Tgl Liburs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Tgl Libur', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tgl-libur-view">

@@ -8,10 +8,13 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
+use yii\data\ArrayDataProvider;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\PermissionHelpers;
+use app\models\Departments;
+use app\models\Userinfo;
 
 class SiteController extends Controller
 {
@@ -58,7 +61,36 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $formatter = \Yii::$app->formatter;
+        $attskpds = Departments::find()->where(['supdeptid'=>1])->asArray()->all();
+        $allModels = [];
+        foreach ($attskpds as $attskpd) {
+            $deptids = Departments::getDeptids($attskpd['DeptID']);
+            $usrattds = Userinfo::find()->with(['checkinoutsDaily'=> function($query) {
+                        $query->where("DATE(datang) = '2016-7-18'");
+                    }])
+                    ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])->all();
+            $jmlPeg = count($usrattds);
+            $jmlHadir = 0;
+            foreach ($usrattds as $usrattd) {
+                $jmlHadir = $jmlHadir + count($usrattd->checkinoutsDaily);
+            }
+
+            $allModels[] = [
+                'skpd' => $attskpd['DeptName'],
+                'jmlpeg' => $jmlPeg,
+                'jmlhadir' => $jmlHadir,
+                '%hadir'=> $jmlPeg != 0 ? $formatter->asDecimal(($jmlHadir/$jmlPeg) * 100) : 0
+            ];
+        }
+        $dataProvider = new ArrayDataProvider([
+            'allModels'=> $allModels,
+            'pagination'=> [
+                'pageSize'=>20,
+            ],
+        ]);
+        
+        return $this->render('index',['dataProvider'=>$dataProvider]);
     }
 
     public function actionLogin()

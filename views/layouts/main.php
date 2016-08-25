@@ -48,12 +48,15 @@ AppAsset::register($this);
         $menuItems[] = ['label'=>'Data','items'=>[
             ['label'=>'Keterangan Absen', 'url'=>['/keterangan-absen/index']],
             ['label'=>'Pegawai', 'url'=>['/userinfo/index']],
-            ['label'=>'Unit Kerja', 'url'=>['/departments/index']]
+            ['label'=>'Unit Kerja', 'url'=>['/departments/index']],
         ]];
         
         $is_admin = PermissionHelpers::requireMinimumRole('AdminSystem');
         if($is_admin) {
             $menuItems[] = ['label'=>'Admin', 'items'=> [
+                ['label'=>'Tanggal Libur', 'url'=>['/tgl-libur/index']],
+                ['label'=>'Jam Kerja', 'url'=>['/jam-kerja/index']],
+                //['label'=>'Status Absen', 'url'=>['/status-absen/index']],
                 ['label'=>'User','url'=>['user/index']],
                 ['label'=>'Role', 'url'=>['role/index']],
                 ['label'=>'Status', 'url'=>['status/index']],

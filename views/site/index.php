@@ -1,43 +1,31 @@
 <?php
 use yii\helpers\Html;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 
-$this->title = 'e-Presensi';
+$this->title = 'Si-Sensi';
 ?>
 <div class="site-index">
+    
+    <h1 align="center">Si-SenSi Terintegrasi <i class="fa fa-calendar-check-o"></i></h1>
 
-    <div class="jumbotron">
-        <h1>e-Presensi Terintegrasi</h1>
-
-        <p class="lead">Sistem Informasi Presensi Elektronik Terintegrasi</p>
-    </div>
-
+    <p align="center" class="lead">Sistem Informasi Presensi Elektronik Terintegrasi</p>
+    
     <div class="body-content">
-<!--
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Laporan Harian</h2>
 
-                <p>Menampilkan daftar hadir harian Pegawai Pemprov NTB per SKPD</p>
-
-                <p><?= Html::a('Laporan Harian', ['report/day-report', 'params'=>$model], ['class'=>'btn btn-info']); ?> &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Laporan Resume</h2>
-
-                <p>Menampilkan daftar resume kehadiran pegawai Pemprov NTB per SKPD</p>
-
-                <p><?= Html::a('Resume Kehadiran', ['report/resume-report', 'params'=>$model], ['class'=>'btn btn-info']); ?></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Keterangan Absen</h2>
-
-                <p>Memberikan keterangan atas ketidak hadiran karena ijin/sakit/cuti/tugas dinas</p>
-
-                <p><?= Html::a('Keterangan Absen', ['keterangan-absen/index'], ['class'=>'btn btn-info']); ?></p>
-            </div>
-        </div>
--->
+    <?= GridView::widget([
+        'dataProvider'=> $dataProvider,
+        'formatter'=>['class'=>'yii\i18n\Formatter' ,'nullDisplay'=>'Nihil'],
+        'options'=>['style'=>'width : 50%'],
+        'columns'=> [
+            ['class'=>'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :7%']],
+            'skpd',
+            ['attribute'=>'jmlpeg', 'contentOptions'=>['style'=>'width: 10%']],
+            ['attribute'=>'jmlhadir', 'contentOptions'=>['style'=>'width: 10%']],
+            ['attribute'=>'%hadir', 'contentOptions'=>['style'=>'width: 10%']],
+        ]
+    ])
+    ?>
     </div>
 </div>

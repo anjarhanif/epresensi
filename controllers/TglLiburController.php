@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * TglLiburController implements the CRUD actions for TglLibur model.
@@ -35,7 +36,10 @@ class TglLiburController extends Controller
                         }
                     ]
                     
-                ]
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

@@ -69,7 +69,7 @@ class Departments extends \yii\db\ActiveRecord
     public static function getDeptids ($skpdid) {
         $skpd = [$skpdid];
         $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                ->bindValue(':deptid', $skpd)->queryAll();
+                ->bindValue(':deptid', $skpdid)->queryAll();
         if(count($eselon3s)) {
             foreach ($eselon3s as $eselon3 ) {
                 $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')

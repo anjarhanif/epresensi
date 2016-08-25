@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Userinfo */
 
 $this->title = 'Create Userinfo';
-$this->params['breadcrumbs'][] = ['label' => 'Userinfos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Userinfo', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="userinfo-create">

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\StatusAbsen */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Status Absens', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Status Absen', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="status-absen-view">

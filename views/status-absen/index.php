@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\search\StatusAbsenSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Status Absens';
+$this->title = 'Status Absen';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="status-absen-index">
