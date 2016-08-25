@@ -24,7 +24,8 @@
         "yiisoft/yii2-jui": "^2.0",
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-widget-select2": "@dev",
-        "rmrevin/yii2-fontawesome": "~2.15"
+        "rmrevin/yii2-fontawesome": "~2.15",
+        "miloschuman/yii2-highcharts-widget": "dev-master"
         
     },
     "require-dev": {

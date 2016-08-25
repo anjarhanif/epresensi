@@ -64,6 +64,7 @@ class SiteController extends Controller
         $formatter = \Yii::$app->formatter;
         $attskpds = Departments::find()->where(['supdeptid'=>1])->asArray()->all();
         $allModels = [];
+        $series = [];
         foreach ($attskpds as $attskpd) {
             $deptids = Departments::getDeptids($attskpd['DeptID']);
             $usrattds = Userinfo::find()->with(['checkinoutsDaily'=> function($query) {
@@ -75,12 +76,17 @@ class SiteController extends Controller
             foreach ($usrattds as $usrattd) {
                 $jmlHadir = $jmlHadir + count($usrattd->checkinoutsDaily);
             }
+            $persen = $jmlPeg != 0 ? round(($jmlHadir/$jmlPeg) * 100, 2) : 0;
 
             $allModels[] = [
                 'skpd' => $attskpd['DeptName'],
                 'jmlpeg' => $jmlPeg,
                 'jmlhadir' => $jmlHadir,
-                '%hadir'=> $jmlPeg != 0 ? $formatter->asDecimal(($jmlHadir/$jmlPeg) * 100) : 0
+                '%hadir'=> $persen 
+            ];
+            $series[] = [
+                'name'=>$attskpd['DeptName'],
+                'data'=> [$persen],
             ];
         }
         $dataProvider = new ArrayDataProvider([
@@ -90,7 +96,7 @@ class SiteController extends Controller
             ],
         ]);
         
-        return $this->render('index',['dataProvider'=>$dataProvider]);
+        return $this->render('index',['dataProvider'=>$dataProvider, 'series'=>$series]);
     }
 
     public function actionLogin()
