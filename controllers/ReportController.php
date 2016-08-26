@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\data\SqlDataProvider;
+//use yii\data\SqlDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
 
@@ -165,7 +165,7 @@ class ReportController extends Controller
         
        $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, '.
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, '.
-                'IF(k.statusid IS NULL, IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",""), k.statusid) AS keterangan '.
+                'IF(k.statusid IS NULL,"", k.statusid) AS keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
                 'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
@@ -175,7 +175,7 @@ class ReportController extends Controller
         
         $cmd = Yii::$app->db->createCommand($query);
         $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
-        $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
+        //$cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
         $allModels = $cmd->queryAll();
         
         return $allModels;   

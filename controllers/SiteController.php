@@ -61,14 +61,13 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $formatter = \Yii::$app->formatter;
         $attskpds = Departments::find()->where(['supdeptid'=>1])->asArray()->all();
         $allModels = [];
         $series = [];
         foreach ($attskpds as $attskpd) {
             $deptids = Departments::getDeptids($attskpd['DeptID']);
             $usrattds = Userinfo::find()->with(['checkinoutsDaily'=> function($query) {
-                        $query->where("DATE(datang) = '2016-7-18'");
+                        $query->where("DATE(datang) = CURDATE()");
                     }])
                     ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])->all();
             $jmlPeg = count($usrattds);
