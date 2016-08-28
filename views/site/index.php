@@ -12,6 +12,7 @@ $this->title = 'Si-Sensi';
     <h1 align="center">Si-SenSi Terintegrasi <i class="fa fa-calendar-check-o"></i></h1>
 
     <p align="center" class="lead">Sistem Informasi Presensi Elektronik Terintegrasi</p>
+    <hr align="center">
     
     <div class="body-content">
         

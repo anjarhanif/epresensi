@@ -67,15 +67,15 @@ class SiteController extends Controller
         $series = [];
         foreach ($attskpds as $attskpd) {
             $deptids = Departments::getDeptids($attskpd['DeptID']);
-            $usrattds = Userinfo::find()->with(['checkinoutsDaily'=> function($query) {
-                        $query->where("DATE(datang) = '2016-7-18'");
-                    }])
-                    ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])->all();
-            $jmlPeg = count($usrattds);
-            $jmlHadir = 0;
-            foreach ($usrattds as $usrattd) {
-                $jmlHadir = $jmlHadir + count($usrattd->checkinoutsDaily);
-            }
+            
+            $jmlPeg = Yii::$app->db->createCommand('select count(userid) from userinfo where defaultdeptid IN (:deptids)')
+                    ->bindValue(':deptids', $deptids)->queryScalar();
+            $query = 'select count(u.userid) from userinfo u '
+                    . 'inner join checkinout_daily c on u.userid = c.userid and DATE(c.datang) = :tgl '
+                    . 'where u.defaultdeptid IN (:deptids)';
+            $jmlHadir = Yii::$app->db->createCommand($query)->bindValues([':tgl'=>"2016-8-26",':deptids'=>$deptids])
+                    ->queryScalar();
+            
             $persen = $jmlPeg != 0 ? round(($jmlHadir/$jmlPeg) * 100, 2) : 0;
 
             $allModels[] = [
