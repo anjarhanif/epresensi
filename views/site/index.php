@@ -9,10 +9,10 @@ $this->title = 'Si-Sensi';
 ?>
 <div class="site-index">
     
-    <h1 align="center"><b>Si-SenSi Terintegrasi</b> <i class="fa fa-calendar-check-o"></i></h1>
+    <h1 align="center">Si-SenSi Terintegrasi <i class="fa fa-calendar-check-o"></i></h1>
 
     <p align="center" class="lead">Sistem Informasi Presensi Elektronik Terintegrasi</p>
-    <hr size="16px" align="center">
+    <hr align="center">
     
     <div class="body-content">
         
@@ -20,9 +20,7 @@ $this->title = 'Si-Sensi';
             <div class="col-lg-6">
                 <?= Highcharts::widget([
                     'options' => [
-                        'chart' => [
-                            'type'=> 'column',
-                        ],
+                        'chart' => ['type'=> 'column'],
                         'title'=> ['text'=> 'Tingkat Kehadiran Pegawai (%)'],
                         'xAxis'=> [
                             'categories'=> ['Hari Ini : '.date("Y-m-d")]

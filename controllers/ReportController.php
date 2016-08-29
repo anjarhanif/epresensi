@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-//use yii\data\SqlDataProvider;
+use yii\data\SqlDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
 
@@ -165,7 +165,7 @@ class ReportController extends Controller
         
        $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, '.
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, '.
-                'IF(k.statusid IS NULL,"", k.statusid) AS keterangan '.
+                'IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"A","")),""), k.statusid) AS keterangan '.
                 'FROM userinfo u '.
                 'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
                 'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
@@ -175,7 +175,7 @@ class ReportController extends Controller
         
         $cmd = Yii::$app->db->createCommand($query);
         $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
-        //$cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
+        $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
         $allModels = $cmd->queryAll();
         
         return $allModels;   
@@ -216,7 +216,7 @@ class ReportController extends Controller
             $renAkhir = $renAwal;
         }else $renAkhir = $model->tglAkhir;   
                 
-        $query = Userinfo::find()->with([
+        $query = Userinfo::find()->select('userid, name')->with([
             'keteranganAbsen'=>function($query) use($renAwal, $renAkhir) {
                 $query->where('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
                         . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
@@ -224,9 +224,9 @@ class ReportController extends Controller
             'checkinoutsDaily'=>function ($query) use($renAwal, $renAkhir) {
                 $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
             }
-            ])    
+            ])
         ->where('defaultdeptid IN (:deptids)', [':deptids'=>$deptids])
-        ->all();
+        ->asArray()->all();
         
         $allModels = [];
         
@@ -243,39 +243,39 @@ class ReportController extends Controller
             $jmlAlpa=0;
             $jmlTHCP=0;
             
-            if(count($userInfo->keteranganAbsen)) {
-                foreach ($userInfo->keteranganAbsen as $ketAbsen) {
+            if(count($userInfo['keteranganAbsen'])) {
+                foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {
                     
-                    if ($ketAbsen->tgl_akhir == NULL) {
-                        $tglAkhir = new \DateTime($ketAbsen->tgl_awal);
-                    } else $tglAkhir = new \DateTime($ketAbsen->tgl_akhir);                                     
-                    $tglAwal = new \DateTime($ketAbsen->tgl_awal);                  
+                    if ($ketAbsen['tgl_akhir'] == NULL) {
+                        $tglAkhir = new \DateTime($ketAbsen['tgl_awal']);
+                    } else $tglAkhir = new \DateTime($ketAbsen['tgl_akhir']);                                     
+                    $tglAwal = new \DateTime($ketAbsen['tgl_awal']);                  
                     
                     if ($tglAwal < $renAwal) $tglAwal = $renAwal;
                     if ($tglAkhir > $renAkhir) $tglAkhir =$renAkhir;
                         
-                    if($ketAbsen->statusid == 'S') {                                                   
+                    if($ketAbsen['statusid'] == 'S') {                                                   
                         $jmlSakit = $jmlSakit + $tglAkhir->diff($tglAwal)->format("%a")+1;
                             
-                    } elseif ($ketAbsen->statusid == 'I') {                                                      
+                    } elseif ($ketAbsen['statusid'] == 'I') {                                                      
                         $jmlIjin = $jmlIjin + $tglAkhir->diff($tglAwal)->format("%a")+1;
                             
-                    } elseif ($ketAbsen->statusid == 'TD') {                                                     
+                    } elseif ($ketAbsen['statusid'] == 'TD') {                                                     
                         $jmlTD = $jmlTD + $tglAkhir->diff($tglAwal)->format("%a")+1;
                             
-                    } elseif ($ketAbsen->statusid == 'C') {                                                      
+                    } elseif ($ketAbsen['statusid'] == 'C') {                                                      
                         $jmlCuti = $jmlCuti + $tglAkhir->diff($tglAwal)->format("%a")+1;
                             
                     }                                 
                 }               
             }
-            if (count($userInfo->checkinoutsDaily)) {
-                foreach ($userInfo->checkinoutsDaily as $checkinout) {
+            if (count($userInfo['checkinoutsDaily'])) {
+                foreach ($userInfo['checkinoutsDaily'] as $checkinout) {
                     
-                    $tglDatang = new \DateTime($checkinout->datang);
-                    if ($checkinout->pulang == NULL) {
+                    $tglDatang = new \DateTime($checkinout['datang']);
+                    if ($checkinout['pulang'] == NULL) {
                         $tglPulang = $tglDatang;
-                    }else $tglPulang = new \DateTime($checkinout->pulang);
+                    }else $tglPulang = new \DateTime($checkinout['pulang']);
                     
                     if ( ! (TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->one() OR in_array($tglDatang->format('w'),[0,6]))) {
                     
@@ -298,8 +298,8 @@ class ReportController extends Controller
                 }
             } 
             $allModels[]=[
-                'userid'=>$userInfo->userid,
-                'name'=>$userInfo->name,
+                'userid'=>$userInfo['userid'],
+                'name'=>$userInfo['name'],
                 'sakit'=>$jmlSakit,
                 'ijin'=>$jmlIjin,
                 'tugas-dinas'=>$jmlTD,

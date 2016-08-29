@@ -151,3 +151,28 @@ $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"
                 . '</li>'
             )
         ],
+
+foreach ($attskpds as $attskpd) {
+            $deptids = Departments::getDeptids($attskpd['DeptID']);
+            $usrattds = Userinfo::find()->with(['checkinoutsDaily'=> function($query) {
+                        $query->where("DATE(datang) = '2016-08-26'");
+                    }])
+                    ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])->all();
+            $jmlPeg = count($usrattds);
+            $jmlHadir = 0;
+            foreach ($usrattds as $usrattd) {
+                $jmlHadir = $jmlHadir + count($usrattd->checkinoutsDaily);
+            }
+            $persen = $jmlPeg != 0 ? round(($jmlHadir/$jmlPeg) * 100, 2) : 0;
+
+            $allModels[] = [
+                'skpd' => $attskpd['DeptName'],
+                'jmlpeg' => $jmlPeg,
+                'jmlhadir' => $jmlHadir,
+                '%hadir'=> $persen 
+            ];
+            $series[] = [
+                'name'=>$attskpd['DeptName'],
+                'data'=> [$persen],
+            ];
+        }
