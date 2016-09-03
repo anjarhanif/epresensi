@@ -46,6 +46,7 @@ AppAsset::register($this);
             ['label'=>'Laporan Resume','url'=>['report/resume-report']],
         ]];
         $menuItems[] = ['label'=>'Data','items'=>[
+            ['label'=>'Monitor Checkinout','url'=>['checkinout/monitor']],
             ['label'=>'Keterangan Absen', 'url'=>['/keterangan-absen/index']],
             ['label'=>'Pegawai', 'url'=>['/userinfo/index']],
             ['label'=>'Unit Kerja', 'url'=>['/departments/index']],

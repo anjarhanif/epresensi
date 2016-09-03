@@ -16,19 +16,20 @@ $skpdid = Yii::$app->user->identity->dept_id;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'badgenumber')->textInput(['maxlength' => true,'style'=>'width: 600px']) ?>
+    <?= $form->field($model, 'Card')->textInput(['maxlength' => true,'style'=>'width: 600px']) ?>
+    
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
     <?= $form->field($model, 'defaultdeptid')->widget(Select2::className(),[
         'data' => Departments::getDeptidNames($skpdid),
         'options' => ['placeholder'=>'[ Pilih Unit Kerja ]'],
         'pluginOptions'=>['allowClear'=>TRUE, 'width'=>'600px'],
     ]) ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
+    
 <!--
     <?= $form->field($model, 'Password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'Card')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'badgenumber')->textInput(['maxlength' => true,]) ?>
 
     <?= $form->field($model, 'Privilege')->textInput() ?>
 

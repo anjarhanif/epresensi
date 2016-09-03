@@ -57,10 +57,10 @@ class KeteranganAbsenController extends Controller
      */
     public function actionIndex()
     {
-        if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+        //if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
             $deptid = Yii::$app->user->identity->dept_id;
             $deptids = Departments::getDeptids($deptid);
-        } else $deptids=NULL;
+        //} else $deptids=NULL;
 
         $searchModel = new KeteranganAbsenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -111,15 +111,22 @@ class KeteranganAbsenController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = explode(",", Departments::getDeptids($deptid)) ;
+        
+        $model = $this->findModel($id);      
+        
+        if ( in_array($model->userinfo->defaultdeptid,$deptids)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
+        } else return FALSE;
+
+        
     }
 
     /**

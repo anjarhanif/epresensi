@@ -44,9 +44,9 @@ class CheckinoutSearch extends Checkinout
      */
     public function search($params)
     {
-        $query = Checkinout::find();
+        $query = Checkinout::find()->orderBy('id DESC');
         
-        $query->joinWith(['user','device']);
+        $query->joinWith(['userinfo','device']);
 
         // add conditions that should always apply here
 
