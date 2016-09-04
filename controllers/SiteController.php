@@ -6,15 +6,11 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\data\ArrayDataProvider;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
-use app\models\PermissionHelpers;
 use app\models\Departments;
-use app\models\Userinfo;
 
 class SiteController extends Controller
 {

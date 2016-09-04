@@ -11,7 +11,7 @@ $this->title = 'Si-Sensi';
 ?>
 <div class="site-index">
     
-    <h1 align="center">Si-SenSi Terintegrasi <i class="fa fa-calendar-check-o"></i></h1>
+    <h1 align="center">Si-Sensi Terintegrasi <i class="fa fa-calendar-check-o"></i></h1>
 
     <p align="center" class="lead">Sistem Informasi Presensi Elektronik Terintegrasi</p>
     <hr align="center">
@@ -59,7 +59,6 @@ $this->title = 'Si-Sensi';
         </div> 
         <?php Pjax::end() ?>
         <?php $this->registerJs('
-                var currentData="";
                 var check = function() {
                     setTimeout( function() {
                         $.pjax({
