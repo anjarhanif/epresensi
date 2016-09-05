@@ -218,7 +218,7 @@ class ReportController extends Controller
                 
         $query = Userinfo::find()->select('userid, name')->with([
             'keteranganAbsen'=>function($query) use($renAwal, $renAkhir) {
-                $query->where('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
+                $query->andWhere('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
                         . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
             },
             'checkinoutsDaily'=>function ($query) use($renAwal, $renAkhir) {

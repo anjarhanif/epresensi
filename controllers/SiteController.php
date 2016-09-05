@@ -6,15 +6,11 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\data\ArrayDataProvider;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
-use app\models\PermissionHelpers;
 use app\models\Departments;
-use app\models\Userinfo;
 
 class SiteController extends Controller
 {
@@ -61,7 +57,6 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $formatter = \Yii::$app->formatter;
         $attskpds = Departments::find()->where(['supdeptid'=>1])->asArray()->all();
         $allModels = [];
         $series = [];
@@ -99,8 +94,11 @@ class SiteController extends Controller
                 'defaultOrder'=>['%hadir'=>SORT_DESC],
             ],
         ]);
-        
-        return $this->render('index',['dataProvider'=>$dataProvider, 'series'=>$series]);
+        if(Yii::$app->request->isAjax) {
+            return $this->renderAjax('index',['dataProvider'=>$dataProvider, 'series'=>$series]);
+        } else {
+            return $this->render('index',['dataProvider'=>$dataProvider, 'series'=>$series]);
+        }       
     }
 
     public function actionLogin()

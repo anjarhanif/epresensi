@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\CheckinoutSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
-            ['attribute' => 'name','value'=>'user.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:20%']],
+            ['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:8%']],
+            ['attribute' => 'name','value'=>'userinfo.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:40%']],
             'checktime',
             'checktype',
             //'verifycode',
@@ -38,4 +39,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width:7%']],
         ],
     ]); ?>
+    
 </div>

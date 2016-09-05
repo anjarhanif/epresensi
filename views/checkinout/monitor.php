@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <?php
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\CheckinoutSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Checkinouts';
+$this->title = 'Monitoring';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="checkinout-monitor">
@@ -21,24 +19,47 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    
+    <?php Pjax::begin(['timeout'=>FALSE, 'id'=>'gridview']); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'id', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
-            ['attribute' => 'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:10%']],
+            ['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:8%']],
+            ['attribute' => 'name','value'=>'userinfo.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:40%']],
             'checktime',
-            'checktype',
+            //'checktype',
             //'verifycode',
-            'SN',
+            ['attribute'=>'SN','contentOptions'=>['style'=>'width:10%']],
+            ['attribute'=>'alias','value'=>'device.Alias'],
             // 'sensorid',
             // 'WorkCode',
             // 'Reserved',
-
-            ['class' => 'yii\grid\ActionColumn', 'template'=>'{view}'],
         ],
     ]); ?>
+    <?php Pjax::end() ?>
+    <?php $this->registerJs('
+                var currentData="";
+                var check = function() {
+                    setTimeout( function() {
+                        $.ajax({ url:"'.Url::to(['checkinout/check']).'",
+                        success: function(data) {
+                            if(currentData != data.lastId) {
+                                currentData = data.lastId;                           
+                                $.pjax({
+                                    url:"'.Url::to(['checkinout/monitor']).'",
+                                    container:"#gridview",
+                                    timeout:false,
+                                    replace:false,
+                                }).done(function(data) {
+                                    check();
+                                });
+                            }
+                        }, dataType: "json"});
+                    }, 5000);
+                }
+                check();
+            ');
+        ?>
 </div>

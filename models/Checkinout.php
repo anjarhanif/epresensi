@@ -61,7 +61,7 @@ class Checkinout extends \yii\db\ActiveRecord
         ];
     }
     
-    public function getUser() {
+    public function getUserinfo() {
         return $this->hasOne(Userinfo::className(), ['userid' => 'userid']);
     }
     

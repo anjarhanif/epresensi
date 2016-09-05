@@ -37,7 +37,7 @@ class UserinfoController extends Controller
                         }
                     ],
                     [
-                        'actions'=>['index','update','view'],
+                        'actions'=>['index','create','update','view','delete'],
                         'allow'=>TRUE,
                         'roles'=>['@'],
                         'matchCallback' => function ($rule, $action) {
@@ -65,10 +65,10 @@ class UserinfoController extends Controller
      */
     public function actionIndex()
     {
-        if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
+        //if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
             $deptid = Yii::$app->user->identity->dept_id;
             $deptids = Departments::getDeptids($deptid);
-        } else $deptids=NULL;
+        //} else $deptids=NULL;
         
         $searchModel = new UserinfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -118,15 +118,23 @@ class UserinfoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = explode(",", Departments::getDeptids($deptid)) ;
+        
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->userid]);
+        if ( in_array($model->defaultdeptid,$deptids)) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->userid]);
+            } else {
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return FALSE;
         }
+
     }
 
     /**

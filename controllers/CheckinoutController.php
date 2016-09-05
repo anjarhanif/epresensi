@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Checkinout;
 use app\models\search\CheckinoutSearch;
+use app\models\Departments;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\models\PermissionHelpers;
 
 /**
  * CheckinoutController implements the CRUD actions for Checkinout model.
@@ -20,6 +23,25 @@ class CheckinoutController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class'=> AccessControl::className(),
+                'only'=>['index','create','update','delete','monitor','view'],
+                'rules'=>[
+                    [
+                        'actions'=>['monitor','view'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ]
+                    
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,8 +57,12 @@ class CheckinoutController extends Controller
      */
     public function actionIndex()
     {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
+        
         $searchModel = new CheckinoutSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -45,13 +71,23 @@ class CheckinoutController extends Controller
     }
     
     public function actionMonitor() {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
+        
         $searchModel = new CheckinoutSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
 
         return $this->render('monitor', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    public function actionCheck() {
+        $checkinout = Checkinout::find()->select('id')->orderBy('id DESC')->one();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['lastId'=>$checkinout->id];
     }
 
     /**
