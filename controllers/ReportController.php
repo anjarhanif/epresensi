@@ -410,7 +410,7 @@ class ReportController extends Controller
         }
         
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="_dayrep.xlsx"');
+        header('Content-Disposition: attachment;filename="_resumerep.xlsx"');
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
         $objWriter->save('php://output');
