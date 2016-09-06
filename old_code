@@ -176,3 +176,33 @@ foreach ($attskpds as $attskpd) {
                 'data'=> [$persen],
             ];
         }
+
+[
+                        'actions'=>['index','create','update','view','delete'],
+                        'allow'=>TRUE,
+                        'roles'=>['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return PermissionHelpers::requireMinimumRole('AdminSystem') &&
+                            PermissionHelpers::requireStatus('Active');
+                        }
+                    ],
+
+
+public static function getDeptids ($skpdid) {
+        $deptids = [$skpdid];
+        $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $skpdid)->queryAll();      
+        
+        if(count($eselon3s)) {
+            $deptids = $deptids.','.implode(",", array_column($eselon3s,'DeptID'));
+            foreach ($eselon3s as $eselon3 ) {
+                $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                if(count($eselon4s)) {
+                    $deptids = $deptids.','.implode(",", array_column($eselon4s,'DeptID'));
+                }             
+            }
+        }
+        
+        return $deptids;
+    }

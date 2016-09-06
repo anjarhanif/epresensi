@@ -67,21 +67,19 @@ class Departments extends \yii\db\ActiveRecord
     }
     
     public static function getDeptids ($skpdid) {
-        
-        $skpd = [$skpdid];
+        $deptids = [$skpdid];
         $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                ->bindValue(':deptid', $skpdid)->queryAll();
+                ->bindValue(':deptid', $skpdid)->queryAll();            
         if(count($eselon3s)) {
-            $eselon4s = [];
+            $deptids = array_merge($deptids, array_column($eselon3s,'DeptID'));
             foreach ($eselon3s as $eselon3 ) {
-                $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                 ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                if(count($eselon4s)) {
+                    $deptids = array_merge($deptids, array_column($eselon4s,'DeptID'));
+                }             
             }
-            $deptids = array_merge($skpd, $eselon3s, $eselon4s);
-        } else $deptids = $skpd;
-        
-        $deptids = implode(",", $deptids);
-        
+        }       
         return $deptids;
     }
     

@@ -27,15 +27,7 @@ class UserinfoController extends Controller
                 'class'=> AccessControl::className(),
                 'only'=>['index','update','create','view','delete'],
                 'rules'=>[
-                    [
-                        'actions'=>['index','create','update','view','delete'],
-                        'allow'=>TRUE,
-                        'roles'=>['@'],
-                        'matchCallback' => function ($rule, $action) {
-                            return PermissionHelpers::requireMinimumRole('AdminSystem') &&
-                            PermissionHelpers::requireStatus('Active');
-                        }
-                    ],
+                    
                     [
                         'actions'=>['index','create','update','view','delete'],
                         'allow'=>TRUE,
@@ -65,18 +57,16 @@ class UserinfoController extends Controller
      */
     public function actionIndex()
     {
-        //if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
-            $deptid = Yii::$app->user->identity->dept_id;
-            $deptids = Departments::getDeptids($deptid);
-        //} else $deptids=NULL;
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
         
         $searchModel = new UserinfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andWhere('defaultdeptid IN (:deptids)',[':deptids'=>$deptids]);
+        $dataProvider->query->andWhere(['defaultdeptid'=>$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -119,7 +109,7 @@ class UserinfoController extends Controller
     public function actionUpdate($id)
     {
         $deptid = Yii::$app->user->identity->dept_id;
-        $deptids = explode(",", Departments::getDeptids($deptid)) ;
+        $deptids = Departments::getDeptids($deptid) ;
         
         $model = $this->findModel($id);
 

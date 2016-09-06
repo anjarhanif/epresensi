@@ -8,6 +8,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Si-Sensi';
+print_r($deptids);
 ?>
 <div class="site-index">
     
