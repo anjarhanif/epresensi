@@ -22,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :7%']],
             //'id',
-            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :8%']],
+            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :20%']],
             ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :8%']],
             ['attribute'=>'tgl_awal','contentOptions'=>['style'=>'width :12%']],
             ['attribute'=>'tgl_akhir','contentOptions'=>['style'=>'width :12%']],

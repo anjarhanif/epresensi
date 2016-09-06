@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Departments;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\UserinfoSearch */
@@ -9,11 +10,16 @@ use yii\grid\GridView;
 
 $this->title = 'Userinfo';
 $this->params['breadcrumbs'][] = $this->title;
+
+$deptid = Yii::$app->user->identity->dept_id;
+$deptids = Departments::getDeptids($deptid);
 ?>
 <div class="userinfo-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+        print_r($deptids);
+    ?>
 
     <p>
         <?= Html::a('Create Userinfo', ['create'], ['class' => 'btn btn-success']) ?>

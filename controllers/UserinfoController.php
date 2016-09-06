@@ -72,7 +72,7 @@ class UserinfoController extends Controller
         
         $searchModel = new UserinfoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['IN','defaultdeptid',$deptids]);
+        $dataProvider->query->andWhere('defaultdeptid IN (:deptids)',[':deptids'=>$deptids]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

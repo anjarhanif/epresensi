@@ -1,0 +1,1144 @@
+DeptID,DeptName,SupDeptid
+101,Sekretaris Daerah,1
+102,Asisten Tata Praja dan Aparatur,10
+103,Biro Adm Pemerintahan,7
+104,Bagian Otonomi Daerah,7
+105,Subbag Pemerintahan dan Penataan Daerah,104
+106,Subbag Pejabat Negara,104
+107,Subbag Tata Usaha Biro dan Pelaporan,104
+108,Bagian Pemerintahan Umum,7
+109,Subbag dekonsentrasi dan Tugas Pembantuan,108
+110,Subbag Ketentraman Ketertiban dan Linmas,108
+111,Subbag Pembinaan Wilayah dan Penanggulangan Bencana,108
+112,Bagian Pengembangan Kapasitas dan Evaluasi Kinerja Daerah,7
+113,Subbag Pengembangan Kapasitas Daerah,112
+114,Subbag Evaluasi Kinerja Pemerintah Daerah,112
+115,Subbag Penyelenggara Pemerintahan,112
+116,Bagian Pertanahan dan Kependudukan,7
+117,Subbag Perizinan dan Penatagunaan Tanah,116
+118,Subbag Pengawasan dan Pengendalian Pertanahan,116
+119,Subbag Kependudukan,116
+120,Biro Hukum,5
+121,Bagian Perundang-Undangan,5
+122,Subbag Rancangan Peraturan Daerah,121
+123,Subbag Rancangan Peraturan Kepala Daerah,121
+124,Subbag Rancangan Ketetapan,121
+125,Bagian Bantuan Hukum dan Ham,5
+126,Subbag Sengketa Hukum,125
+127,Subbag Penyusunan Naskah Perjanjian,125
+128,Subbag HAM dan HAKI,125
+129,Bagian Pembinaan dan Pengawasan Produk Hukum,5
+130,Subbag Pembinaan dan Pengawasan Produk Hukum Kab/Kota Se Pulau Sumbawa,129
+131,Subbag Pembinaan dan Pengawasan Produk Hukum Kab/Kota Se Pulau lombok,129
+132,Subbag Evaluasi Peraturan Bupati/ Walikota,129
+133,Bagian Pembinaan hukum,5
+134,Subbag Penyuluhan hukum,133
+135,Subbag Dokumentasi,133
+136,Subbag Tata Usaha Biro dan Pelaporan,133
+137,Biro Organisasi,3
+138,Bagian Kelembagaan,3
+139,Subbag Kelembagaan Desentralisasi,138
+140,Subbag Kelembagaan Dekonsentrasi,138
+141,Subbag Fasilitas Kelembagaan,138
+142,Bagian Tatalaksana,3
+143,Subbag Standarisasi,142
+144,Subbag Pengembangan Kapasitas,142
+145,Subbag Akuntabilitas,142
+146,Bagian Analisa Formasi Jabatan,3
+147,Subbag Analisis Jabatan,146
+148,Subbag Formasi Jabatan,146
+149,Subbag Tata Usaha Biro dan Pelaporan,146
+150,Bagian Kepegawaian,3
+151,Subbag Pengembangan Pegawai,150
+152,Subbag Mutasi Pegawai,150
+153,Subbag Umum Kepegawaian,150
+154,Asisten Perekonomian dan Pembangunan ,10
+155,Biro Administrasi Perekonomian,9
+156,Bagian Produksi Daerah,9
+157,Subbag Produksi Olahan,156
+158,Subbag Produksi Budidaya,156
+159,Subbag Bahan Galian dan Energi,156
+160,Bagian Sarana Perekonomian Daerah,9
+161,Subbag Usaha Perekonomian Daerah,160
+162,Subbag Kelembagaan Perekonomian Daerah,160
+163,Subbag Perusda dan BUMD,160
+164,Bagian Investasi dan Pengembangan Lembaga Keuangan,9
+165,Subbag Pengembangan Investasi,164
+166,Subbag Pengembangan Lembaga Keuangan Non Bank,164
+167,Subbag Pengembangan Lembaga Keuangan Bank,164
+168,Bagian Pengelolaan Informasi Perekonomian daerah,9
+169,Subbag Pendataan Statistik,168
+170,Subbag Monitoring dan Evaluasi,168
+171,Subbag Tata Usaha Biro dan Pelaporan,168
+172,Biro Administrasi Pembangunan dan Layanan Pengadaan Barang/Jasa Pemerintah,6
+173,Bagian Program dan Kesekretariatan Layanan Pengadaan Barang/Jasa Pemerintah,6
+174,Subbag Program dan Pelaporan,173
+175,Subbag Pelayanan,173
+176,Subbag Tata Usaha Biro,173
+177,Bagian Pengendalian Administrasi Pembangunan Ekonomi Sosial Budaya dan Lingkungan Hidup,6
+178,Subbag Pengendalian Adm Pembangunan Ekonomi,177
+179,Subbag Pengendalian Adm Pembangunan Sosbud,177
+180,Subbag Pengendalian Adm Pembangunan Lingkungan Hidup,177
+181,Bagian Pengendalian Administrasi Pembangunan Fisik Prasarana,6
+182,Subbag Pengendalian Adm Pembangunan Pemukiman,181
+183,Subbag Pengendalian Adm Pembangunan Perhubungan,181
+184,Subbag Pengendalian Adm Pembangunan Sumber Daya Air,181
+185,Bagian Bina Pembangunan Kabupaten/Kota,6
+186,Subbag Bina Pembangunan Ekonomi,185
+187,Subbag Bina Pembangunan Sosial Budaya dan lingkungan Hidup,185
+188,Subbag Bina Pembangunan Fisik Prasarana,185
+189,Biro Administrasi Kerjasama dan SDA,4
+190,Bagian Kerjasama Dalam dan Luar Negeri,4
+191,Subbag Kerjasama Antar Pemerintah Provinsi Kab/Kota,190
+192,Subbag Kerjasama dengan Lembaga Dalam Negeri Non Pemerintah,190
+193,Subbag Kerjasama Lembaga internasional,190
+194,Bagian Administrasi Sumber Daya Alam,4
+195,Subbag Sumber Daya Lahan,194
+196,Subbag Kehutanan Pertambangan dan energi,194
+197,Subbag Kelautan Perikanan dan Peternakan,194
+198,Bagian Pengendalian Kerjasama dan Sumber Daya Alam,4
+199,Subbag Pengendalian Kerjasama,198
+200,Subbag Pengendalian Sumber Daya Alam,198
+201,Subbag Tata Usaha Biro dan Pelaporan,198
+202,Asisten Administrasi Umum dan Kesra,10
+203,Biro Umum,2
+204,Bagian Kesekretariatan dan Pengelolaan Data Elektronik,2
+205,Subbag Sandi Telekomunikasi dan Layanan Pengadaan Secara Elektronik,204
+206,Subbag Ekspedisi dan Arsip,204
+207,Subbag Tata Usaha Biro dan Perjalanan,204
+208,Bagian Rumah Tangga,2
+209,Subbag  Rumah Tangga Pimpinan,208
+210,Subbag  Rumah Tangga Setda,208
+211,Subbag Pemeliharaan Rumah Jabatan,208
+212,Bagian Keuangan,2
+213,Subbag Perencanaan dan Pelaporan,212
+214,Subbag Belanja Pegawai,212
+215,Subbag Administrasi Keuangan sekretariat daerah,212
+216,Bagian Urusan Dalam,2
+217,Subbag Pengamanan,216
+218,Subbag Gedung dan Peralatan,216
+219,Subbag Sarana Mobilitas,216
+220,Biro Humas dan Protokol,10
+221,Bagian Pemberitaan dan Informasi Komunikasi,10
+222,Subbag Publikasi dan Hubungan Media,221
+223,Subbag Pengolahan Data,221
+224,Subbag Tata Usaha Biro,221
+225,Bagian Dokumentasi dan Perpustakaan,10
+226,Subbag Peliputan,225
+227,Subbag Produksi dan Penerbitan,225
+228,Subbag Perpustakaan Setda,225
+229,Bagian Protokol,10
+230,Subbag Acara dan Tamu,229
+231,Subbag Tata Usaha Gubernur dan Wakil Gubernur,229
+232,Subbag Tata Usaha Sekretaris Daerah dan Staf Ahli,229
+233,Staf Ahli,10
+234,Staf Ahli Bidang hukum dan Politik,10
+235,Staf Ahli Bidang Pemerintahan,10
+236,Staf Ahli Bidang Pembangunan,10
+237,Staf Ahli Bidang Kemasyarakatan dan Sumber Daya manusia,10
+238,Staf Ahli Bidang ekonomi dan Keuangan,10
+239,Sekretariat Dewan,41
+240,Bagian Persidangan dan Perundang-Undangan,41
+241,Subbag Rapat dan Risalah,240
+242,Subbag komisi-Komisi,240
+243,Subbag Pengkajian Produk Hukum,240
+244,Bagian Hubungan Masyarakat dan Dokumentasi,41
+245,Subbag Humas,244
+246,Subbag Dokumentasi,244
+247,Subbag Perpustakaan ,244
+248,Bagian Umum,41
+249,Subbag Urusan Dalam,248
+250,Subbag Tata Usaha dan Kepegawaian,248
+251,Subbag Ketertiban dan Keamanan,248
+252,Bagian Keuangan,41
+253,Subbag perencanaan,252
+254,Subbag Tata Usaha keuangan,252
+255,Subbag Verifikasi dan Pembukuan,252
+256,Dinas Pendidikan Pemuda dan Olahraga,38
+257,Sekretaris Dikpora,38
+258,Subbag Program dan Pelaporan,257
+259,Subbag keuangan,257
+260,Subbag Umum dan Kepegawaian,257
+261,Bidang Pendidikan Dasar,38
+262,Seksi sekolah Dasar,261
+263,Seksi Sekolah Menengah Pertama,261
+264,Seksi Pendidik dan Tenaga Kependidikan Dasar,261
+265,Bidang Pendidikan menengah dan Pendidikan Tinggi,38
+266,Seksi Sekolah Menengah Atas,265
+267,Seksi Sekolah Menengah Kejuruan,265
+268,Seksi Pendidik dan Tenaga Kependidikan Menengah dan Pendidikan Tinggi,265
+269,"Bidang Pendidikan Anak Usia Dini, Non Formal dan Informal",38
+270,Seksi Pendidikan Anak Usia Dini,269
+271,seksi pendidikan Masyarakat,269
+272,"Seksi Pendidik dan Tenaga Kependidikan Anak Usia Dini, Non Formal dan Informal",269
+273,"Bidang Pendidikan Khusus, Layanan Khusus dan Sekolah Bertaraf Internasional",38
+274,Seksi Pendidikan Khusus dan Layanan Khusus,273
+275,Seksi Sekolah Bertaraf Internasional,273
+276,"Seksi Pendidik dan Tenaga Kependidikan Khusus, Layanan Khusus dan Sekolah Bertaraf internasional",273
+277,Bidang Pemuda dan Olahraga,38
+278,Seksi Kepemudaan,277
+279,Seksi Keolahragaan,277
+280,Seksi Kerjasama kepemudaan dan Keolahragaan,277
+281,Dinas Kesehatan,33
+282,Sekretaris Dikes,33
+283,Subbag Program dan Pelaporan,282
+284,Subbag keuangan,282
+285,Subbag Umum dan Kepegawaian,282
+286,Bidang Bina Pelayanan kesehatan,33
+287,seksi Pelayanan Kesehatan dan Dasar dan Rujukan,286
+288,seksi Pembiayaan Kesehatan,286
+289,Seksi Kefarmasian dan Alat Kesehatan,286
+290,Bidang Bina Kesehatan Masyarakat,33
+291,Seksi kesehatan Ibu dan Anak,290
+292,seksi Kesehatan Remaja dan Lanjut Usia,290
+293,Seksi Gizi Masyarakat,290
+294,Bidang Bina Pengendalian Penyakit dan Penyehatan Lingkungan,33
+295,Seksi Surveilans Empidemiologi/Imunisasi dan Kesehatan bencana ,294
+296,Seksi Pengendalian Penyakit,294
+297,Seksi Penyehatan Lingkungan,294
+298,Bidang Pengembangan SDM Kesehatan dan Promosi kesehatan,33
+299,Seksi  Pengembangan Sumber Daya Manusia Kesehatan,298
+300,Seksi Pendayagunaan Tenaga Kesehatan ,298
+301,Seksi Promosi Kesehatan dan Pemberdayaaan Masyarakat,298
+302,Dinas Sosial Kependududkan dan Catatn Sipil,32
+303,Sekretaris,32
+304,Subbag. Program dan Pelaporan,303
+305,Subbag. Keuangan,303
+306,Subbag. Umum dan Kepegawaian,303
+307,Bidang Bantuan dan Jaminan Sosial,32
+308,Seksi Penanggulangan Bencana Alam dan Sosial,307
+309,Seksi Korban Tindak Kekerasan dan Pekerja Migran,307
+310,Seksi Jaminan Kesejahteraan Sosial,307
+311,Bidang Pemberdayaan Kesejahteraab Sosial,32
+312,Seksi Pemberdayaan Kelembagaan Keluarga,311
+313,Seksi Kepahlawanan Perintis dan Kejuangan,311
+314,Seksi Pemberdayaan fakir Miskin,311
+315,Bidang Rehabilitasi dan Pelayanaan Kesejahteraan Sosial,32
+316,Seksi Rehabilitasi Sosial Penyandang Cacat,315
+317,Seksi Rehabilitasi Sosial Tuna Sosial,315
+318,"Seksi Anak, Lanjut Usia dan Narkotika, Psikotropika dan Zat Aditif",315
+319,Bidang Pengembangan Kelembagaan Kesejahteraan Sosial,32
+320,Sekski Organisasi Sosial,319
+321,Seksi karang Taruna dan Wahana Kesejahteraan Sosial Berbasis Masyarakat,319
+322,Seksi Tenaga Kesejahteraan Sosial dan Penyuluhan Sosial,319
+323,Bidang Kependudukan dan Catatan Sipil,32
+324,Seksi Kependududkan,323
+325,Seksi Catatan Sipil,323
+326,Seksi Informasi Administrasi kependudukan,323
+327,Dinas Perhubungan Komunikasi dan Informatika,31
+328,Sekretaris,31
+329,Subbag. Program dan Pelaporan,328
+330,Subbag. Keuangan,328
+331,Subbag. Umum dan Kepegawaian,328
+332,Bidang Perhubungan Darat,31
+333,Seksi Angkutan Darat,332
+334,Seksi Manajemen Lalulintas dan Pengendalian Operasional,332
+335,Seksi Keselamatan Teknis Sarana dan Prasarana,332
+336,Bidang Perhubungan Laut,31
+337,Seksi Angkutan Laut,336
+338,Seksi Kepelabuhan,336
+339,Seksi Keselamatan Pelayaran,336
+340,Bidang Perhubungan udara,31
+341,Seksi Angkutan Udara,340
+342,Seksi Kebandarudaraan,340
+343,Seksi Keselamatan Penerbangan,340
+344,Bidang Pos dan Telekomunikasi,31
+345,Seksi Pelayanan Pis,344
+346,Seksi Telekomunikasi,344
+347,Seksi Layanan Teknis,344
+348,Bidang Sarana Komunikasi dan Desiminasi Informasi,31
+349,Seksi Kelmbagaan Komunikasi,348
+350,Seksi Pengekolaan Informasi,348
+351,Seksi Dokumentasi dan Informasi,348
+352,Dinas Tenaga Kerja dan Transmigrasi,24
+353,Sekretaris,24
+354,Subbag. Program dan Pelaporan,353
+355,Subbag. Keuanagn,353
+356,Subbag. Umum dan Kepegawaian,353
+357,Bidang Penempatan dan Perluasan Kerja,24
+358,Seksi Informasi Pasar Kerja dan Penempatan tenaga Kerja,357
+359,Seksi Pembinaan Tenaga Kerja Mandiri,357
+360,Seksi Teknologi Tepat Guna dan Padat Karya,357
+361,Bidang Pelatihan dan Produktivitas Tenaga Kerja,24
+362,Seksi pembinaan Infrastruktur dan Kelembagaan,361
+363,Seksi Pemagangan,361
+364,Seksi Sertifikasi dan Bimbingan Produktivitas Tenaga Kerja,361
+365,Bidang Pembinaan Hubungan Industrial dan Pengawasan Ketenagakerjaan,24
+366,Seksi Hubungan Industrial dan Perselisihan,365
+367,Seksi Norma Kerja,365
+368,Seksi Keselamatan dan Kesehatan kerja,365
+369,Bidang Pengembangan Kawasan Transmigrasi,24
+370,Seksi Peningkatan Kapasitas SDM dan Masyarakat,369
+371,Seksi Pengembangan Usaha dan Kawasan,369
+372,Seksi Sarana dan Prasarana,369
+373,Bidang Penyiapan Pemukiman dan Penempatan Transmigrasi,24
+374,Seksi Penyediaan Areal dan Pemukiaman,373
+375,Seksi Perpindahan dan Penempatan,373
+376,Seksi Publikasi dan Kemitraan,373
+377,Dinas Kebudayaan dan Pariwisata,36
+378,Sekretaris,36
+379,Subbag Program dan Pelaporan,378
+380,Subbag Keuangan,378
+381,Subbag Umum dan Kepegawaian,378
+382,Bidang Kebudayaan,36
+383,Seksi Purbakala dan Sejarah,382
+384,Seksi Kesenian dan Perfilman,382
+385,Seksi Lingkungan kebudayaan dan kepercayaan,382
+386,Bidang Destinasi Pariwisata,36
+387,Seksi Produk Pariwisata,386
+388,Seksi Usaha Pariwisata,386
+389,Seksi Pemberdayaan Masyarakat,386
+390,Bidang Pemasaran,36
+391,Seksi Promosi,390
+392,Seksi Kerjasama,390
+393,Seksi Analisa Pasar,390
+394,Dinas Pekerjaan Umum,35
+395,Sekretaris,35
+396,Subbag Program dan Pelaporan,395
+397,Subbag Keuangan,395
+398,Subbag Umum dan Kepegawaian,395
+399,Bidang Sumber Daya Air,35
+400,Seksi Perencanaan dan Konservasi,399
+401,Seksi Jaringan Sumber Daya Air,399
+402,Seksi Jaringan Pemanfaatan Air,399
+403,Bidang Bina Marga,35
+404,Seksi Perencanan Jalan,403
+405,Seksi Pembangunan Jalan,403
+406,Seksi Bina Teknik Jalan,403
+407,Bidang Cipta Karya,35
+408,Seksi Perencanaan ,407
+409,Seksi Air Bersih dan Penyehatan Lingkungan,407
+410,Seksi Tata Bangunan dan Pemukiman,407
+411,Bidang Tata Ruang,35
+412,Seksi Perencanaan Teknis Ruang,411
+413,Seksi Pemanfataan Ruang,411
+414,Seksi Pengemdalian Ruang,411
+415,Bidang Perumahan,35
+416,Seksi Perencanaan Teknis,415
+417,Seksi Perumahan Formal,415
+418,Seksi Perumahan Swadaya,415
+419,Dinas Koperasi Usaha Mikro Kecil dan Menengah,29
+420,Sekretaris,29
+421,Subbag Program dan Pelaporan,420
+422,Subbag Keuangan,420
+423,Subbag Umum dan Kepegawaian,420
+424,Bidang Pembinaan Koperasi,29
+425,Seksi Pembinaan Kelembagaan Koperasi,424
+426,Seksi Pengembangan Usaha Koperasi,424
+427,Seksi Pemberdayaan Koperasi,424
+428,Bidang Pemeberdayaan Usaha Mikro Kecil dan Menengah,29
+429,Seksi Pemasaran dan Jaringan Usaha Mikro dan Menengah,428
+430,Seksi Sarana dan Sertifikasi Usaha Mikro Kecil dan Menegah,428
+431,Seksi Pemberdayaan Usaha Mikro Kecil dan Menegah,428
+432,Bidang Fasilitasi Permodalan dan Simpan Pinjam,29
+433,Seksi Permodalan dan Jasa Keuangan Simpan Pinjam,432
+434,Seksi Pemberdayaan Simpan Pinjam,432
+435,Seksi Pengawasan dan Penilaian Simpan Pinjam,432
+436,Bidang Penyuluhan Koperasi dan Usaha Kecil Menengah,29
+437,Seksi Penyuluhan Koperasi,436
+438,Seksi Penyuluhan Usaha Mikro Kecil dan Menegah,436
+439,Seksi Pemberdayaan Masyarakat,436
+440,Dinas Perindustrian dan Perdagangan,34
+441,Sekretaris,34
+442,Subbag Program dan Pelaporan,441
+443,Subbag Keuangan,441
+444,Subbag Umum dan Kepegawaian,441
+445,Bidang Pengembangan Industri Kecil,34
+446,Seksi Sarana dan Usaha,445
+447,Seksi Bimbingan Produksi,445
+448,Seksi Pengembangan Potensi dan Kerjasama Industri,445
+449,Bidang Agrokimia dan Aneka Industri,34
+450,Seksi Industri Agro dan Kimia,449
+451,Seksi Logam dan Mesin,449
+452,Seksi Industri Alat Tranportasi dan Telematika,449
+453,Bidang Perdagangan Dalam Negeri,34
+454,Seksi Pengadaan dan Penyaluran,453
+455,Seksi Usaha Perdagangan,453
+456,Seksi Pembinaan dan Perlindungan Konsumen,453
+457,Bidang Perdagangan Luar Negeri,34
+458,Seksi Ekspor,457
+459,Seksi Impor,457
+460,Seksi Pengembangan dab Kerjasama,457
+461,Dinas Pertanian  Tanaman Pangan dan Hortikultura,28
+462,Sekretaris,28
+463,Subbag Program dan Pelaporan,462
+464,Subbag Keuangan,462
+465,Subbag Umum dan Kepegawaian,462
+466,Bidang Produksi Tanaman Pangan ,28
+467,Seksi Perbenihan dan Sarana Produksi Tanaman Pangan,466
+468,Seksi Budidaya Serelia Kacang-kacangan dan Umbi-Umbian,466
+469,Seksi Perlindungan Tanaman dan Penerapan Teknologi Tanaman Pangan,466
+470,Bidang Produksi Hortikultura,28
+471,Seksi Perbenihan dan Sarana Produksi Hortikultura,470
+472,Seksi Budidaya  Buah Sayur sayuran Tanaman Hias dan Biofarmaka,470
+473,Seksi Budidaya Perlindungan Tanaman dan Penerapan Teknologi Hortikultura,470
+474,Bidang Pengelolaan dan Pemasaran Hasil,28
+475,Seksi Pasca Panen dan Pengelolaan Hasil,474
+476,Seksi Pemasaran Hasil dan Mutu,474
+477,Seksi Pembiayaan dan Pengembangan Usaha,474
+478,Bidang Pengelolaan Lahan dan Air,28
+479,Seksi Pengelolaan Lahan dan Konservasi,478
+480,Seksi Peluasan Areal,478
+481,Seksi Pengelolaan Air,478
+482,Dinas Peternakaan dan Kesehatan Hewan,30
+483,Sekretaris,30
+484,Subbag Program dan Pelaporan,483
+485,Subbag Keuangan,483
+486,Subbag Umum dan Kepegawaian,483
+487,Bidang Kesehatan Hewan,30
+488,Seksi Pengamatan Penyakit Hewan,487
+489,Seksi Pencegahan dan Pemberantasan Penyakit Hewan,487
+490,Seksi Obat Hewan dan Pelayanan Kesehatan,487
+491,Bidang Pengawasan Budidaya dan Pengembangan Ternak,30
+492,Seksi Pembibitan Ternak,491
+493,Seksi Ternak Ruminansia,491
+494,Seksi Ternak Non Ruminansia,491
+495,Bidang Usaha Peternakan,30
+496,Seksi Pelayanan Usaha,495
+497,Seksi Pengolahan Hasil Peternakan,495
+498,Seksi Pemasaran,495
+499,Bidang Kesehatan Masyarakat Veteriner,30
+500,Seksi Pembinaan dan Pengawasan Produk Pangan dan Pangan Hewan,499
+501,Seksi Pembinaan dan Pengawasan Higienis Sanitasi dan Rumag Potong Hewan,499
+502,Seksi Zoonasi dan Kesejahteraan Hewan,499
+503,Dinas Kelautan dan Perikanan,26
+504,Sekretaris,26
+505,Subbag Program dan Pelaporan,504
+506,Subbag Keuangan,504
+507,Subbag Umum dan Kepegawaian,504
+508,Bidang Perikanan Budidaya,26
+509,Seksi Produksi Perikanan,508
+510,Seksi Perbenihan dan Kesehatan Lingkungan,508
+511,Seksi Usaha Budidaya,508
+512,Bidang Perikanan Tangkap,26
+513,Seksi Pelabuhan Perikanan,512
+514,Seksi Kapal Perikanan dan Alat Penangkapan Ikan,512
+515,Seksi Pengelolaan Sumber daya Ikan dan Usaha Penangkapan,512
+516,Bidang Pengelolaan dan Pemasaran Hasil Perikanan,26
+517,Seksi Pengelolaan dan Pembinaan Mutu,516
+518,Seksi Usaha dan Pemsarana,516
+519,Seksi Pengembangan Produk Non Konsumsi dan Kelembangaan,516
+520,Bidang Pengawasan dan Pengelolaan Pesisir dan Pulau-Pulau Kecil,26
+521,Seksi Tata Ruang dan Pengelolaan Wilayah Pesisir Pulau Pulau Kecil,520
+522,Seksi Konservasi Kelautan dan Perikanan,520
+523,Seksi Pengawasan dan Pengendalian,520
+524,Dinas Kehutanan,25
+525,Sekretaris,25
+526,Subbag Program dan Pelaporan,525
+527,Subbag Keuangan,525
+528,Subbag Umum dan Kepegawaian,525
+529,Bidang Planologi dan Pengamanan Hutan,25
+530,Seksi Kawasan Hutan,529
+531,Seksi Inventarisasi dan Rencana Pengelolaan Hutan,529
+532,Seksi Pengamanan Hutan,529
+533,Bidang Pemanfaatan Hutam,25
+534,Seksi Budidaya dan Produksi Hasil Hutan,533
+535,Seksi Pengolahan dan Peredaran Hasil Hutan,533
+536,Seksi Aneka Usaha Kehutana,533
+537,Bidang Rehabilitasi dan Konservasi Hutan,25
+538,Seksi Reboisasi,537
+539,Seksi Rehabilitasi Lahan,537
+540,Seksi Konservasi Sumber Daya Lahan,537
+541,Dinas Perkebunan,27
+542,Sekretaris,27
+543,Subbag Program dan Pelaporan,542
+544,Subbag Keuangan,542
+545,Subbag Umum dan Kepegawaian,542
+546,Bidang Pengelolaan Lahan,27
+547,Seksi Perluasan Area,546
+548,Seksi Pengembangan Produksi,546
+549,Seksi Pengembangan Sumber Daya Manusia dan Pelatihan,546
+550,Bidang Pengembangan Usaha,27
+551,Seksi Pengolahan Pasca Panen dan Pembinaan Mutu,550
+552,Seksi Usaha dan Pemasaran Hasil,550
+553,Seksi Kemitraan dan Kelembangaan Usaha,550
+554,Bidang Perlindungan Sarana dan Prasarana,27
+555,Seksi Perlindungan Tanaman,554
+556,Seksi Perlindungan Usaha,554
+557,Seksi Sarana dan Prasarana Perkebunan,554
+558,Dinas Pertambangan dan Energi,23
+559,Sekretaris,23
+560,Subbag Program dan Pelaporan,559
+561,Subbag Keuangan,559
+562,Subbag Umum dan Kepegawaian,559
+563,Bidang Geologi dan Sumber Daya Mineral,23
+564,Seksi Geologi Umum,563
+565,Seksi Sumber Daya Mineral,563
+566,Seksi Mitigasi Bencanan Geologi,563
+567,Bidang Pertambangan Umum,23
+568,Seksi Bina Usaha Pertambangan,567
+569,Seksi Pengawasan Pertambangan,567
+570,Seksi Konservasi Pertambangan,567
+571,Bidang Energi,23
+572,Seksi Minyak dan Gas Bumi,571
+573,Seksi Ketenagalistrikan,571
+574,Seksi Energi Baru Terbarukan,571
+575,Dinas Pendapatan,37
+576,Sekretaris,37
+577,Subbag Program dan Pelaporan,576
+578,Subbag Keuangan,576
+579,Subbag Umum dan Kepegawaian,576
+580,Bidang Pajak dan Dana Perimbangan,37
+581,Seksi Bagi Hasil Pajak,580
+582,Seksi Dana Alokasi Umum dan Khusus,580
+583,Seksi Royalti dan Pinjaman Daerah yang Sah,580
+584,Bidang Pajak ,37
+585,Seksi Pajak Kendaraan Bermotor dan Bea Balik Nama Kendaraan Bermotor,584
+586,Seksi Pajak Lainnya,584
+587,Seksi Keberatan Retribusi/Pendapatan Lainnya,584
+588,Bidang Retribusi dan Pendapatan Lainnya,37
+589,seksi Retribusi,588
+590,Seksi Pendapatan Lainnya,588
+591,Seksi Pembukuan dan Keberatan Retribusi/Pendapatan Lainnya,588
+592,Inspektorat Provinsi,42
+593,Sekretaris,42
+594,Subbag Perencanaan,593
+595,Subbag Evaluasi dan Pelaporan,593
+596,Subbag Administrasi Umum ,593
+597,Inspektur Pembantu Wilayah I,42
+598,Inspektur Pembantu Wilayah II,42
+599,Inspektur Pembantu Wilayah III,42
+600,Inspektur Pembantu Wilayah IV,42
+601,Badan Perencanaan Pembangunan Daerah,22
+602,Sekretaris,22
+603,Subbag Program dan Pelaporan,602
+604,Subbag Keuangan,602
+605,Subbag Umum dan Kepegawaian,602
+606,Bidang Perencanaan Pembangunan Ekonomi,22
+607,Subbidang Pertanian dan Kelautan,606
+608,Subbidang Industri dan Keuangan,606
+609,Bidang Perencanaan Tata Ruang dan Prasarana,22
+610,Subbidang Prasarana Wilayah,609
+611,Subbidang Tata Ruang dan SDA,609
+612,Bidang Perencanaan Pembangunan Sosial,22
+613,Subbidang Pengembangan Perencanaan,612
+614,Subbidang Monitoring dan Pelaporan,612
+615,Bidang Evaluasi dab Pelaporan,22
+616,Subbidang Pengembangan Perencanaan,615
+617,Subbidang Monitoring dan Pelaporan,615
+618,Bidang Statistik,22
+619,Subbidang Pendataan,618
+620,Subbidang Pelayanan Informasi,618
+621,Badan Lingkungan Hidup dan Penelitian,14
+622,Sekretaris ,14
+623,Subbag. Program dan Pelaporan,622
+624,Subbag. Keuangan,622
+625,Subbag. Umum dan Kepegawaian,622
+626,Bidang Analisis Dampak Lingkungan dan Pelestarian SDA ,14
+627,Subbidang Amdal,626
+628,Subbidang Pelestarian SDA,626
+629,Bidang Pengendalian Pencemaran dan Kerusakan Lingkungan,14
+630,Subbidang Pengendalian Pencemaran,629
+631,Subbidang Pengendalian Kerusakan Lingkungan,629
+632,Bidang Penataan Lingkungan dan Pengembangan Kapasitas,14
+633,Subbidang Penataan Lingkungan,632
+634,Subbidang Pengembangan Kapasitas,632
+635,Bidang Penelitian ,14
+636,Subbidang Perencanaan Penelitian,635
+637,Subbidang Evaluasi dan Desiminasi Hasil Penelitian,635
+638,Badan Kesatuan Bangsa dan Politik Dalam Negeri,15
+639,Sekretaris,15
+640,Subbag. Program dan Pelaporan,639
+641,Subbag. Keuangan,639
+642,Subbag. Umum dan Kepegawaian,639
+643,Bidang Pengembangan Nilai-Nilai Kebangsaan,15
+644,Subbidang Wawasan Kebangsaan dan Pembauran Bangsa,643
+645,Subbidang Kewaspadaan Nasional dan Bela Negara,643
+646,Bidang Pengembangan Politik dan Fasilitasi Organisasi Politik/ Organisasi Masa,15
+647,Subbidang Pengembangan Pendidikan Politik,646
+648,Subbidang Fasilitasi Orpol/Ormas dan Pemilu,646
+649,Bidang Pengkajian Masalah Strategis dan Penanganan Konflik ,15
+650,Subbidang Pengkajian Masalah Strategis,649
+651,Subbidang Penanganan Konflik,649
+652,Badan Ketahanan Pangan,16
+653,Sekretaris,16
+654,Subbag. Program dan Pelaporan,653
+655,Subbag. Keuangan,653
+656,Subbag. Umum dan Kepegawaian,653
+657,Bidang Ketersediaan Pangan,16
+658,Subbidang Cadangan dan Kerawanan Pangan,657
+659,Subbidang Kelembagaan Pangan,657
+660,Bidang Distribusi Pangan,16
+661,Subbidang Distribusu dan Analisa Harga Pangan,660
+662,Subbidang Akses Pangan,660
+663,Bidang Konsumsi dan Keamanan Pangan,16
+664,Subbidang Keamanan Pangan,663
+665,Subbidang Deversifikasi Pangan,663
+666,Badan Koordinasi Penanaman Modal dan Perizinan Terpadu,17
+667,Sekretaris,17
+668,Subbag. Program dan Pelaporan,667
+669,Subbag. Keuangan,667
+670,Subbag. Umum dan Kepegawaian,667
+671,Bidang pengembangan Penanaman Modal dan Kerjasama,17
+672,Subbidang Pengembangan Penanaman Modal,671
+673,Subbidang Fasilitasi Kerjasama,671
+674,Bidang Potensi dan Pemasaran Penanaman Modal,17
+675,Subbidang Potensi Penanaman Modal,674
+676,Subbidang Pemasaran Penanaman Modal,674
+677,Bidang Pengendalian Penanaman Modal,17
+678,Subbidang Pendataan Penanaman Modal,677
+679,Subbidang Pengawasan Penanaman Modal,677
+680,Bidang Pelayanan Perizinan Terpadu,17
+681,Subbidang Perizinan,680
+682,Subbidang Non Perizinan,680
+683,Badan Perpustakaan dan Arsip,19
+684,Sekretaris,19
+685,Subbag. Program dan Pelaporan,684
+686,Subbag. Keuangan,684
+687,Subbag. Umum dan Kepegawaian,684
+688,Bidang Pembinaan Perpustakaan,19
+689,Subbidang Kelembagaan dan Pengembangan Minat Baca,688
+690,Subbidang Sumber Daya Perpustakaan,688
+691,Bidang Deposit dan pelestarian Bahan Pustaka,19
+692,Subbidang Deposit,691
+693,Subbidang Pengolahan dan Pelestarian Bahan Pustaka,691
+694,Bidang Layanan dan Otomasi Perpustakaan,19
+695,Subbidang Layanan,694
+696,Subbidang Otomasi Perpustakaan,694
+697,Bidang Pengelolaan Kearsipan,19
+698,Subbidang Akusisi dan Pengolahan,697
+699,Subbidang Penilaian dan Pengolahan Informasi,697
+700,Bidang Pengendalian dan Pengembangan Kearsipan,19
+701,Subbidang Pembinaan dan Pengawasan,700
+702,Subbidang Pengembangan dan Jasa Teknis,700
+703,Badan Pemberdayaan Masyarakat dan Pemerintahan Desa,18
+704,Sekretaris,18
+705,Subbag. Program dan Pelaporan,704
+706,Subbag. Keuangan,704
+707,Subbag. Umum dan Kepegawaian,704
+708,Bidang Usaha Ekonomi Masyarakat,18
+709,Subbidang Ekonomi Masyarakat/Pokmas,708
+710,Subbidang Pengembangan Produksi dan Pemasaran,708
+711,Bidang Pemerintahan Desa,18
+712,Subbidang Administrasi Pemerintahan Desa,711
+713,Subbidang Pengembangan Desa,711
+714,Bidang Kelembagaan dan Sosial Budaya,18
+715,Subbidang Layanan Kelembagaan Desa,714
+716,Subbidang Sosial Budaya Masyarakat,714
+717,Bidang Pengelolaan Sumber Daya Alam dan Teknologi Tepat Guna,18
+718,Subbidang Pengelolaan Sumber Daya Alam,717
+719,Subbidang Teknologi Tepat Guna,717
+720,Badan Pemberdayaan Perempuan Perlindungan Anak dan Keluarga Berencana,21
+721,Sekretaris,21
+722,Subbag. Program dan Pelaporan,721
+723,Subbag. Keuangan,721
+724,Subbag. Umum dan Kepegawaian,721
+725,Bidang Pengarustamaan Gender dan Kualitas Hidup Perempuan,21
+726,Subbidang Partisipasi Perempuan,725
+727,Subbidang Kelembagaan Perempuan dan Dunia Usaha,725
+728,Bidang Perlindungan Perempuan dan Anak,21
+729,Subbidang Perlindungan Perempuan,728
+730,Subbidang Perlindungan Anak,728
+731,Bidang Pembinaan Pelayanan Keluarga Berencana dan Kesehatan Reproduksi,21
+732,Subbidang Pelayanan Keluarga Berencana,731
+733,Subbidang Kesehatan Reproduksi,731
+734,Bidang Ketahanan dan Penguatan Pelembagaan Keluarga,21
+735,Subbidang Ketahanan dan Pemberdayaan Keluarga,734
+736,Subbidang Penguatan Pelembagaan Keluarga,734
+737,"Bidang Advokasi, Edukasi dan Evaluasi",21
+738,Subbidang Advokasi dan Evaluasi,737
+739,Subbidang Data dan Evaluasi,737
+740,Badan Kepegawaian Daerah dan Pendidikan Pelatihan,20
+741,Sekretaris,20
+742,Subbag. Program dan Pelaporan,741
+743,Subbag. Keuangan,741
+744,Subbag. Umum dan Kepegawaian,741
+745,Bidang Data dan Informasi,20
+746,Subbidang Pengolahan,745
+747,Subbidang Formasi dan Seleksi,745
+748,Bidang Mutasi Pegawai,20
+749,Subbidang Kepangkatan dan Penggajian,748
+750,Subbidang Pemindahan dan Penghentian,748
+751,Bidang Pengembangan dan Pengendalian,20
+752,Subbidang Jabatan Struktural dan Fungsional,751
+753,"Subbidang Pengendalian, Evaluasi Kinerja dan Kesra Pegawai",751
+754,Bidang Diklat Penjenjangan,20
+755,Subbidang Diklat Penjenjangan Struktural Dasar,754
+756,Subbidang Diklat Penjenjangan Struktural Menengah,754
+757,Bidang Diklat Manajemen Pemerintahan dan Teknis Fungsional,20
+758,Subbidang Diklat Administrasi Pemerintahan,757
+759,Subbidang Diklat Teknis dan Fungsional,757
+760,Badan Pengelolaan Keuangan dan Aset Daerah,11
+761,Sekretaris,11
+762,Subbag. Program dan Pelaporan,761
+763,Subbag. Keuangan,761
+764,Subbag. Umum dan Kepegawaian,761
+765,Bidang Anggaran,11
+766,Subbidang Anggaran I,765
+767,Subbidang Anggaran II,765
+768,Subbidang Anggaran III,765
+769,Bidang Perbendaharaan,11
+770,Subbidang Pengelolaan Kas,769
+771,Subbidang Perbendaharaan I,769
+772,Subbidang Perbendaharaan II,769
+773,Bidang Akuntansi dan Pelaporan,11
+774,Subbidang Akuntansi dan Keuangan Daerah I,773
+775,Subbidang Akuntansi dan Keuangan Daerah II,773
+776,Subbidang Pelaporan Keuangan Daerah,773
+777,Bidang Bina Evaluasi Keuangan Kabupaten/Kota,11
+778,Subbidang Pembinaan Keuangan Kabupaten /Kota,777
+779,Subbidang Evaluasi APBD Kabupaten/ Kota I,777
+780,Subbidang Pembinaan APBD Kabupaten/ Kota II,777
+781,Bidang Pengadaan dan Penatausahaan Aset,11
+782,Subbidang Perencanaan Kebutuhan Aset,781
+783,Subbidang Pengadaan dan Distribusi Aset,781
+784,Subbidang Penatausahaan dan Pembinaan Aset,781
+785,Bidang Pemanfaatan dan Pemindahtanganan Aset,11
+786,Subbidang Pemanfaatan dan Kerjasama Aset,785
+787,Subbidang Pengamanan dan Pemeliharaan Aset,785
+788,Subbidang Penghapusan dan Pemindahtanganan Aset,785
+789,Rumah Sakit Umum Daerah,39
+790,Direktur,39
+791,Wakil Direktur Umum dan Keuangan,39
+792,Bagian Tata Usaha,39
+793,Subbag. Umum dan Kepegawaian,
+794,Subbag. Rumah Tangga dan Perlengkapan,
+795,Subbag. Humas dan Kemasyarakatan,
+796,Bagian Perencanaan dan Pengembangan,39
+797,Subbag. Penyusunan Program,
+798,Subbag. Pengembangan dan Hubungan Antar Lembaga,
+799,Subbag. Monev dan Pelaporan,
+800,Bagian Keuangan ,39
+801,Subbag. Penyusunan Anggaran,
+802,Subbag. Mobilitas Dana,
+803,Subbag. Akuntansi dan Verifikasi,
+804,Wakil Direktur Pelayanan,39
+805,Bidang Pelayanan Medis dan Penunjang Medis,39
+806,Seksi Pelayanan Medis,805
+807,Seksi Pelayanan Penunjang Medis,805
+808,Bidang Keperawatan,39
+809,Seksi Pelayanan Keperawatan,808
+810,Seksi Perencanaan dan Pengembangan Keperawatan,808
+811,Wakil Direktur Pendidikan dan Penelitian,39
+812,Bidang Pendidikan dan Pelatihan,39
+813,Seksi Pendidikan,812
+814,Seksi Pelatihan,812
+815,Bidang Penelitian Pengembangan Kesehatan,39
+816,Seksi Penelitian,815
+817,Seksi Pengembangan Teknologi Kesehatan,815
+818,Instalasi,39
+819,Satuan Pengawas Internal,39
+820,Komite,39
+821,Staf Medik Fungsional,39
+822,Rumah Sakit H. L. manambai Abdulkadir,
+823,Direktur,
+824,Bagian Tata Usaha,
+825,Subbag. Umum dan Kepegawaian,
+826,Subbag. Rumah Tangga dan Perlengkapan,
+827,Subbag. Perencanaan dan Keuangan,
+828,Bidang Penunjang,
+829,Seksi Logistik,
+830,Seksi Penunjang Medis,
+831,Bidang Pelayanan,
+832,Seksi Pelayanan Medis,
+833,Seksi Keperawatan,
+834,Instalasi,
+835,Satuan Pengawas Internal,
+836,Komite,
+837,Staf Medik Fungsional,
+838,Rumah Sakit Jiwa Mutiara Sukma,40
+839,Direktur,40
+840,Subbag. Tata Usaha,839
+841,Seksi Pelayanan Medik,839
+842,Seksi Penunjang Medik,839
+843,Seksi Keperawatan,839
+844,Instalasi,839
+845,Satuan Polisi Pamong Praja,43
+846,Sekretaris,43
+847,Subbag. Program dan Pelaporan,846
+848,Subbag. Keuangan,846
+849,Subbag. Umum dan Kepegawaian,846
+850,Bidang Penegakan Perundang-Undangan Daerah,43
+851,Seksi Pembinaan Pengawasan dan penyuluhan,850
+852,Seksi Penyelidikan dan Penyidikan,850
+853,Bidang Ketertiban Umum dan Ketentraman Masyarakat,43
+854,Seksi Operasi dan Pengendalian,853
+855,Seksi Kerjasama,853
+856,Bidang Sumber Daya Aparatur,43
+857,Seksi Pelatihan Dasar,856
+858,Seksi Teknis Fungsional,856
+859,Bidang Perlindungan Masyarakat,43
+860,Seksi Satuan Linmas,859
+861,Seksi Bina Potensi Masyarakat,859
+862,Kantor Penghubung Pemerintah Daerah NTB di Jakarta,
+863,Kepala Kantor Penghubung,
+864,Subbag. Tata Usaha,
+865,Seksi Hubungan Antar Lembaga,
+866,Seksi Pelayanan Umum,
+867,Seksi Promosi dan Informasi,
+868,Dinas Pendidikan Pemuda dan Olahraga,38
+869,Balai Pengembangan Kegiatan Belajar Masyarakat,38
+870,Subbag. Tata Usaha,869
+871,Seksi Pelayanan dan Sarana Belajar Diklusepora,869
+872,Seksi Pendataan Pemantauan Evaluasi dan Pelaporan,869
+873,Balai Teknologi Komunikasi Pendidikan,38
+874,Subbag. Tata Usaha,873
+875,Seksi Produksi,873
+876,Balai Pengelola Prasarana dan Sarana Pemuda dan Olahraga,38
+877,Subbag. Tata Usaha,876
+878,Seksi Pengelolaan,876
+879,Seksi Pemeliharaan,876
+880,Dinas Kesehatan,33
+881,Balai Kesehatan Mata Masyarakat,33
+882,Subbag. Tata Usaha,881
+883,Seksi Pelayanan ,881
+884,Seksi Penunjang,881
+885,Balai Pengembangan Tenaga Kesehatan,33
+886,Subbag. Tata Usaha,885
+887,Seksi Kajian Mutu Pelatihan,885
+888,Seksi Penyelenggaraan Pelatihan,885
+889,Balai Laboratorium Kesehatan Masy. P Lombok,33
+890,Subbag. Tata Usaha,889
+891,Seksi Pengembangan Pelayanan Laboratorium,889
+892,Seksi Pelayanan Laboratorium Kesehatan Dasar dan Rujukan,889
+893,Balai Laboratorium Kesehatan Masy. P Sumbawa,33
+894,Subbag. Tata Usaha,893
+895,Seksi Pengembangan Pelayanan Laboratorium,893
+896,Seksi Pelayanan Laboratorium Kesehatan Dasar dan Rujukan,893
+897,Akademi Perawat Kesehatan Prov. NTB,33
+898,Subbag. Tata Usaha,897
+899,Seksi Akademik,897
+900,Seksi Kemahasiswaan,897
+901,Dinas Sosial Kependudukan dan Catatan Sipil,32
+902,Panti Sosial Asuhan Anak Harapan Mataram,32
+903,Subbag. Tata Usaha,902
+904,Seksi Bimbingan Sosial dan Keterampilan,902
+905,Seksi Penyantunan dan Penyaluran,902
+906,Panti Sosial Bina Remaja Karya Putra Mataram,32
+907,Subbag. Tata Usaha,906
+908,Seksi Bimbingan Sosial dan Keterampilan,906
+909,Seksi Penyantunan dan Penyaluran,906
+910,Panti Sosial Trena Werdha Meci Angi Bima,32
+911,Subbag. Tata Usaha,910
+912,Seksi Bimbingan Sosial dan Keterampilan,910
+913,Seksi Penyantunan dan Penyaluran,910
+914,Panti Sosial Bina Karya Aik Mel,32
+915,Subbag. Tata Usaha,914
+916,Seksi Bimbingan Sosial dan Keterampilan,914
+917,Seksi Penyantunan dan Penyaluran,914
+918,Panti Sosial Karya Wanita Budirini Mataram,32
+919,Subbag. Tata Usaha,918
+920,Seksi Bimbingan Sosial dan Keterampilan,918
+921,Seksi Penyantunan dan Penyaluran,918
+922,Panti Sosial Tresna Werdha Puspakarma Mataram,32
+923,Subbag. Tata Usaha,922
+924,Seksi Bimbingan Sosial dan Keterampilan,922
+925,Seksi Penyantunan dan Penyaluran,922
+926,"Panti Sosial Bina Laras ""Suka Waras"" Selebung",32
+927,Subbag. Tata Usaha,926
+928,Seksi Bimbingan Sosial Anak dan Keterampilan,926
+929,Seksi Penyantunan dan Penyaluran,926
+930,"Rumah Perlindungan Petirahan Sosial dan Anak ""Putra Utama"" Mataram",32
+931,Subbag. Tata Usaha,930
+932,Seksi Bimbingan  dan Penyuluhan Sosial Anak,930
+933,Seksi Penyantunan dan Perlindungan Anak,930
+934,Dinas Perhubungan Komunikasi dan Informatika,31
+935,Balai Pelayanan Informasi Publik,31
+936,Subbag. Tata Usaha,935
+937,Seksi Pelayanan Informasi Media Tradisonal,935
+938,Seksi Pelayanan Informasi Media Cetak dan Elektronik,935
+939,Balai Pengolahan Data Elektronik,31
+940,Subbag. Tata Usaha,939
+941,Seksi Telematika,939
+942,Seksi Pendayagunaan Sistem Informasi,939
+943,Dinas Tenaga Kerja dan Transmigrasi,24
+944,Balai Latihan Kerja Mataram,24
+945,Subbag. Tata Usaha,944
+946,Seksi Penyelengggaraan Latihan Kerja,944
+947,Seksi Pemantauan dan Evaluasi Latihan Kerja,944
+948,Balai Pengembangan Produktivitas Tenaga Kerja Daerah,24
+949,Subbag. Tata Usaha,948
+950,Seksi Pengkajian Produktivitas Tenaga Kerja,948
+951,Seksi Penerapan Produktivitas Tenaga Kerja,948
+952,Balai Hygine Perusahaan dan Keselamatan Kerja,24
+953,Subbag. Tata Usaha,952
+954,Seksi Pelatihan dan Pengujian,952
+955,Seksi Pemasaran dan Kerjasama,952
+956,Balai Latihan Transmigrasi,24
+957,Subbag. Tata Usaha,956
+958,Seksi Pelatihan,956
+959,Seksi Rencana dan Evaluasi,956
+960,Dinas Kebudayaan dan Pariwisata,36
+961,Museum Negeri Prov. NTB,36
+962,Subbag. Tata Usaha,961
+963,Seksi Konservasi dan Preparasi,961
+964,Seksi Koleksi dan Bimbingan Edukasi,961
+965,Taman Budaya Prov. NTB,36
+966,Subbag. Tata Usaha,965
+967,Seksi Penyajian,965
+968,Seksi Pengembangan dan Peningkatan Mutu Kesenian,965
+969,Dinas Pekerjaan Umum,35
+970,Balai Pengujian Material Konstruksi,35
+971,Subbag. Tata Usaha,970
+972,Seksi Pengujian Air,970
+973,Seksi Bahan Bangunan dan Pengujian Tanah,970
+974,Balai Informasi Sumber Daya Air,35
+975,Subbag. Tata Usaha,974
+976,Seksi Pengelolaan Jaringan Hidrologi,974
+977,Seksi Data dan Hidromatika,974
+978,Balai Pengelolaan Sumberdaya Air Wil. Sungai P. Lombok,35
+979,Subbag. Tata Usaha,978
+980,Seksi Operasi Sungai Embung dan Bendungan,978
+981,Seksi Operasi Jaringan,978
+982,Balai Pengelolaan Sumberdaya Air Wilayah Sungai Sumbawa,35
+983,Subbag. Tata Usaha,982
+984,Seksi Operasi Sungai Embung dan Bendungan,982
+985,Seksi Operasi Jaringan,982
+986,Balai Pengelolaan Sumberdaya Air Wil. Sungai Bima Dompu,35
+987,Subbag. Tata Usaha,986
+988,Seksi Operasi Sungai Embung dan Bendungan,986
+989,Seksi Operasi Jaringan,986
+990,Balai Pemeliharaan Jalan Provinsi Wilayah Pulai Lombok,35
+991,Subbag. Tata Usaha,990
+992,Seksi Pelaksana Pemeliharaan ,990
+993,Seksi Peralatan dan Bahan,990
+994,Balai Pemeliharaan Jalan Provinsi Wilayah Sumbawa,35
+995,Subbag. Tata Usaha,994
+996,Seksi Pelaksana Pemeliharaan,994
+997,Seksi Peralatan dan Bahan,994
+998,Balai Pemeliharaan jalan Provinsi Jalan Provinsi Wilayah dompu dan Bima,35
+999,Subbag. Tata Usaha,998
+1000,Seksi Pelaksana Pemeliharaan,998
+1001,Seksi Peralatan dan Bahan,998
+1002,Balai Pemberdayaan dan Pengawasan Jasa Konstruksi,35
+1003,Subbag. Tata Usaha,1002
+1004,Seksi Pemberdayaan Jasa Konstruksi,1002
+1005,Seksi Pengawasan Jasa Konstruksi,1002
+1006,Dinas Koperasi dan UKM,29
+1007,Balai Pendidikan dan Pelatihan Kopersi dan UKM,29
+1008,Subbag. Tata Usaha,1007
+1009,Seksi Pengembangan SDM kopersi/UMKM,1007
+1010,Seksi Monitoring dan Evaluasi Diklat,1007
+1011,Dinas Perindustrian dan Perdagangan,34
+1012,Balai Metrologi Mataram,34
+1013,Subbag. Tata Usaha,1012
+1014,Seksi Massa dan Timbangan,1012
+1015,seksi Ukuran Arus Panjang dan Volume,1012
+1016,Balai Pengemb. Pelatihan & Promosi Ekspor daerah,34
+1017,Subbag. Tata Usaha,1016
+1018,Seksi Pelatihan,1016
+1019,Seksi Promosi dan Informasi,1016
+1020,Balai Pengolahan Komoditi Unggulan Daerah dan Kemasan Pulau Lombok,34
+1021,Subbag. Tata Usaha,1020
+1022,"Seksi Pelatihan, Pembinaan Industri Makanan, Minuman dan Kerajinan",1020
+1023,Seksi Teknis Pelayanan Disain dan Kemasan,1020
+1024,Dinas Pertanian Tanaman Pangan dan Hortikultura,28
+1025,Balai Benih Induk Padi Palawija dan Hortikultura,28
+1026,Subbag. Tata Usaha ,1025
+1027,Seksi Benih Padi dan Palawija,1025
+1028,Seksi Benih Hortikultura,1025
+1029,Balai Proteksi Tanaman Pangan dan Hortikultura,28
+1030,Subbag. Tata Usaha,1029
+1031,Seksi Identifikasi dan Evaluasi Serangan Organisme Penganggu Tumbuhan,1029
+1032,Seksi Pengembangan Teknologi dan Laboratorium Organisme Pengganggu Tumbuhan,1029
+1033,Balai Pengawasan dan sertifikasi Benih Tanaman Pangan dan Hortikultura,28
+1034,Subbag. Tata Usaha,1033
+1035,Seksi Penilaian Kultivar Sertifikasi dan Pengawasan Pemasaran,1033
+1036,Seksi Pengujian Benih Laboratorium,1033
+1037,Dinas Peternakan dan Kesehatan Hewan,30
+1038,Balai Inseminasi Buatan,30
+1039,Subbag. Tata Usaha,1038
+1040,Seksi Produksi dan Dsitribusi,1038
+1041,Seksi Pengujian dan Pengawasan Mutu,1038
+1042,Rumah Sakit Hewan dan Laboratorium Veteriner,30
+1043,Subbag. Tata Usaha,1042
+1044,Seksi Pelayanan Medik/Hewan Produksi dan Hewan Kesayangan,1042
+1045,seksi Laboratorium Veteriner,1042
+1046,Balai Pembibitan Ternak dan Hijauan Makanan Ternak Serading,30
+1047,Subbag. Tata Usaha,1046
+1048,Seksi Pembibitan Ternak,1046
+1049,Seksi Pembibitan Hijauan Makanan Ternak,1046
+1050,Balai Pengembangan dan Pengolahan Pakan Ternak Ruminansia,30
+1051,Subbag. Tata Usaha,1050
+1052,Seksi Pengolahan Pakan Ternak Ruminansia,1050
+1053,Seksi Pengembangan dan Pelatihan Pakan Ternak Ruminansia,1050
+1054,Dinas Kelautan dan Perikanan ,26
+1055,Balai Pengembangan Budidaya Ikan Air Tawar Aik Mel,26
+1056,Subbag. Tata Usaha,1055
+1057,Seksi Pengembangan dan Penerapan,1055
+1058,Seksi Sarana Budidaya,1055
+1059,Balai Pengembangan Budidaya Perikanan Pantai Sekotong,26
+1060,Subbag. Tata Usaha,1059
+1061,Seksi Pengembangan dan pelayanan Teknis,1059
+1062,seksi Sarana dan Prasarana,1059
+1063,Balai Pengembangan Penangkapan Ikan Tajung Luar,26
+1064,Subbag. Tata Usaha,1063
+1065,Seksi Pengembangan dan penerapan,1063
+1066,Seksi sarana Penangkapan Ikan,1063
+1067,Balai Laboratorium Pengujian Mutu Hasil Perikanan,26
+1068,Subbag. Tata Usaha,1067
+1069,Seski Pengujian,1067
+1070,Seksi Pengendalian dan Pengawasan Mutu Hasil Perikanan,1067
+1071,Pelabuhan Perikanan Labuhan Lombok,26
+1072,subbag. Tata Usaha,1071
+1073,Seksi sarana Pelabuhan,1071
+1074,seksi Tata Operasional,1071
+1075,Balai Kesehatan Ikan dan Konservasi Sumber Daya Kelautan dan Perikanan  ,26
+1076,Subbag. Tata Usaha,1075
+1077,Seksi Pengendalian Hama dan Penyakit Ikan,1075
+1078,Seksi Pengendalian dan Pemulihan sumber Daya Kelautan dan Perikanan,1075
+1079,Pelabuhan Perikanan Pantai Teluk saleh,26
+1080,Subbag. Tata Usaha,1079
+1081,Seksi sarana Pelabuhan,1079
+1082,Seksi Tata Operasional,1079
+1083,Dinas Kehutanan,25
+1084,Balai Perbenihan dan Pembibitan Tanaman Hutan,25
+1085,Subbag. Tata Usaha,1084
+1086,Seksi Pembenihan Tanaman Hutan,1084
+1087,seksi Pembibitan Tanaman Hutan,1084
+1088,Balai Taman Hutan Raya Nurraksa,25
+1089,Subbag. Tata Usaha,1088
+1090,Seksi Konservasi Sumber Daya Alam,1088
+1091,Seksi Pemanfaatan Jasa Lingkungan,1088
+1092,Dinas Perkebunan,27
+1093,Balai Perbenihan Tanaman Perkebunan,27
+1094,Subbag. Tata Usaha,1093
+1095,Balai Laboratorium Perlindungan Tanaman Perkebunan,27
+1096,Subbag. Tata Usaha,1095
+1097,Balai Produksi dan Pengolahan Hasil Perkebunan,27
+1098,subbag. Tata Usaha,1097
+1099,Dinas Pertambngan dan Energi ,23
+1100,Balai Pengujian Mineral dn Energi ,23
+1102,Subbag. Tata  Usaha ,1100
+1103,Seksi Pengujian Mineral,1100
+1104,Seksi Pengujian Energi,1100
+1105,Balai Informasi Mineral dan Energi ,23
+1107,Subbag. Tata  Usaha ,1105
+1108,Pengolahan data ,1105
+1109,Seksi Publikasi,1105
+1110,Dinas Pendapatan Daerah,37
+1111,Pelayanan Pajak Daerah dan Retribusi Daerah Mataram,37
+1112,Subbag. Tata  Usaha ,1111
+1113,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1111
+1114,Pelayananan Pajak Daerah  dan Retribusi Daerah Praya ,37
+1115,Subbag. Tata  Usaha ,1114
+1116,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan  Lain Lain,1114
+1117,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1114
+1118,Pelayanan Pajak Daerah dan Retribusi Daerah Selong,37
+1119,Subbag. Tata  Usaha ,1118
+1120,Seksi Pendapatan  dan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1118
+1121,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1118
+1122,Pelayanan Pajak Daerah dan Retribusi Daerah Sumbawa Besar,37
+1123,Subbag. Tata  Usaha ,1122
+1124,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1122
+1125,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1122
+1126,Pelayanan Pajak Daerah  dan Retribusi  Daerah Raba Bima,37
+1127,Subbag. Tata  Usaha ,1126
+1128,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1126
+1129,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1126
+1130,Pelayanan Pajak Daerah dan Retribusi Daerah Dompu,37
+1131,Subbag. Tata  Usaha ,1130
+1132,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1130
+1133,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1130
+1134,Pelayan Pajak Daerah Retribusi Daerah Sumbawa Barat,37
+1135,Subbag. Tata  Usaha ,1134
+1136,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1134
+1137,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1134
+1138,Pelayanan Pajak Daerah dan Retribusi Daerah Lombok Barat,37
+1139,Subbag. Tata  Usaha ,1138
+1140,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1138
+1141,Seksi Penatausahaan Pajak Daerah Retribusi Daerah dan Pendapatan lain lain ,1138
+1142,Pelayanan Pajak Daerah dan Retribusi Daerah Tanjung,37
+1143,Subbag. Tata  Usaha ,1142
+1144,Seksi Pendapatan Penetapan dan Penagihan Pajak Daerah Retribusi Daerah dan Pendapatan Lain Lain,1142
+1145,Pelayanan Pajak Daerah dan Retribusi Daerah Tanjung,1142
+1146,Badan Lingkungan Hidup dan Penelitian ,14
+1147,Balai Laboratorium Lingkungan ,14
+1148,Subbag. Tata  Usaha ,1147
+1149,Seksi Pelayanan Teknis Laboratorium Lingkungan,1147
+1150,Seksi Evaluasi Laboratorium Lingkungan ,1147
+1151,Balai Penelitian dan Pengembangan ,14
+1152,Subbag. Tata  Usaha ,1151
+1153,Seksi Pelayanan Penelitian dan Pengembangan,1151
+1154,Seksi Evaluasi Hasil Penelitian dan Pengembangan ,1151
+1155,Badan Ketahanan Pangan ,16
+1156,Balai Pengawasan dan Sertifikasi Mutu Pangan,16
+1157,Subbag. Tata  Usaha ,1156
+1158,Seksi Pelayanan Teknis ,1156
+1159,Seksi Pengujian dan Sertifikasi Mutu Pangan,1156
+1160,Badan Perpustakaan dan Arsip Daerah ,19
+1161,Balai Penyimpanan Pemeliharaan dan Pelayanan Informasi Arsip,19
+1162,Subbag. Tata  Usaha ,1161
+1163,Seksi Penyimpanan dan Pemeliharaan ,1161
+1164,Seksi Pelayanan Informasi,1161
+1165,Badan Kepegawaian Daerah dan Pendidikan Pelatihan ,20
+1166,Unit Pelayanan Penilaian Kompetisi,20
+1167,Subbag. Tata  Usaha ,1166
+1168,Seksi Promosi dan Pelayanan ,1166
+1169,Seksi Penilaian Kompetisi,1166
+1170,"Badan Koordinasi Penyuluh Pertanian ,Perikanan dan Kehutanan",13
+1171,Balai Pendidikan dan Pelatihan Pertanian Mataram,13
+1172,Subbag. Tata  Usaha ,1171
+1173,Seksi Perencanaan dan Evaluasi,1171
+1174,Seksi Sarana dan Penyelenggaraan,1171
+1175,Sekolah Menengah Kujuruan Pertanian Pembangunan Mtr,13
+1176,Subbag. Tata  Usaha ,1175
+1177,Sekolah Menengah Kejuruan Pertanian Pembangunan Bima,13
+1178,Subbag. Tata  Usaha ,1177
+1179,Sekretariat Badan Koordinasi Penyuluh Pertanian perikanan dan kelautan Provinsi NTB,13
+1180,Bagian Tata usaha,13
+1181,subag. Program,1180
+1182,subag . Keuangan,1180
+1183,subag umum dan kepegawaian,1180
+1184,Bidang Pertanian,13
+1185,seksi kelembagaan dan penyelenggaraan penyuluhan pertanian,1184
+1186,seksi peningkatan kapasitas SDM dan sarana Prasarana,1184
+1187,Bidang perikanan,13
+1188,seksi kelembagaan dan penyelenggaraan penyuluhan  perikanan,1187
+1189,seksi peningkatan kapasitas SDM dan sarana prasarana penyuluh kehutanan,1187
+1190,Bidang perikanan,13
+1191,seksi kelembagaan dan penyelenggaraan penyuluh kehutanan ,1190
+1192,seksi peningkatan kapasitas SDM dan sarana prasarana penyuluh kehutanan,1190
+1193,Pelaksanaan Badan penanggulangan Bencana daerah Provinsi NTB,22
+1194,Sekertaris,22
+1195,Subag Program,1194
+1196,Subag Keuangan,1194
+1197,Subag Umum dan Kepegawaian,1194
+1198,Bidang pencegahan dan kesiapsiagaan,22
+1199,Seksi Pencegahan,1198
+1200,Seksi Kesiapsiagaan,1198
+1201,Bidang kedaruratan dan logistik,22
+1202,seksi tanggap darurat,1201
+1203,seksi penyelematan dan evakuasi,1201
+1204,Bidang Rehabilitasi dan Rekontruksi,22
+1205,seksi Rehabilitasi,1204
+1206,seksi rekontruksi,1204
+1207,Sekretariat Dewan Pengurus KORPRI Provinsi,
+1208,Bagian Umum dan Kerjasama,
+1209,subbag administrasi umum dan keuangan,
+1210,Subag Kerjasama,
+1211,"Bagian olahraga, seni, Budaya Mental dan Rohani",
+1212,"subag olahraga, Seni dan Budaya",
+1213,subag mental dan rohani,
+1214,Bagian Usaha dan bantuan sosial,
+1215,subbag usaha dan kesejateraan,
+1216,subbag bantuan Hukum dan Sosial,
+1217,Sekretariat Komisi Penyiaran Indonesia daerah Provinsi NTB,
+1218,subag Tata Usaha,
+1219,Subbag standarisasi/penyiaran,
+1220,Subbag pembinaan dan pengawasan,
+1221,Subbag komunikasi dan kelembagaan,
+1222,Kesatuan Pengelolaan Hutan Lindung Rinjani Barat Provinsi NTB,
+1223,Subag Tata usaha,
+1224,Seksi Rencana tata kelola Hutan,
+1225,Seksi pengendalian dan pemantauan pengelolaan hutan,
+1226,Kelompok jabatan fungsional,
+1227,Resort,
+1228,kesatuan pengelolaan Hutan Produksi maria Donngomasa Provinsi NTB,
+1229,Subag Tata usaha,
+1230,Seksi Rencana tata kelola Hutan,
+1231,Seksi pengendalian dan pemantauan pengelolaan hutan,
+1232,Kelompok jabatan fungsional,
+1233,Resort,
+1234,Kesatuan Pengelolaan Hutan produksi tambora provinsi NTB,
+1235,Subag Tata usaha,
+1236,Subbag Rencana tata kelola Hutan,
+1237,Seksi pengendalian dan Pemantauan pengelolaan Hutan,
+1238,Kelompok jabatan fungsional,
+1239,Resort,
+1240,kesatuan  pengelolaan hutan Lindung Ampang Riwo Provinsi NTB,
+1241,Subbag Tata Usaha,
+1242,Rencana Tata Usaha Kelola Hutan ,
+1243,Seksi Pengendalian dan Pemantauan Pengelolaan Hutan,
+1244,Kelompok jabatan fungsional,
+1245,Resort,

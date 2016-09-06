@@ -18,7 +18,7 @@ $this->title = 'Si-Sensi';
     
     <div class="body-content">
         
-        <?php Pjax::begin(['timeout'=>FALSE, 'id'=>'chart_table']); ?>
+        <!--<?php Pjax::begin(['timeout'=>FALSE, 'id'=>'chart_table']); ?>-->
         <div class="row">
             <div class="col-lg-6">               
                 <?= Highcharts::widget([
@@ -57,8 +57,8 @@ $this->title = 'Si-Sensi';
             ?>            
             </div>          
         </div> 
-        <?php Pjax::end() ?>
-        <?php $this->registerJs('
+        <!--<?php Pjax::end() ?>-->
+        <!--<?php $this->registerJs('
                 var check = function() {
                     setTimeout( function() {
                         $.pjax({
@@ -73,6 +73,6 @@ $this->title = 'Si-Sensi';
                 }
                 check();
             ');
-        ?>
+        ?>-->
     </div>
 </div>
