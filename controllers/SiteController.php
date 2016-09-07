@@ -63,26 +63,15 @@ class SiteController extends Controller
         $series = [];
         foreach ($attskpds as $attskpd) {
             $deptids = Departments::getDeptids($attskpd['DeptID']);
-            //$deptids = implode(",", $deptids);
             
-            
-            //$jmlPeg = Yii::$app->db->createCommand('select count(userid) from userinfo where defaultdeptid IN (:deptids)')
-            //        ->bindValue(':deptids', $deptids)->queryScalar();
-            $q = new Query();
-            $jmlPeg = $q->select('count(userid)')->from('userinfo')
+            $q1 = new Query();
+            $jmlPeg = $q1->select('count(userid)')->from('userinfo')
                     ->where(['IN','defaultdeptid', $deptids])
                     ->count();
             
-            /*
-            $query = 'select count(distinct u.userid) from userinfo u '
-                    . 'inner join checkinout c on u.userid = c.userid and DATE(c.checktime) = CURDATE() '
-                    . 'where u.defaultdeptid IN (:deptids) ';
-            
-            $jmlHadir = Yii::$app->db->createCommand($query)->bindValues([':deptids'=>$deptids])
-                    ->queryScalar();*/
-            $q = new Query();
-            $jmlHadir = $q->select('count(distinct u.userid)')->from('userinfo u')
-                    ->innerJoin('checkinout c','u.userid = c.userid and DATE(c.checktime) = "2016-8-8"')
+            $q2 = new Query();
+            $jmlHadir = $q2->select('count(distinct u.userid)')->from('userinfo u')
+                    ->innerJoin('checkinout c','u.userid = c.userid and DATE(c.checktime) = CURDATE()')
                     ->where(['IN','u.defaultdeptid', $deptids])
                     ->scalar();
             
@@ -109,8 +98,6 @@ class SiteController extends Controller
                 'defaultOrder'=>['%hadir'=>SORT_DESC],
             ],
         ]);
-        //$deptids = Departments::getDeptids(6);
-        //$deptids = implode(",", $deptids);
         
         if(Yii::$app->request->isAjax) {
             return $this->renderAjax('index',['dataProvider'=>$dataProvider, 'series'=>$series]);

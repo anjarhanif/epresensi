@@ -121,7 +121,7 @@ class Userinfo extends \yii\db\ActiveRecord
     
     public static function getUserinfoList($deptids) {
         $droptions = Userinfo::find()->select('userid, name')
-                ->where('defaultdeptid IN (:deptids)',[':deptids'=>$deptids])
+                ->where(['IN','defaultdeptid',$deptids])
                 ->orderBy('name')->asArray()->all();
         return ArrayHelper::map($droptions, 'userid', 'name');
     }

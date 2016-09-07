@@ -57,10 +57,8 @@ class KeteranganAbsenController extends Controller
      */
     public function actionIndex()
     {
-        //if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
-            $deptid = Yii::$app->user->identity->dept_id;
-            $deptids = Departments::getDeptids($deptid);
-        //} else $deptids=NULL;
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
 
         $searchModel = new KeteranganAbsenSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

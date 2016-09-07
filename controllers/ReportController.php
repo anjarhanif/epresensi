@@ -6,10 +6,9 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
-use yii\data\SqlDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\helpers\Json;
-
+use yii\db\Query;
 use app\models\ReportForm;
 use app\models\Departments;
 use app\models\Userinfo;
@@ -32,12 +31,15 @@ class ReportController extends Controller
                         'allow'=>TRUE,
                         'roles'=>['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return PermissionHelpers::requireMinimumRole('User') &&
+                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
                             PermissionHelpers::requireStatus('Active');
                         }
                     ]
                     
-                ]
+                ],
+                'denyCallback'=> function ($rule, $action) {
+                    throw new \yii\web\ForbiddenHttpException('Anda tidak diizinkan untuk mengakses halaman '.$action->id.' ini');
+                }
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -172,11 +174,25 @@ class ReportController extends Controller
                 'WHERE u.defaultdeptid IN (:deptids) '.
                 'GROUP BY u.userid, DATE(c.checktime) '.
                 'ORDER BY u.userid ASC ';
-        
+       
         $cmd = Yii::$app->db->createCommand($query);
         $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
         $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
         $allModels = $cmd->queryAll();
+       /*
+       $allModels = (new Query())->select('u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, 
+                IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, 
+                IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"A","")),""), k.statusid) AS keterangan')
+               ->from('userinfo u')
+               ->leftJoin('checkinout c','u.userid=c.userid AND DATE(c.checktime)=:tgl')
+               ->leftJoin('keterangan_absen k','u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) ')
+               ->where(['IN','u.defaultdeptid',$deptids])
+               ->groupBy('u.userid, DATE(c.checktime)')
+               ->orderBy('u.userid ASC')
+               ->addParams([':tgl'=>$model->tglAwal,':jamMasuk'=>$jamKerja->jam_masuk,':jamPulang'=>$jamKerja->jam_pulang])
+               ->all();
+        */
+        
         
         return $allModels;   
     }

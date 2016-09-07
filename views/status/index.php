@@ -21,14 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => ['style'=>'width:65%'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            ['attribute'=>'id','contentOptions'=>['style'=>'width: 8%']],
             'status_name',
-            'status_value',
+            ['attribute'=>'status_value','contentOptions'=>['style'=>'width: 15%']],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width: 10%']],
         ],
     ]); ?>
 </div>

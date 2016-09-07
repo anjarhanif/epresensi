@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'email:email',
             ['attribute'=>'dept_id','value'=>'department.DeptName'],
             ['attribute'=>'role_id', 'value'=>'role.role_name'],
-            ['attribute'=>'status_id','value'=>'status.status_name'],
+            ['attribute'=>'status_id','value'=>'status.status_name','contentOptions'=>['style'=>'width: 10%']],
             'created_at:datetime',
             // 'updated_at',
 
-            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width: 8%']],
+            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width: 6%']],
         ],
     ]); ?>
 </div>

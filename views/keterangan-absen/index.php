@@ -22,15 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :7%']],
+            ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :6%']],
             //'id',
-            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :20%']],
-            ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :8%']],
-            ['attribute'=>'tgl_awal','contentOptions'=>['style'=>'width :12%']],
-            ['attribute'=>'tgl_akhir','contentOptions'=>['style'=>'width :12%']],
+            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :30%']],
+            ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :6%']],
+            ['attribute'=>'tgl_awal','contentOptions'=>['style'=>'width :10%']],
+            ['attribute'=>'tgl_akhir','contentOptions'=>['style'=>'width :10%']],
             'keterangan',
 
-            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width :8%']],
+            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width :6%']],
         ],
     ]); ?>
 </div>
