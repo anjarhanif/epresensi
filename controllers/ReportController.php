@@ -62,7 +62,7 @@ class ReportController extends Controller
             $parents = $_POST['depdrop_parents'];
             if ($parents != NULL) {
                 $skpdID = $parents[0];
-                $out = Departments::find()->where(['supdeptid' => $skpdID])
+                $out = Departments::find()->Where(['supdeptid' => $skpdID])
                         ->select(['DeptID as id', 'DeptName as name'])->asArray()->all();
                 $params = NULL;
                 if(!empty($_POST['depdrop_params'])) {
@@ -142,21 +142,21 @@ class ReportController extends Controller
         }elseif ($model->eselon3 != NULL) {
             $eselon3s = [$model->eselon3];
             $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                    ->bindValue(':deptid', $eselon3s)->queryAll();
-            $deptids = array_merge($eselon3s, $eselon4s);          
+                    ->bindValue(':deptid', $model->eselon3)->queryAll();
+            $deptids = array_merge($eselon3s, array_column($eselon4s,'DeptID'));          
         }elseif ($model->skpd !=NULL) {
             $skpd = [$model->skpd];
             $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                    ->bindValue(':deptid', $skpd)->queryAll();
+                    ->bindValue(':deptid', $model->skpd)->queryAll();
             if(count($eselon3s)) {
+                $deptids = array_merge($skpd, array_column($eselon3s,'DeptID'));
                 foreach ($eselon3s as $eselon3 ) {
-                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                    $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                    $deptids = array_merge($deptids, array_column($eselon4s,'DeptID'));
                 }
-                $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
             } else $deptids = $skpd;
         }
-        $deptids = implode(",", $deptids);
                
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
@@ -164,25 +164,10 @@ class ReportController extends Controller
         }elseif($tglAwal->format('w') == 5) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
         }
-        
-       $query = 'SELECT u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, '.
-                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, '.
-                'IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"A","")),""), k.statusid) AS keterangan '.
-                'FROM userinfo u '.
-                'LEFT JOIN checkinout c ON u.userid=c.userid AND DATE(c.checktime)=:tgl '.
-                'LEFT JOIN keterangan_absen k ON u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) '.
-                'WHERE u.defaultdeptid IN (:deptids) '.
-                'GROUP BY u.userid, DATE(c.checktime) '.
-                'ORDER BY u.userid ASC ';
-       
-        $cmd = Yii::$app->db->createCommand($query);
-        $cmd->bindValues([':tgl'=>$model->tglAwal, ':deptids'=> $deptids]);
-        $cmd->bindValues([':jamMasuk'=>$jamKerja->jam_masuk, ':jamPulang'=>$jamKerja->jam_pulang]);
-        $allModels = $cmd->queryAll();
-       /*
-       $allModels = (new Query())->select('u.userid, u.name, IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil" ) AS datang, 
-                IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang, 
-                IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"A","")),""), k.statusid) AS keterangan')
+
+       $allModels = (new Query())->select(['u.userid','u.name','IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil") AS datang', 
+                'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang', 
+                'IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"TK","")),""), k.statusid) AS keterangan'])
                ->from('userinfo u')
                ->leftJoin('checkinout c','u.userid=c.userid AND DATE(c.checktime)=:tgl')
                ->leftJoin('keterangan_absen k','u.userid=k.userid AND :tgl BETWEEN k.tgl_awal AND (IF(k.tgl_akhir IS NULL, k.tgl_awal, k.tgl_akhir)) ')
@@ -191,9 +176,7 @@ class ReportController extends Controller
                ->orderBy('u.userid ASC')
                ->addParams([':tgl'=>$model->tglAwal,':jamMasuk'=>$jamKerja->jam_masuk,':jamPulang'=>$jamKerja->jam_pulang])
                ->all();
-        */
-        
-        
+              
         return $allModels;   
     }
     
@@ -204,21 +187,21 @@ class ReportController extends Controller
         }elseif ($model->eselon3 != NULL) {
             $eselon3s = [$model->eselon3];
             $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                    ->bindValue(':deptid', $eselon3s)->queryAll();
-            $deptids = array_merge($eselon3s, $eselon4s);          
+                    ->bindValue(':deptid', $model->eselon3)->queryAll();
+            $deptids = array_merge($eselon3s, array_column($eselon4s,'DeptID'));          
         }elseif ($model->skpd !=NULL) {
             $skpd = [$model->skpd];
             $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
-                    ->bindValue(':deptid', $skpd)->queryAll();
+                    ->bindValue(':deptid', $model->skpd)->queryAll();
             if(count($eselon3s)) {
+                $deptids = array_merge($skpd, array_column($eselon3s,'DeptID'));
                 foreach ($eselon3s as $eselon3 ) {
-                    $eselon4s[] = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                    $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
                     ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                    $deptids = array_merge($deptids, array_column($eselon4s,'DeptID'));
                 }
-                $deptids = array_merge_recursive($skpd, $eselon3s, $eselon4s);
             } else $deptids = $skpd;
         }
-        $deptids = implode(",", $deptids);
         
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
@@ -241,7 +224,8 @@ class ReportController extends Controller
                 $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
             }
             ])
-        ->where('defaultdeptid IN (:deptids)', [':deptids'=>$deptids])
+        ->where(['IN','defaultdeptid', $deptids])
+        ->orderBy('userid ASC')
         ->asArray()->all();
         
         $allModels = [];

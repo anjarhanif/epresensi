@@ -49,21 +49,24 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
             'depends' => ['skpd-id'],
             'initialize'=>true,
             'placeholder' => '[ Pilih Eselon 3 ]',
-            'url' => Url::to(['/report/eselon3-list'])
+            'url' => Url::to(['/report/eselon3-list']),
+            'params' => ['input-eselon3'],
         ]
     ]) ?> 
     <?= $form->field($model,'eselon4')->widget(DepDrop::className(), [
-        'options'=>['style'=>'width : 500px'],
+        'options'=>['id'=>'eselon4-id','style'=>'width : 500px'],
         'pluginOptions' => [
-            'depends' => ['skpd-id', 'eselon3-id'],
+            'depends' => ['eselon3-id'],
             'initialize'=>true,
             'placeholder' => '[ Pilih Eselon 4 ]',
-            'url' => Url::to(['/report/eselon4-list'])
+            'url' => Url::to(['/report/eselon4-list']),
+            'params'=> ['input-eselon4']
         ],
     ]); ?>
     </div>
 </div>
-
+<?= Html::hiddenInput('input-eselon3', $model->eselon3, ['id'=>'input-eselon3']); ?>
+<?= Html::hiddenInput('input-eselon4', $model->eselon4, ['id'=>'input-eselon4']); ?>
 <?= Html::submitButton('Tampilkan',['class'=>'btn btn-primary']) ?>
 <p></p>
 <?php ActiveForm::end(); ?>

@@ -48,7 +48,7 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         'pluginOptions' => [
             'depends' => ['skpd-id'],
             'initialize'=>TRUE,
-            'placeholder' => 'Pilih Eselon 3',
+            'placeholder' => '[ Pilih Eselon 3 ]',
             'url' => Url::to(['/report/eselon3-list']),
             'params' => ['input-eselon3'],
             
@@ -59,7 +59,7 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         'pluginOptions' => [
             'depends' => ['eselon3-id'],
             'initialize'=>TRUE,
-            'placeholder' => 'Pilih Eselon 4',
+            'placeholder' => '[ Pilih Eselon 4 ]',
             'url' => Url::to(['/report/eselon4-list']),
             'params'=> ['input-eselon4']
         ],

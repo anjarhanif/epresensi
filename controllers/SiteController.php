@@ -64,13 +64,11 @@ class SiteController extends Controller
         foreach ($attskpds as $attskpd) {
             $deptids = Departments::getDeptids($attskpd['DeptID']);
             
-            $q1 = new Query();
-            $jmlPeg = $q1->select('count(userid)')->from('userinfo')
+            $jmlPeg = (new Query())->select('count(userid)')->from('userinfo')
                     ->where(['IN','defaultdeptid', $deptids])
                     ->count();
             
-            $q2 = new Query();
-            $jmlHadir = $q2->select('count(distinct u.userid)')->from('userinfo u')
+            $jmlHadir = (new Query())->select('count(distinct u.userid)')->from('userinfo u')
                     ->innerJoin('checkinout c','u.userid = c.userid and DATE(c.checktime) = CURDATE()')
                     ->where(['IN','u.defaultdeptid', $deptids])
                     ->scalar();

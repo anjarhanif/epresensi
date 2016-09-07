@@ -109,11 +109,11 @@ class KeteranganAbsenController extends Controller
     public function actionUpdate($id)
     {
         $deptid = Yii::$app->user->identity->dept_id;
-        $deptids = explode(",", Departments::getDeptids($deptid)) ;
+        $deptids = Departments::getDeptids($deptid);
         
         $model = $this->findModel($id);      
         
-        if ( in_array($model->userinfo->defaultdeptid,$deptids)) {
+        if (in_array($model->userinfo->defaultdeptid,$deptids)) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
             } else {
