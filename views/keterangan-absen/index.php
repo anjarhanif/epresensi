@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\KeteranganAbsenSearch */
@@ -26,8 +27,28 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :30%']],
             ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :6%']],
-            ['attribute'=>'tgl_awal','contentOptions'=>['style'=>'width :10%']],
-            ['attribute'=>'tgl_akhir','contentOptions'=>['style'=>'width :10%']],
+            [
+                'attribute'=>'tgl_awal',
+                'value'=>'tgl_awal',
+                'filter'=>  DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'tgl_awal',
+                    'dateFormat'=>'yyyy-MM-dd',
+                    'options'=>['class'=>'form-control','style'=>'width:100px']
+                ]),
+                'contentOptions'=>['style'=>'width :10%']
+            ],
+            [
+                'attribute'=>'tgl_akhir',
+                'value'=>'tgl_akhir',
+                'contentOptions'=>['style'=>'width :10%'],
+                'filter'=>  DatePicker::widget([
+                    'model'=>$searchModel,
+                    'attribute'=>'tgl_akhir',
+                    'dateFormat'=>'yyyy-MM-dd',
+                    'options'=>['class'=>'form-control','style'=>'width:100px']
+                ]),
+            ],
             'keterangan',
 
             ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width :6%']],

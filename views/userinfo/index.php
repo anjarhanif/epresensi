@@ -26,7 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //['attribute'=>'userid', 'contentOptions'=>['style'=>'width: 8%']],
-            ['attribute'=>'badgenumber', 'contentOptions'=>['style'=>'width: 8%']],
+            [
+                'attribute'=>'badgenumber',
+                'value'=> function($data) {return (int)$data->badgenumber;},
+                'contentOptions'=>['style'=>'width: 8%']
+            ],
             'name',
             ['attribute'=>'Card', 'contentOptions'=>['style'=>'width: 12%']],
             ['attribute'=>'deptname', 'value'=>'department.DeptName'],
@@ -58,4 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width: 6%']],
         ],
     ]); ?>
+    <?= Html::a('Export Excel', ['export-excel','params'=> Yii::$app->request->queryParams], ['class'=>'btn btn-info']); ?>&nbsp;
+    <?= Html::a('Export PDF', ['export-pdf','params'=> Yii::$app->request->queryParams], ['class'=>'btn btn-info']); ?>
 </div>

@@ -82,7 +82,12 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
     ],
     'columns'=>[
         ['class'=>'yii\grid\SerialColumn', 'contentOptions'=>['style'=>'width : 6%']],
-        ['attribute'=>'badgenumber','label'=>'PIN', 'contentOptions'=>['style'=>'width : 8%']],
+        [
+            'attribute'=>'badgenumber',
+            'label'=>'PIN',
+            'value'=>  function ($data) {return (int)$data['badgenumber'];},
+            'contentOptions'=>['style'=>'width : 8%']
+        ],
         'name',
         ['attribute'=>'datang','contentOptions'=>['style'=>'width : 15%']],
         ['attribute'=>'pulang','contentOptions'=>['style'=>'width : 15%']],

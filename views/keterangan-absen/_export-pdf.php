@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Laporan Harian</title>
+        <title>Keterangan Absen</title>
         <style type="text/css">
             @page {
                 margin-top: 2.5cm;
@@ -17,26 +17,27 @@
     </head>
     <body>
         <div class="page">
-            <h1>Laporan Absen Harian</h1>
+            <h2>Keterangan Absen</h2>
+            <h3>Satuan Kerja : <?= $dept->DeptName; ?></h3>
             <table border="0">
                 <tr>
                     <th>No</th>
-                    <th>PIN</th>
                     <th>Nama</th>
-                    <th>Datang</th>
-                    <th>Pulang</th>
+                    <th>Status</th>
+                    <th>Tgl-Awal</th>
+                    <th>Tgl-Akhir</th>
                     <th>Keterangan</th>
                 </tr>
                 <?php
                 $no = 1;
-                foreach ($dataProvider->getModels() as $absensi) { ?>
+                foreach ($dataProvider->getModels() as $keterangan) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= (int)$absensi['badgenumber'] ?></td>
-                    <td><?= $absensi['name'] ?></td>
-                    <td><?= $absensi['datang'] ?></td>
-                    <td><?= $absensi['pulang'] ?></td>
-                    <td><?= $absensi['keterangan'] ?></td>
+                    <td><?= $keterangan->userinfo->name ?></td>
+                    <td><?= $keterangan->statusid ?></td>
+                    <td><?= $keterangan->tgl_awal ?></td>
+                    <td><?= $keterangan->tgl_akhir ?></td>
+                    <td><?= $keterangan->keterangan ?></td>
                 </tr>
                 <?php
                 }

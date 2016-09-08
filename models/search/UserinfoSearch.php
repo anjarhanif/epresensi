@@ -50,6 +50,10 @@ class UserinfoSearch extends Userinfo
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->sort->attributes['deptname'] = [
+            'asc'=>['departments.DeptName'=>SORT_ASC],
+            'desc'=>['departments.DeptName'=>SORT_DESC]
+        ];
 
         $this->load($params);
 

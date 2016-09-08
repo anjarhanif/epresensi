@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Laporan Harian</title>
+        <title>User Info</title>
         <style type="text/css">
             @page {
                 margin-top: 2.5cm;
@@ -17,26 +17,23 @@
     </head>
     <body>
         <div class="page">
-            <h1>Laporan Absen Harian</h1>
+            <h2>User Info</h2>
+            <h3>Satuan Kerja : <?= $dept->DeptName; ?></h3>
             <table border="0">
                 <tr>
                     <th>No</th>
                     <th>PIN</th>
                     <th>Nama</th>
-                    <th>Datang</th>
-                    <th>Pulang</th>
-                    <th>Keterangan</th>
+                    <th>Unit Kerja</th>
                 </tr>
                 <?php
                 $no = 1;
-                foreach ($dataProvider->getModels() as $absensi) { ?>
+                foreach ($dataProvider->getModels() as $userinfo) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= (int)$absensi['badgenumber'] ?></td>
-                    <td><?= $absensi['name'] ?></td>
-                    <td><?= $absensi['datang'] ?></td>
-                    <td><?= $absensi['pulang'] ?></td>
-                    <td><?= $absensi['keterangan'] ?></td>
+                    <td><?= (int)$userinfo->badgenumber ?></td>
+                    <td><?= $userinfo->name ?></td>
+                    <td><?= $userinfo->department->DeptName ?></td>
                 </tr>
                 <?php
                 }

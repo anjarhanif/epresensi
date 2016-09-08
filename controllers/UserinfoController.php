@@ -155,4 +155,62 @@ class UserinfoController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionExportExcel(array $params=NULL) {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
+
+        $searchModel = new UserinfoSearch();
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andFilterWhere(['IN','defaultdeptid',$deptids]);
+        $dataProvider->pagination=FALSE;
+        
+        $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        //set template
+        $template = Yii::getAlias('@app/views/userinfo').'/_export.xlsx';
+        $objPHPExcel = $objReader->load($template);
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        // set orientasi dan ukuran kertas
+        $activeSheet->getPageSetup()
+                ->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+                ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        
+        $baseRow=3;
+        foreach ($dataProvider->getModels() as $userinfo) {
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+                    ->setCellValue('B'.$baseRow, (int)$userinfo->badgenumber)
+                    ->setCellValue('C'.$baseRow, $userinfo->name)
+                    ->setCellValue('D'.$baseRow, $userinfo->Card)
+                    ->setCellValue('E'.$baseRow, $userinfo->department->DeptName);
+            $baseRow++;
+        }
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="_export.xlsx"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        $objWriter->save('php://output');
+        exit;
+    }
+    
+    public function actionExportPdf(array $params=NULL) {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $dept = Departments::find()->select('DeptName')->where(['DeptID'=>$deptid])->one();
+        $deptids = Departments::getDeptids($deptid);
+
+        $searchModel = new UserinfoSearch();
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andFilterWhere(['IN','defaultdeptid',$deptids]);
+        $dataProvider->pagination = FALSE;
+        
+        $html = $this->renderPartial('_export-pdf', ['dataProvider'=>$dataProvider, 'dept'=>$dept]);
+        
+        $mpdf = new \mPDF('c', 'A4','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+        
+        exit;
+    }
 }

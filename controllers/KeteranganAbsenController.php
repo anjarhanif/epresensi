@@ -153,7 +153,7 @@ class KeteranganAbsenController extends Controller
         }
     }
     
-    public function actionExportExcel(array $params) {
+    public function actionExportExcel(array $params=NULL) {
         $deptid = Yii::$app->user->identity->dept_id;
         $deptids = Departments::getDeptids($deptid);
 
@@ -191,8 +191,9 @@ class KeteranganAbsenController extends Controller
         exit;
     }
     
-    public function actionExportPdf(array $params) {
+    public function actionExportPdf(array $params=NULL) {
         $deptid = Yii::$app->user->identity->dept_id;
+        $dept = Departments::find()->select('DeptName')->where(['DeptID'=>$deptid])->one();
         $deptids = Departments::getDeptids($deptid);
 
         $searchModel = new KeteranganAbsenSearch();
@@ -200,7 +201,7 @@ class KeteranganAbsenController extends Controller
         $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
         $dataProvider->pagination = FALSE;
         
-        $html = $this->renderPartial('export-pdf', ['dataProvider'=>$dataProvider]);
+        $html = $this->renderPartial('_export-pdf', ['dataProvider'=>$dataProvider, 'dept'=>$dept]);
         
         $mpdf = new \mPDF('c', 'A4','','',0,0,0,0,0,0);
         $mpdf->SetDisplayMode('fullpage');

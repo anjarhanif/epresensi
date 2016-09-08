@@ -50,7 +50,12 @@ class KeteranganAbsenSearch extends KeteranganAbsen
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder'=>['tgl_awal'=>SORT_DESC]]
         ]);
+        $dataProvider->sort->attributes['username'] = [
+            'asc' => ['userinfo.name'=>SORT_ASC],
+            'desc' => ['userinfo.name'=>SORT_DESC]
+        ];
 
         $this->load($params);
 

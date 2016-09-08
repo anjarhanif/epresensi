@@ -45,8 +45,8 @@ class KeteranganAbsen extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'userid' => 'Userid',
-            'statusid' => 'Statusid',
+            'userid' => 'UserID',
+            'statusid' => 'Status',
             'tgl_awal' => 'Tgl Awal',
             'tgl_akhir' => 'Tgl Akhir',
             'keterangan' => 'Keterangan',

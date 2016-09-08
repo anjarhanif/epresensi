@@ -298,7 +298,7 @@ class ReportController extends Controller
                 }
             } 
             $allModels[]=[
-                'userid'=>$userInfo['badgenumber'],
+                'userid'=>(int)$userInfo['badgenumber'],
                 'name'=>$userInfo['name'],
                 'sakit'=>$jmlSakit,
                 'ijin'=>$jmlIjin,
@@ -336,10 +336,11 @@ class ReportController extends Controller
         $baseRow=3;
         foreach ($dataProvider->getModels() as $absen) {
             $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
-                    ->setCellValue('B'.$baseRow, $absen['badgenumber'])
+                    ->setCellValue('B'.$baseRow, (int)$absen['badgenumber'])
                     ->setCellValue('C'.$baseRow, $absen['name'])
                     ->setCellValue('D'.$baseRow, $absen['datang'])
-                    ->setCellValue('E'.$baseRow, $absen['pulang']);
+                    ->setCellValue('E'.$baseRow, $absen['pulang'])
+                    ->setCellValue('F'.$baseRow, $absen['keterangan']);
             $baseRow++;
         }
         
