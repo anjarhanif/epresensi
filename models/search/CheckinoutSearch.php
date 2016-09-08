@@ -15,6 +15,7 @@ class CheckinoutSearch extends Checkinout
     /**
      * @inheritdoc
      */
+    public $pin;
     public $name;
     public $alias;
 
@@ -22,7 +23,7 @@ class CheckinoutSearch extends Checkinout
     {
         return [
             [['id', 'userid', 'verifycode'], 'integer'],
-            [['name','checktime', 'checktype', 'SN','alias', 'sensorid', 'WorkCode', 'Reserved'], 'safe'],
+            [['pin','name','checktime', 'checktype', 'SN','alias', 'sensorid', 'WorkCode', 'Reserved'], 'safe'],
         ];
     }
 
@@ -54,6 +55,11 @@ class CheckinoutSearch extends Checkinout
             'query' => $query,
         ]);
         
+        $dataProvider->sort->attributes['pin'] = [
+            'asc'=>['userinfo.badgenumber'=>SORT_ASC],
+            'desc'=>['userinfo.badgenumber'=>SORT_DESC],
+        ];
+        
         $dataProvider->sort->attributes['name'] = [
             'asc'=>['userinfo.name'=>SORT_ASC],
             'desc'=>['userinfo.name'=>SORT_DESC],
@@ -80,6 +86,7 @@ class CheckinoutSearch extends Checkinout
         ]);
 
         $query->andFilterWhere(['like','userinfo.name', $this->name])
+            ->andFilterWhere(['like', 'userinfo.badgenumber', $this->pin])
             ->andFilterWhere(['like', 'checktime', $this->checktime])
             ->andFilterWhere(['like', 'checktype', $this->checktype])
             ->andFilterWhere(['like', 'SN', $this->SN])

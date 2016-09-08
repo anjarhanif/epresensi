@@ -86,7 +86,7 @@ class CheckinoutController extends Controller
     
     public function actionCheck() {
         $checkinout = Checkinout::find()->select('id')->orderBy('id DESC')->one();
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['lastId'=>$checkinout->id];
     }
 

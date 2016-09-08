@@ -81,12 +81,12 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         'maxButtonCount'=>5
     ],
     'columns'=>[
-        ['class'=>'yii\grid\SerialColumn'],
-        'userid',
+        ['class'=>'yii\grid\SerialColumn', 'contentOptions'=>['style'=>'width : 6%']],
+        ['attribute'=>'badgenumber','label'=>'PIN', 'contentOptions'=>['style'=>'width : 8%']],
         'name',
-        'datang',
-        'pulang',
-        'keterangan',
+        ['attribute'=>'datang','contentOptions'=>['style'=>'width : 15%']],
+        ['attribute'=>'pulang','contentOptions'=>['style'=>'width : 15%']],
+        ['attribute'=>'keterangan','contentOptions'=>['style'=>'width : 8%']],
     ]
 ]); ?>
 

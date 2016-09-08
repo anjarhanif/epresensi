@@ -70,8 +70,8 @@ class Userinfo extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'userid' => 'User Id',
-            //'badgenumber' => 'Badgenumber',
+            //'userid' => 'User Id',
+            'badgenumber' => 'PIN',
             'defaultdeptid' => 'Unit Kerja',
             'name' => 'Nama',
             //'Password' => 'Password',

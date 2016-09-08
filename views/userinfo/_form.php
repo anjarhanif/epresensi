@@ -16,8 +16,8 @@ $skpdid = Yii::$app->user->identity->dept_id;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'badgenumber')->textInput(['maxlength' => true,'style'=>'width: 600px']) ?>
     <?= $form->field($model, 'Card')->textInput(['maxlength' => true,'style'=>'width: 600px']) ?>
-    
     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'style'=>'width: 600px']) ?>
 
     <?= $form->field($model, 'defaultdeptid')->widget(Select2::className(),[

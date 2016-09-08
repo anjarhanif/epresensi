@@ -26,7 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:8%']],
+            //['attribute'=>'userid', 'format'=>'raw', 'contentOptions'=>['style'=>'width:8%']],
+            ['attribute'=>'pin', 'value'=>'userinfo.badgenumber', 'contentOptions'=>['style'=>'width:8%']],
             ['attribute' => 'name','value'=>'userinfo.name', 'format'=>'raw', 'contentOptions'=>['style'=>'width:40%']],
             'checktime',
             //'checktype',

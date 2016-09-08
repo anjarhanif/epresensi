@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            ['attribute'=>'userid', 'contentOptions'=>['style'=>'width: 8%']],
-            ['attribute'=>'Card', 'contentOptions'=>['style'=>'width: 12%']],
+            //['attribute'=>'userid', 'contentOptions'=>['style'=>'width: 8%']],
+            ['attribute'=>'badgenumber', 'contentOptions'=>['style'=>'width: 8%']],
             'name',
+            ['attribute'=>'Card', 'contentOptions'=>['style'=>'width: 12%']],
             ['attribute'=>'deptname', 'value'=>'department.DeptName'],
             //'Password',
-            // 'Card',
             // 'Privilege',
             // 'AccGroup',
             // 'TimeZones',

@@ -81,7 +81,7 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
     ],
     'columns'=>[
         ['class'=>'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :5%']],
-        ['attribute'=>'userid','contentOptions'=>['style'=>'width :7%']],
+        ['attribute'=>'badgenumber','label'=>'PIN','contentOptions'=>['style'=>'width :8%']],
         'name',
         ['attribute'=>'sakit','contentOptions'=>['style'=>'width :7%']],
         ['attribute'=>'ijin','contentOptions'=>['style'=>'width :7%']],

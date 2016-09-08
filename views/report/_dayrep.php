@@ -21,7 +21,7 @@
             <table border="0">
                 <tr>
                     <th>No</th>
-                    <th>UserID</th>
+                    <th>PIN</th>
                     <th>Nama</th>
                     <th>Datang</th>
                     <th>Pulang</th>
@@ -31,7 +31,7 @@
                 foreach ($dataProvider->getModels() as $absensi) { ?>
                 <tr>
                     <td><?= $no++ ?></td>
-                    <td><?= $absensi['userid'] ?></td>
+                    <td><?= $absensi['badgenumber'] ?></td>
                     <td><?= $absensi['name'] ?></td>
                     <td><?= $absensi['datang'] ?></td>
                     <td><?= $absensi['pulang'] ?></td>

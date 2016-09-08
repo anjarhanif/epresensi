@@ -165,7 +165,7 @@ class ReportController extends Controller
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
         }
 
-       $allModels = (new Query())->select(['u.userid','u.name','IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil") AS datang', 
+       $allModels = (new Query())->select(['u.badgenumber','u.name','IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil") AS datang', 
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang', 
                 'IF(k.statusid IS NULL, IF(:tgl <> CURDATE(), IF(TIME(MIN(c.checktime)) > :jamMasuk OR TIME(MAX(c.checktime)) < :jamPulang, "TH/CP",IF(COUNT(c.checktime) = 0,"TK","")),""), k.statusid) AS keterangan'])
                ->from('userinfo u')
@@ -215,7 +215,7 @@ class ReportController extends Controller
             $renAkhir = $renAwal;
         }else $renAkhir = $model->tglAkhir;   
                 
-        $query = Userinfo::find()->select('userid, name')->with([
+        $query = Userinfo::find()->select('userid, badgenumber, name')->with([
             'keteranganAbsen'=>function($query) use($renAwal, $renAkhir) {
                 $query->andWhere('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
                         . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
@@ -298,7 +298,7 @@ class ReportController extends Controller
                 }
             } 
             $allModels[]=[
-                'userid'=>$userInfo['userid'],
+                'userid'=>$userInfo['badgenumber'],
                 'name'=>$userInfo['name'],
                 'sakit'=>$jmlSakit,
                 'ijin'=>$jmlIjin,
@@ -336,7 +336,7 @@ class ReportController extends Controller
         $baseRow=3;
         foreach ($dataProvider->getModels() as $absen) {
             $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
-                    ->setCellValue('B'.$baseRow, $absen['userid'])
+                    ->setCellValue('B'.$baseRow, $absen['badgenumber'])
                     ->setCellValue('C'.$baseRow, $absen['name'])
                     ->setCellValue('D'.$baseRow, $absen['datang'])
                     ->setCellValue('E'.$baseRow, $absen['pulang']);

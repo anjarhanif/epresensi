@@ -121,9 +121,7 @@ class KeteranganAbsenController extends Controller
                     'model' => $model,
                 ]);
             }
-        } else return FALSE;
-
-        
+        } else return FALSE;    
     }
 
     /**
@@ -153,5 +151,63 @@ class KeteranganAbsenController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionExportExcel(array $params) {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
+
+        $searchModel = new KeteranganAbsenSearch();
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
+        $dataProvider->pagination=FALSE;
+        
+        $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        //set template
+        $template = Yii::getAlias('@app/views/keterangan-absen').'/_export.xlsx';
+        $objPHPExcel = $objReader->load($template);
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        // set orientasi dan ukuran kertas
+        $activeSheet->getPageSetup()
+                ->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+                ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        
+        $baseRow=3;
+        foreach ($dataProvider->getModels() as $absen) {
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+                    ->setCellValue('B'.$baseRow, $absen->userinfo->name)
+                    ->setCellValue('C'.$baseRow, $absen->statusid)
+                    ->setCellValue('D'.$baseRow, $absen->tgl_awal)
+                    ->setCellValue('E'.$baseRow, $absen->tgl_akhir)
+                    ->setCellValue('F'.$baseRow, $absen->keterangan);
+            $baseRow++;
+        }
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="_export.xlsx"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        $objWriter->save('php://output');
+        exit;
+    }
+    
+    public function actionExportPdf(array $params) {
+        $deptid = Yii::$app->user->identity->dept_id;
+        $deptids = Departments::getDeptids($deptid);
+
+        $searchModel = new KeteranganAbsenSearch();
+        $dataProvider = $searchModel->search($params);
+        $dataProvider->query->andFilterWhere(['IN','userinfo.defaultdeptid',$deptids]);
+        $dataProvider->pagination = FALSE;
+        
+        $html = $this->renderPartial('export-pdf', ['dataProvider'=>$dataProvider]);
+        
+        $mpdf = new \mPDF('c', 'A4','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+        
+        exit;
     }
 }
