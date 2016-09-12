@@ -32,7 +32,8 @@ class KeteranganAbsen extends \yii\db\ActiveRecord
         return [
             [['userid', 'statusid', 'tgl_awal'], 'required'],
             [['userid'], 'integer'],
-            [['tgl_awal', 'tgl_akhir'], 'safe'],
+            [['tgl_awal', 'tgl_akhir'], 'date','format'=>'yyyy-M-d'],
+            ['tgl_akhir','compare','compareAttribute'=>'tgl_awal','operator'=>'>='],
             [['statusid'], 'string', 'max' => 2],
             [['keterangan'], 'string', 'max' => 255],
         ];

@@ -439,5 +439,106 @@ class ReportController extends Controller
 
         exit;
     }
-
+    
+    public function actionResumeReport2() {
+        $model = new ReportForm();
+        $model->load(\Yii::$app->request->queryParams);
+        
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport2($model),
+            'pagination'=> [
+                'pageSize'=>20,
+            ]
+        ]);
+        
+        return $this->render('report-resume2', [
+            'model'=>$model,
+            'dataProvider'=>$dataProvider
+        ]);
+    }
+    
+    public function arrayResumeReport2($model) {
+        $deptids = [];
+        if ($model->eselon4 != NULL) {
+            $deptids=[$model->eselon4];
+        }elseif ($model->eselon3 != NULL) {
+            $eselon3s = [$model->eselon3];
+            $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                    ->bindValue(':deptid', $model->eselon3)->queryAll();
+            $deptids = array_merge($eselon3s, array_column($eselon4s,'DeptID'));          
+        }elseif ($model->skpd !=NULL) {
+            $skpd = [$model->skpd];
+            $eselon3s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                    ->bindValue(':deptid', $model->skpd)->queryAll();
+            if(count($eselon3s)) {
+                $deptids = array_merge($skpd, array_column($eselon3s,'DeptID'));
+                foreach ($eselon3s as $eselon3 ) {
+                    $eselon4s = Yii::$app->db->createCommand('select DeptID from departments where supdeptid =:deptid')
+                    ->bindValue(':deptid', $eselon3['DeptID'])->queryAll();
+                    $deptids = array_merge($deptids, array_column($eselon4s,'DeptID'));
+                }
+            } else $deptids = $skpd;
+        }
+        
+        $tglAwal = new \DateTime($model->tglAwal);
+        if(in_array($tglAwal->format('w'),[1,2,3,4])) {
+            $jamKerja = JamKerja::find()->where(['nama_jamker'=>'senin-kamis'])->one();
+        }elseif($tglAwal->format('w') == 5) {
+            $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
+        }
+        
+        $renAwal = $model->tglAwal;
+        if($model->tglAkhir == NULL) {
+            $renAkhir = $renAwal;
+        }else $renAkhir = $model->tglAkhir;   
+                
+        $query = Userinfo::find()->select('userid, badgenumber, name')->with([
+            'keteranganAbsen'=>function($query) use($renAwal, $renAkhir) {
+                $query->andWhere('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
+                        . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
+            },
+            'checkinoutsDaily'=>function ($query) use($renAwal, $renAkhir) {
+                $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
+                $query->orderBy('DATE(datang ASC');
+            }
+            ])
+        ->where(['IN','defaultdeptid', $deptids])
+        ->orderBy('userid ASC')
+        ->asArray()->all();
+        
+        
+        $renAwal = new \DateTime($model->tglAwal);
+        if($model->tglAkhir == NULL) {
+            $renAkhir = $renAwal;
+        }else $renAkhir = new \DateTime($model->tglAkhir);
+        
+        $user = [];
+        foreach ($query as $userInfo) {
+            $id = $userInfo['userid'];
+            $user[$id] = [];
+            $jmlSakit = 0;
+            $jmlIjin =0;
+            $jmlTD=0;
+            $jmlCuti=0;
+            $jmlAlpa=0;
+            $jmlTHCP=0;
+            
+            if (count($userInfo['checkinoutsDaily'])) {
+                foreach ($userInfo['checkinoutsDaily'] as $checkinout) {
+                    
+                    $tglDatang = new \DateTime($checkinout['datang']);
+                    if ($checkinout['pulang'] == NULL) {
+                        $tglPulang = $tglDatang;
+                    }else $tglPulang = new \DateTime($checkinout['pulang']);
+                    
+                    $user[$id] = [$tglDatang->format('Y-m-d')=>'H']; 
+                }
+            } 
+            
+            
+            
+            
+        }
+        return $user;
+    }
 }
