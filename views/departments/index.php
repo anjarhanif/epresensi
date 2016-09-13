@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['attribute'=>'DeptID', 'contentOptions'=>['style'=>'width :8%']],
             'DeptName',
-            ['attribute'=>'sup_dept','value'=>'supdept.DeptName', 'contentOptions'=>['style'=>'width :30%']],
+            ['attribute'=>'sup_dept','label'=>'Unit Kerja Induk','value'=>'supdept.DeptName', 'contentOptions'=>['style'=>'width :30%']],
 
             ['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width :7%']],
         ],

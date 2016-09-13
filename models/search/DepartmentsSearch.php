@@ -50,6 +50,11 @@ class DepartmentsSearch extends Departments
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        
+        $dataProvider->sort->attributes['sup_dept'] = [
+            'asc'=> ['sup_dept.DeptName'=>SORT_ASC],
+            'desc'=>['sup_dept.DeptName'=>SORT_DESC]
+        ];
 
         $this->load($params);
 
@@ -65,7 +70,7 @@ class DepartmentsSearch extends Departments
             'supdeptid' => $this->supdeptid,
         ]);
 
-        $query->andFilterWhere(['like', 'DeptName', $this->DeptName])
+        $query->andFilterWhere(['like', 'departments.DeptName', $this->DeptName])
                 ->andFilterWhere(['like', 'sup_dept.DeptName', $this->sup_dept]);
 
         return $dataProvider;

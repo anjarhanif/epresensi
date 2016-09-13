@@ -31,7 +31,7 @@ class Departments extends \yii\db\ActiveRecord
         return [
             [['DeptID', 'DeptName'], 'required'],
             [['DeptID', 'supdeptid'], 'integer'],
-            [['DeptName'], 'string', 'max' => 20],
+            [['DeptName'], 'string', 'max' => 50],
         ];
     }
 

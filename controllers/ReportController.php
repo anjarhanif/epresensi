@@ -534,7 +534,10 @@ class ReportController extends Controller
                     $user[$id] = [$tglDatang->format('Y-m-d')=>'H']; 
                 }
             } 
-            
+            $user[$id] = [
+                'pin'=> $userInfo['badgenumber'],
+                'name'=> $userInfo['name']
+            ];
             
             
             
