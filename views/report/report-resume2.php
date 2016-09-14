@@ -72,30 +72,38 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
 <?php ActiveForm::end(); ?>
 
 <?php
-    $tglAwal = strtotime($model->tglAwal);
-    $tglAkhir = strtotime($model->tglAkhir);
-    for($x = $tglAwal; $x <= $tglAkhir; $x=  strtotime("+1 day", $x)) {
+    $tglAwal = new \DateTime($model->tglAwal);
+    $tglAkhir = new \DateTime($model->tglAkhir);
+    $dates = [];
+    $benar = TRUE;
+    for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
         $dates[] = [
-            'attribute'=> date('Y-m-d', $x),
-            'label'=> date('d'),
+            'attribute'=> $x->format('Y-m-d'),
+            'label'=> $x->format('d'),
+            $benar ? 'value'=>'' : '',
+            
         ];
     }
 ?>
 
 <?= GridView::widget([
     'dataProvider'=>$dataProvider,
-    'formatter'=>['class'=>'yii\i18n\Formatter' ,'nullDisplay'=>'Nihil'],
+    'formatter'=>['class'=>'yii\i18n\Formatter' ,'nullDisplay'=>''],
     'pager'=>[
         'firstPageLabel'=>'First',
         'lastPageLabel'=>'Last',
         'maxButtonCount'=>5
     ],
-    'columns'=>[
+    'columns'=>  array_merge([
         ['class'=>'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :5%']],
-        ['attribute'=>'pin','label'=>'PIN','contentOptions'=>['style'=>'width :8%']],
-        'name',
-        $dates,
-    ]
+        [
+            'attribute'=>'pin',
+            'label'=>'PIN',
+            'value'=>function ($data) {return (int)$data['pin'];},
+            'contentOptions'=>['style'=>'width :8%']
+        ],
+        'name'], $dates
+    )
 ]); ?>
 
 <?= Html::a('Export Excel', ['represume-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;

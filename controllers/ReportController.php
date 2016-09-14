@@ -487,19 +487,19 @@ class ReportController extends Controller
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
         }
         
-        $renAwal = $model->tglAwal;
+        $renAwal = new \DateTime($model->tglAwal);
         if($model->tglAkhir == NULL) {
             $renAkhir = $renAwal;
-        }else $renAkhir = $model->tglAkhir;   
+        }else $renAkhir = new \DateTime($model->tglAkhir);
                 
         $query = Userinfo::find()->select('userid, badgenumber, name')->with([
             'keteranganAbsen'=>function($query) use($renAwal, $renAkhir) {
                 $query->andWhere('(tgl_awal >= :renAwal and tgl_awal <= :renAkhir) or '
-                        . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
+                        . '(tgl_akhir >= :renAwal and tgl_akhir <= :renAkhir)',[':renAwal'=>$renAwal->format('Y-m-d'), ':renAkhir'=>$renAkhir->format('Y-m-d')]);
             },
             'checkinoutsDaily'=>function ($query) use($renAwal, $renAkhir) {
-                $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal, ':renAkhir'=>$renAkhir]);
-                $query->orderBy('DATE(datang ASC');
+                $query->andWhere('DATE(datang) >= :renAwal and DATE(datang) <= :renAkhir',[':renAwal'=>$renAwal->format('Y-m-d'), ':renAkhir'=>$renAkhir->format('Y-m-d')]);
+                $query->orderBy('DATE(datang) ASC');
             }
             ])
         ->where(['IN','defaultdeptid', $deptids])
@@ -507,22 +507,14 @@ class ReportController extends Controller
         ->asArray()->all();
         
         
-        $renAwal = new \DateTime($model->tglAwal);
-        if($model->tglAkhir == NULL) {
-            $renAkhir = $renAwal;
-        }else $renAkhir = new \DateTime($model->tglAkhir);
-        
         $user = [];
         foreach ($query as $userInfo) {
             $id = $userInfo['userid'];
-            $user[$id] = [];
-            $jmlSakit = 0;
-            $jmlIjin =0;
-            $jmlTD=0;
-            $jmlCuti=0;
-            $jmlAlpa=0;
-            $jmlTHCP=0;
             
+            $user[$id] = [
+                'pin'=> $userInfo['badgenumber'],
+                'name'=> $userInfo['name']
+            ];   
             if (count($userInfo['checkinoutsDaily'])) {
                 foreach ($userInfo['checkinoutsDaily'] as $checkinout) {
                     
@@ -531,15 +523,29 @@ class ReportController extends Controller
                         $tglPulang = $tglDatang;
                     }else $tglPulang = new \DateTime($checkinout['pulang']);
                     
-                    $user[$id] = [$tglDatang->format('Y-m-d')=>'H']; 
+                    $user[$id][$tglDatang->format('Y-m-d')] = 'H'; 
                 }
-            } 
-            $user[$id] = [
-                'pin'=> $userInfo['badgenumber'],
-                'name'=> $userInfo['name']
-            ];
-            
-            
+            }
+            if (count($userInfo['keteranganAbsen'])) {
+                foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {
+                    
+                    $tglAwal = new \DateTime($ketAbsen['tgl_awal']);
+                    if ($ketAbsen['tgl_akhir'] == NULL) {
+                        $tglAkhir = $tglAwal;
+                    } else $tglAkhir = new \DateTime($ketAbsen['tgl_akhir']);                                     
+                    
+                    if ($tglAwal < $renAwal) $tglAwal = $renAwal;
+                    if ($tglAkhir > $renAkhir) $tglAkhir =$renAkhir;
+                    
+                    for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
+                        $user[$id][$x->format('Y-m-d')] = $ketAbsen['statusid'];
+                    }
+                }
+            }
+            if (TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->one() OR in_array($tglDatang->format('w'),[0,6])) {
+            //
+                
+            }
             
         }
         return $user;

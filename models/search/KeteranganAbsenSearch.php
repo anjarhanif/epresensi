@@ -17,11 +17,13 @@ class KeteranganAbsenSearch extends KeteranganAbsen
      */
     
     public $username;
-    
+    public $pin;
+
+
     public function rules()
     {
         return [
-            [['id', 'userid'], 'integer'],
+            [['id', 'userid','pin'], 'integer'],
             [['username','statusid', 'tgl_awal', 'tgl_akhir', 'keterangan'], 'safe'],
         ];
     }
@@ -56,6 +58,10 @@ class KeteranganAbsenSearch extends KeteranganAbsen
             'asc' => ['userinfo.name'=>SORT_ASC],
             'desc' => ['userinfo.name'=>SORT_DESC]
         ];
+        $dataProvider->sort->attributes['pin'] = [
+            'asc' => ['userinfo.badgenumber'=>SORT_ASC],
+            'desc' => ['userinfo.badgenumber'=>SORT_DESC]
+        ];
 
         $this->load($params);
 
@@ -74,6 +80,7 @@ class KeteranganAbsenSearch extends KeteranganAbsen
         ]);
 
         $query->andFilterWhere(['like', 'statusid', $this->statusid])
+            ->andFilterWhere(['like','userinfo.badgenumber', $this->pin])
             ->andFilterWhere(['like','userinfo.name', $this->username])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
