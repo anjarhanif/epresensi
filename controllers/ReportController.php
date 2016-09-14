@@ -542,10 +542,13 @@ class ReportController extends Controller
                     }
                 }
             }
-            if (TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->one() OR in_array($tglDatang->format('w'),[0,6])) {
-            //
-                
+            
+            for($x = $renAwal ; $x <= $renAkhir; $x->modify('+1 day')) {
+                if ((TglLibur::find()->where(['tgl_libur'=>$x->format('Y-m-d')])->exists()) || (in_array($x->format('w'),[0,6]))) {
+                    $user[$id][$x->format('Y-m-d')] = 'L';
+                }
             }
+            
             
         }
         return $user;

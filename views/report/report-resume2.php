@@ -80,8 +80,6 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         $dates[] = [
             'attribute'=> $x->format('Y-m-d'),
             'label'=> $x->format('d'),
-            $benar ? 'value'=>'' : '',
-            
         ];
     }
 ?>
