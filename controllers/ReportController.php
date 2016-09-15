@@ -507,14 +507,15 @@ class ReportController extends Controller
         ->asArray()->all();
         
         
-        $user = [];
+        $user = array();
+         
         foreach ($query as $userInfo) {
             $id = $userInfo['userid'];
-            
             $user[$id] = [
                 'pin'=> $userInfo['badgenumber'],
                 'name'=> $userInfo['name']
-            ];   
+            ];
+            $hadir = 0;
             if (count($userInfo['checkinoutsDaily'])) {
                 foreach ($userInfo['checkinoutsDaily'] as $checkinout) {
                     
@@ -523,9 +524,17 @@ class ReportController extends Controller
                         $tglPulang = $tglDatang;
                     }else $tglPulang = new \DateTime($checkinout['pulang']);
                     
-                    $user[$id][$tglDatang->format('Y-m-d')] = 'H'; 
+                    $user[$id][$tglDatang->format('Y-m-d')] = 'H';
+                    if ( ! KeteranganAbsen::find()
+                            ->where('userid =:id AND :tgl BETWEEN tgl_awal AND IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir)',
+                                    [':id'=>$id, ':tgl'=>$tglDatang->format('Y-m-d')])
+                            ->exists() ) $hadir += 1;
                 }
+                $user[$id] = array_merge($user[$id], [
+                    'hadir'=>$hadir
+                ]);
             }
+            $sakit = 0; $ijin = 0; $cuti = 0; $tugas_dinas = 0;           
             if (count($userInfo['keteranganAbsen'])) {
                 foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {
                     
@@ -539,16 +548,32 @@ class ReportController extends Controller
                     
                     for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
                         $user[$id][$x->format('Y-m-d')] = $ketAbsen['statusid'];
+                        if ($ketAbsen['statusid'] == 'S') {
+                            $sakit += 1;
+                        } elseif ($ketAbsen['statusid'] == 'I') {
+                            $ijin += 1;
+                        } elseif ($ketAbsen['statusid'] == 'C') {
+                            $cuti += 1;
+                        } elseif ($ketAbsen['statusid'] == 'TD') {
+                            $tugas_dinas += 1;
+                        }
                     }
                 }
+                $user[$id] = array_merge($user[$id],[
+                    'sakit'=>$sakit,
+                    'ijin'=>$ijin,
+                    'cuti'=>$cuti,
+                    'tugas_dinas'=>$tugas_dinas,
+                ]);
             }
             
-            for($x = $renAwal ; $x <= $renAkhir; $x->modify('+1 day')) {
-                if ((TglLibur::find()->where(['tgl_libur'=>$x->format('Y-m-d')])->exists()) || (in_array($x->format('w'),[0,6]))) {
-                    $user[$id][$x->format('Y-m-d')] = 'L';
+            $start = new \DateTime($model->tglAwal);
+            $end = new \DateTime($model->tglAkhir);
+            for($i= $start ; $i <= $end; $i->modify('+1 day')) {
+                if (TglLibur::find()->where(['tgl_libur'=>$i->format('Y-m-d')])->exists() || in_array($i->format('w'),[0,6])) {
+                    $user[$id][$i->format('Y-m-d')] = 'L';
                 }
             }
-            
             
         }
         return $user;

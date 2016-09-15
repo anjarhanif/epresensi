@@ -7,6 +7,7 @@ use kartik\depdrop\DepDrop;
 use yii\jui\DatePicker;
 use app\models\PermissionHelpers;
 use app\models\Departments;
+use app\models\TglLibur;
 
 $this->title = 'Laporan Resume';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
@@ -75,13 +76,20 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
     $tglAwal = new \DateTime($model->tglAwal);
     $tglAkhir = new \DateTime($model->tglAkhir);
     $dates = [];
-    $benar = TRUE;
-    for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
+    for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {     
         $dates[] = [
             'attribute'=> $x->format('Y-m-d'),
             'label'=> $x->format('d'),
         ];
     }
+    $rekap = [];
+    $rekap = [
+        ['attribute'=>'hadir','label'=>'H'],
+        ['attribute'=>'sakit','label'=>'S'],
+        ['attribute'=>'ijin','label'=>'I'],
+        ['attribute'=>'cuti','label'=>'C'],
+        ['attribute'=>'tugas_dinas','label'=>'TD']
+    ]
 ?>
 
 <?= GridView::widget([
@@ -98,9 +106,12 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
             'attribute'=>'pin',
             'label'=>'PIN',
             'value'=>function ($data) {return (int)$data['pin'];},
-            'contentOptions'=>['style'=>'width :8%']
+            'contentOptions'=>['style'=>'width :7%']
         ],
-        'name'], $dates
+        ['attribute'=>'name'],
+        ], 
+        $dates,
+        $rekap
     )
 ]); ?>
 
