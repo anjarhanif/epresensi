@@ -418,7 +418,7 @@ class ReportController extends Controller
         exit;
     }
     
-        public function actionRepresumePdf(array $params) {
+    public function actionRepresumePdf(array $params) {
         $model = new ReportForm;
         $model->tglAwal = $params['tglAwal'];
         $model->tglAkhir = $params['tglAkhir'];
@@ -455,6 +455,89 @@ class ReportController extends Controller
             'model'=>$model,
             'dataProvider'=>$dataProvider
         ]);
+    }
+    
+    public function actionRepresumeExcel2 (array $params) {
+        $model = new ReportForm;
+        $model->tglAwal=$params['tglAwal'];
+        $model->tglAkhir=$params['tglAkhir'];
+        $model->skpd=$params['skpd'];
+               
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport2 ($model),
+            'pagination'=> ['pageSize'=>FALSE]
+        ]);
+        
+        $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
+        //set template
+        $template = Yii::getAlias('@app/views/report').'/_resumerep2.xlsx';
+        $objPHPExcel = $objReader->load($template);
+        $activeSheet = $objPHPExcel->getActiveSheet();
+        // set orientasi dan ukuran kertas
+        $activeSheet->getPageSetup()
+                ->setOrientation(\PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE)
+                ->setPaperSize(\PHPExcel_Worksheet_PageSetup::PAPERSIZE_FOLIO);
+        
+        $tglAwal = new \DateTime($model->tglAwal);
+        $tglAkhir = new \DateTime($model->tglAkhir);
+        $col = 'D';
+        for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
+            $activeSheet->setCellValue($col.'2',$x->format('d'));
+            ++$col;
+        }
+        $activeSheet->setCellValue($col++.'2','H')->setCellValue($col++.'2','S')
+            ->setCellValue($col++.'2','I')->setCellValue($col++.'2','C')
+            ->setCellValue($col.'2','TD');
+        
+        $baseRow=3;
+        foreach ($dataProvider->getModels() as $absen) {
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+                    ->setCellValue('B'.$baseRow, (int)$absen['pin'])
+                    ->setCellValue('C'.$baseRow, $absen['name']);
+            
+            $tglAwal = new \DateTime($model->tglAwal);
+            $tglAkhir = new \DateTime($model->tglAkhir);
+            $col = 'D';
+            for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
+                $activeSheet->setCellValue($col.$baseRow, $absen[$x->format('Y-m-d')]);
+                ++$col;
+            }
+            $activeSheet->setCellValue($col++.$baseRow, $absen['hadir'])
+                ->setCellValue($col++.$baseRow,$absen['sakit'])
+                ->setCellValue($col++.$baseRow,$absen['ijin'])
+                ->setCellValue($col++.$baseRow,$absen['cuti'])
+                ->setCellValue($col.$baseRow,$absen['tugas_dinas']);
+            $baseRow++;
+        }
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="_resumerep2.xlsx"');
+        header('Cache-Control: max-age=0');
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
+        $objWriter->save('php://output');
+        exit;
+    }
+    
+    public function actionRepresumePdf2 (array $params) {
+        $model = new ReportForm;
+        $model->tglAwal = $params['tglAwal'];
+        $model->tglAkhir = $params['tglAkhir'];
+        $model->skpd = $params['skpd'];
+        
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $this->arrayResumeReport2 ($model),
+            'pagination'=> ['pageSize'=>FALSE]
+        ]);
+        
+        $html = $this->renderPartial('_resumerep2', ['dataProvider'=>$dataProvider, 'model'=>$model]);
+        
+        $mpdf = new \mPDF('c','A4-L','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+
+        exit;
     }
     
     public function arrayResumeReport2($model) {
@@ -504,8 +587,7 @@ class ReportController extends Controller
             ])
         ->where(['IN','defaultdeptid', $deptids])
         ->orderBy('userid ASC')
-        ->asArray()->all();
-        
+        ->asArray()->all();        
         
         $user = array();
          
@@ -534,10 +616,10 @@ class ReportController extends Controller
                     'hadir'=>$hadir
                 ]);
             }
-            $sakit = 0; $ijin = 0; $cuti = 0; $tugas_dinas = 0;           
-            if (count($userInfo['keteranganAbsen'])) {
-                foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {
-                    
+                   
+            $sakit = 0; $ijin = 0; $cuti = 0; $tugas_dinas = 0;  
+            if (count($userInfo['keteranganAbsen'])) {                              
+                foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {                    
                     $tglAwal = new \DateTime($ketAbsen['tgl_awal']);
                     if ($ketAbsen['tgl_akhir'] == NULL) {
                         $tglAkhir = $tglAwal;
@@ -558,14 +640,14 @@ class ReportController extends Controller
                             $tugas_dinas += 1;
                         }
                     }
-                }
-                $user[$id] = array_merge($user[$id],[
+                }               
+            }
+            $user[$id] = array_merge($user[$id],[
                     'sakit'=>$sakit,
                     'ijin'=>$ijin,
                     'cuti'=>$cuti,
                     'tugas_dinas'=>$tugas_dinas,
                 ]);
-            }
             
             $start = new \DateTime($model->tglAwal);
             $end = new \DateTime($model->tglAkhir);

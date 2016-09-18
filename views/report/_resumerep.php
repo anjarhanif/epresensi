@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="page">
-            <h1>Laporan Absen Harian</h1>
+            <h1>Laporan Absen Resume</h1>
             <table border="0">
                 <tr>
                     <th>No</th>

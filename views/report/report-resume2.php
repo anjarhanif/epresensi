@@ -115,8 +115,8 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
     )
 ]); ?>
 
-<?= Html::a('Export Excel', ['represume-excel', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
-<?= Html::a('Export PDF', ['represume-pdf', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
+<?= Html::a('Export Excel', ['represume-excel2', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
+<?= Html::a('Export PDF', ['represume-pdf2', 'params'=>$model], ['class'=>'btn btn-info']); ?>  
 
 <p></p>
 
