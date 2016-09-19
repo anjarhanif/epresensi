@@ -88,7 +88,8 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         ['attribute'=>'sakit','label'=>'S'],
         ['attribute'=>'ijin','label'=>'I'],
         ['attribute'=>'cuti','label'=>'C'],
-        ['attribute'=>'tugas_dinas','label'=>'TD']
+        ['attribute'=>'tugas_dinas','label'=>'TD'],
+        ['attribute'=>'tampa_keterangan','label'=>'TK']
     ]
 ?>
 
@@ -114,6 +115,8 @@ if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
         $rekap
     )
 ]); ?>
+<p><b>H</b> = Hadir, &nbsp;<b>L</b> = Libur, &nbsp;<b>S</b> = Sakit, &nbsp;
+    <b>I</b> = Ijin, &nbsp;<b>C</b> = Cuti, &nbsp;<b>TD</b> = Tugas Dinas, &nbsp;<b>TK</b> = Tampa Keterangan</p>
 
 <?= Html::a('Export Excel', ['represume-excel2', 'params'=>$model], ['class'=>'btn btn-info']); ?>&nbsp;
 <?= Html::a('Export PDF', ['represume-pdf2', 'params'=>$model], ['class'=>'btn btn-info']); ?>  

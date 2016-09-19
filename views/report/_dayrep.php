@@ -6,9 +6,9 @@
         <title>Laporan Harian</title>
         <style type="text/css">
             @page {
-                margin-top: 2.5cm;
+                margin-top: 2cm;
                 margin-bottom: 2cm;
-                margin-left: 2.5cm;
+                margin-left: 2cm;
                 margin-right: 2cm;
             }
             table{border-spacing: 0;border-collapse: collapse; width: 100%;}

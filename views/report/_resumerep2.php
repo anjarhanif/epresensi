@@ -11,9 +11,9 @@ $dept = Departments::find()->where(['DeptID'=>$model->skpd])->one();
         <title>Laporan Resume Absen</title>
         <style type="text/css">
             @page {
-                margin-top: 2.5cm;
-                margin-bottom: 2cm;
-                margin-left: 2.5cm;
+                margin-top: 2cm;
+                margin-bottom: 1.5cm;
+                margin-left: 2cm;
                 margin-right: 2cm;
             }
             table{border-spacing: 0;border-collapse: collapse; width: 100%;}
@@ -22,8 +22,9 @@ $dept = Departments::find()->where(['DeptID'=>$model->skpd])->one();
     </head>
     <body>
         <div class="page">
-            <h1>Laporan Absen Resume</h1>
-            <h2><?= 'Unit Kerja : '.$dept->DeptName ?></h2>
+            <h2>Laporan Absen Resume</h2>
+            <h3><?= 'Unit Kerja : '.$dept->DeptName ?></h3>
+            <h4><?= 'Periode : '.$model->tglAwal.' - '.$model->tglAkhir ?></h4>
             <table border="0">
                 <tr>
                     <th>No</th>
@@ -41,6 +42,7 @@ $dept = Departments::find()->where(['DeptID'=>$model->skpd])->one();
                     <th>I</th>
                     <th>C</th>
                     <th>TD</th>
+                    <th>TK</th>
                 </tr>
                 <?php
                 $no = 1;
@@ -61,6 +63,7 @@ $dept = Departments::find()->where(['DeptID'=>$model->skpd])->one();
                     <td><?= $absensi['ijin'] ?></td> 
                     <td><?= $absensi['cuti'] ?></td>
                     <td><?= $absensi['tugas_dinas'] ?></td>
+                    <td><?= $absensi['tampa_keterangan'] ?></td>
                 </tr>
                 <?php
                 }

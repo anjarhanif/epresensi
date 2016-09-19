@@ -43,7 +43,7 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label'=>'Laporan', 'url'=>['/report/index'], 'items'=>[
             ['label'=>'Laporan Harian','url'=>['report/day-report']],
-            ['label'=>'Laporan Resume','url'=>['report/resume-report']],
+            ['label'=>'Laporan Resume','url'=>['report/resume-report2']],
         ]];
         $menuItems[] = ['label'=>'Data','items'=>[
             ['label'=>'Monitor Checkinout','url'=>['checkinout/monitor']],
