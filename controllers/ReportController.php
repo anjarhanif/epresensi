@@ -27,7 +27,7 @@ class ReportController extends Controller
                         'allow'=>TRUE,
                         'roles'=>['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
+                            return PermissionHelpers::requireMinimumRole('ReportUser') &&
                             PermissionHelpers::requireStatus('Active');
                         }
                     ]
@@ -140,8 +140,10 @@ class ReportController extends Controller
         $model = new ReportForm;
         $report = new Report();
         
-        $model->tglAwal=$params['tglAwal'];
-        $model->skpd=$params['skpd'];
+        $model->tglAwal = $params['tglAwal'];
+        $model->skpd = $params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
                
         $dataProvider = new ArrayDataProvider([
             'allModels' => $report->arrayDayReport($model),
@@ -185,6 +187,8 @@ class ReportController extends Controller
         
         $model->tglAwal = $params['tglAwal'];
         $model->skpd = $params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
         
         $dataProvider = new ArrayDataProvider([
             'allModels' => $report->arrayDayReport($model),
@@ -211,6 +215,8 @@ class ReportController extends Controller
         $model->tglAwal=$params['tglAwal'];
         $model->tglAkhir=$params['tglAkhir'];
         $model->skpd=$params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
                
         $dataProvider = new ArrayDataProvider([
             'allModels' => $report->arrayResumeReport($model),
@@ -256,6 +262,8 @@ class ReportController extends Controller
         $model->tglAwal = $params['tglAwal'];
         $model->tglAkhir = $params['tglAkhir'];
         $model->skpd = $params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
         
         $dataProvider = new ArrayDataProvider([
             'allModels' => $report->arrayResumeReport($model),
@@ -299,6 +307,8 @@ class ReportController extends Controller
         $model->tglAwal=$params['tglAwal'];
         $model->tglAkhir=$params['tglAkhir'];
         $model->skpd=$params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
         
         $dept = Departments::find()->where(['DeptID'=>$model->skpd])->one();
                
@@ -333,7 +343,7 @@ class ReportController extends Controller
         
         $baseRow=5;
         foreach ($dataProvider->getModels() as $absen) {
-            $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
+            $activeSheet->setCellValue('A'.$baseRow, $baseRow-4)
                     ->setCellValue('B'.$baseRow, (int)$absen['pin'])
                     ->setCellValue('C'.$baseRow, $absen['name']);
             
@@ -368,6 +378,8 @@ class ReportController extends Controller
         $model->tglAwal = $params['tglAwal'];
         $model->tglAkhir = $params['tglAkhir'];
         $model->skpd = $params['skpd'];
+        $model->eselon3 = $params['eselon3'];
+        $model->eselon4 = $params['eselon4'];
         
         $dataProvider = new ArrayDataProvider([
             'allModels' => $report->arrayResumeReport2 ($model),

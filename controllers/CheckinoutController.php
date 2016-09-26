@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\PermissionHelpers;
+use app\models\ValueHelpers;
 
 /**
  * CheckinoutController implements the CRUD actions for Checkinout model.
@@ -32,7 +33,7 @@ class CheckinoutController extends Controller
                         'allow'=>TRUE,
                         'roles'=>['@'],
                         'matchCallback' => function ($rule, $action) {
-                            return PermissionHelpers::requireMinimumRole('AdminSKPD') &&
+                            return PermissionHelpers::requireMinimumRole('ReportUser') &&
                             PermissionHelpers::requireStatus('Active');
                         }
                     ]
@@ -72,7 +73,9 @@ class CheckinoutController extends Controller
     
     public function actionMonitor() {
         $deptid = Yii::$app->user->identity->dept_id;
-        $deptids = Departments::getDeptids($deptid);
+        if (ValueHelpers::roleMatch('ReportUser') || ValueHelpers::roleMatch('AdminSystem')) {
+            $deptids = '';
+        } else $deptids = Departments::getDeptids($deptid);
         
         $searchModel = new CheckinoutSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

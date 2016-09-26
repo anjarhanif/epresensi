@@ -8,15 +8,16 @@ use yii\jui\DatePicker;
 //use kartik\date\DatePicker;
 use app\models\Departments;
 use app\models\PermissionHelpers;
+use app\models\ValueHelpers;
 
 
 $this->title = 'Laporan Harian';
 $this->params['breadcrumbs'][]=['label'=>'Laporan Kehadiran', 'url'=>['index']];
 $this->params['breadcrumbs'][]= $this->title;
 
-if (PermissionHelpers::requireMinimumRole('AdminSKPD')) {
-    $deptid = Yii::$app->user->identity->dept_id;
-} else $deptid=NULL;
+if (ValueHelpers::roleMatch('ReportUser') || ValueHelpers::roleMatch('AdminSystem')) {
+    $deptid = '';
+} else $deptid=Yii::$app->user->identity->dept_id;
 
 ?>
 <h1>Laporan Harian</h1>
