@@ -241,7 +241,7 @@ class Report {
         ->orderBy('userid ASC')
         ->asArray()->all();        
         
-        $user = array();
+        $user = [];
          
         foreach ($query as $userInfo) {
             $id = $userInfo['userid'];
@@ -258,18 +258,28 @@ class Report {
                         $tglPulang = $tglDatang;
                     }else $tglPulang = new \DateTime($checkinout['pulang']);
                     
-                    $user[$id][$tglDatang->format('Y-m-d')] = 'H';
                     if ( ! (KeteranganAbsen::find()
                             ->where('userid =:id AND :tgl BETWEEN tgl_awal AND IF(tgl_akhir IS NULL, tgl_awal, tgl_akhir)',
                                     [':id'=>$id, ':tgl'=>$tglDatang->format('Y-m-d')])
-                            ->exists() || in_array($tglDatang->format('w'),[0,6]) ) ) $hadir += 1;
+                            ->exists() || TglLibur::find()->where(['tgl_libur'=>$tglDatang->format('Y-m-d')])->exists() 
+                            || in_array($tglDatang->format('w'),[0,6]) ) ) {
+                        
+                        $user[$id][$tglDatang->format('Y-m-d')] = 'H';
+                        $hadir += 1;
+                    }
                 }
             }
             $user[$id] = array_merge($user[$id], [
                     'hadir'=>$hadir
                 ]);
-                   
-            $sakit = 0; $ijin = 0; $cuti = 0; $tugas_dinas = 0;  
+                             
+            $renAwal = new \DateTime($model->tglAwal);
+            if($model->tglAkhir == NULL) {
+                $renAkhir = $renAwal;
+            }else $renAkhir = new \DateTime($model->tglAkhir);
+            
+            $sakit = 0; $ijin = 0; $cuti = 0; $tugas_dinas = 0;
+        
             if (count($userInfo['keteranganAbsen'])) {                              
                 foreach ($userInfo['keteranganAbsen'] as $ketAbsen) {                    
                     $tglAwal = new \DateTime($ketAbsen['tgl_awal']);
@@ -277,20 +287,23 @@ class Report {
                         $tglAkhir = $tglAwal;
                     } else $tglAkhir = new \DateTime($ketAbsen['tgl_akhir']);                                     
                     
-                    if ($tglAwal < $renAwal) $tglAwal = $renAwal;
-                    if ($tglAkhir > $renAkhir) $tglAkhir =$renAkhir;
+                    if ($tglAwal < $renAwal) {$tglAwal = $renAwal;}
+                    if ($tglAkhir > $renAkhir) {$tglAkhir = $renAkhir;}
                     
                     for($x = $tglAwal; $x <= $tglAkhir; $x->modify('+1 day')) {
-                        $user[$id][$x->format('Y-m-d')] = $ketAbsen['statusid'];
-                        if ($ketAbsen['statusid'] == 'S') {
-                            $sakit += 1;
-                        } elseif ($ketAbsen['statusid'] == 'I') {
-                            $ijin += 1;
-                        } elseif ($ketAbsen['statusid'] == 'C') {
-                            $cuti += 1;
-                        } elseif ($ketAbsen['statusid'] == 'TD') {
-                            $tugas_dinas += 1;
-                        }
+                        
+                        if (!(TglLibur::find()->where(['tgl_libur'=>$x->format('Y-m-d')])->exists() || in_array($x->format('w'),[0,6]))) {
+                            $user[$id][$x->format('Y-m-d')] = $ketAbsen['statusid'];
+                            if ($ketAbsen['statusid'] == 'S') {
+                                $sakit += 1;
+                            } elseif ($ketAbsen['statusid'] == 'I') {
+                                $ijin += 1;
+                            } elseif ($ketAbsen['statusid'] == 'C') {
+                                $cuti += 1;
+                            } elseif ($ketAbsen['statusid'] == 'TD') {
+                                $tugas_dinas += 1;
+                            }
+                        }                                                
                     }
                 }               
             }
@@ -301,7 +314,7 @@ class Report {
             for($i= $start ; $i <= $end; $i->modify('+1 day')) {
                 if (TglLibur::find()->where(['tgl_libur'=>$i->format('Y-m-d')])->exists() || in_array($i->format('w'),[0,6])) {
                     $user[$id][$i->format('Y-m-d')] = 'L';
-                } elseif ($user[$id][$i->format('Y-m-d')] == '') {
+                } elseif (!isset ($user[$id][$i->format('Y-m-d')])) {
                     $user[$id][$i->format('Y-m-d')] = 'TK';
                     $tk += 1;
                 }

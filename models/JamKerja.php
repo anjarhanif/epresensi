@@ -8,7 +8,8 @@ use Yii;
  * This is the model class for table "jam_kerja".
  *
  * @property integer $id
- * @property string $nama_jamker
+ * @property integer $id_jenis
+ * @property string $no_hari
  * @property string $jam_masuk
  * @property string $jam_pulang
  * @property string $mulai_cekin
@@ -30,9 +31,10 @@ class JamKerja extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama_jamker', 'jam_masuk', 'jam_pulang', 'mulai_cekin', 'akhir_cekout'], 'required'],
+            [['id_jenis', 'no_hari', 'jam_masuk', 'jam_pulang', 'mulai_cekin', 'akhir_cekout'], 'required'],
+            [['id_jenis'], 'integer'],
             [['jam_masuk', 'jam_pulang', 'mulai_cekin', 'akhir_cekout'], 'safe'],
-            [['nama_jamker'], 'string', 'max' => 100],
+            [['no_hari'], 'string', 'max' => 7],
         ];
     }
 
@@ -43,7 +45,8 @@ class JamKerja extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama_jamker' => 'Nama Jamker',
+            'id_jenis' => 'Id Jenis',
+            'no_hari' => 'No Hari',
             'jam_masuk' => 'Jam Masuk',
             'jam_pulang' => 'Jam Pulang',
             'mulai_cekin' => 'Mulai Cekin',
