@@ -41,12 +41,19 @@ class Report {
         }
                
         $tglAwal = new \DateTime($model->tglAwal);
-        $JenisJamker = TglKerja::find()->select('id_jenis')->where(['<=','tgl_awal',$tglAwal]);
+        $JenisJamker = TglKerja::find()->select('id_jenis')->where(['<=','tgl_awal',$tglAwal->format('Y-m-d')])
+                ->andWhere(['>=','tgl_akhir', $tglAwal->format('Y-m-d')])->one();
+        if (! $JenisJamker) $JenisJamker = 1;
+        $jamKerja = JamKerja::find()->where(['id_jenis'=>$JenisJamker])
+                ->andWhere('LOCATE( :noHari, no_hari) > 0',[':noHari'=>$tglAwal->format('w')])->one();
+        
+        /*
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'senin-kamis'])->one();
         }elseif($tglAwal->format('w') == 5) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
-        }
+        }*/
+        
 
        $allModels = (new Query())->select(['u.badgenumber','u.name','IF(COUNT(c.checktime) > 0, MIN(c.checktime),"Nihil") AS datang', 
                 'IF(COUNT(c.checktime) > 1, MAX(c.checktime),"Nihil" ) AS pulang', 
