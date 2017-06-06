@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\JenisJamkerja;
 
 /**
  * This is the model class for table "tgl_kerja".
@@ -48,5 +49,13 @@ class TglKerja extends \yii\db\ActiveRecord
             'tgl_awal' => 'Tgl Awal',
             'tgl_akhir' => 'Tgl Akhir',
         ];
+    }
+    
+    public function getJamkerja() {
+        return $this->hasMany(JamKerja::className(), ['id_jenis'=>'id_jenis']);
+    }
+    
+    public function getJenisJamkerja() {
+        return $this->hasOne(JenisJamkerja::className(), ['id'=>'id_jenis']);
     }
 }

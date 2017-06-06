@@ -8,6 +8,7 @@ use app\models\JamKerja;
 use app\models\TglLibur;
 use app\models\Userinfo;
 use app\models\KeteranganAbsen;
+use app\models\TglKerja;
 
 /**
  * Description of Report
@@ -40,6 +41,7 @@ class Report {
         }
                
         $tglAwal = new \DateTime($model->tglAwal);
+        $JenisJamker = TglKerja::find()->select('id_jenis')->where(['<=','tgl_awal',$tglAwal]);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'senin-kamis'])->one();
         }elseif($tglAwal->format('w') == 5) {

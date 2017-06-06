@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\JenisJamkerja;
 
 /**
  * This is the model class for table "jam_kerja".
@@ -52,5 +53,9 @@ class JamKerja extends \yii\db\ActiveRecord
             'mulai_cekin' => 'Mulai Cekin',
             'akhir_cekout' => 'Akhir Cekout',
         ];
+    }
+    
+    public function getJenisJamkerja() {
+        return $this->hasOne(JenisJamkerja::className(), ['id'=>'id_jenis']);
     }
 }
