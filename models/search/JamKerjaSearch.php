@@ -12,14 +12,15 @@ use app\models\JamKerja;
  */
 class JamKerjaSearch extends JamKerja
 {
+    public $jenisJamker;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['nama_jamker', 'jam_masuk', 'jam_pulang', 'mulai_cekin', 'akhir_cekout'], 'safe'],
+            [['id', 'id_jenis'], 'integer'],
+            [['jenisJamker','no_hari', 'jam_masuk', 'jam_pulang', 'mulai_cekin', 'akhir_cekout'], 'safe'],
         ];
     }
 
@@ -41,7 +42,7 @@ class JamKerjaSearch extends JamKerja
      */
     public function search($params)
     {
-        $query = JamKerja::find();
+        $query = JamKerja::find()->joinWith(['jenisJamkerja']);
 
         // add conditions that should always apply here
 
@@ -60,13 +61,15 @@ class JamKerjaSearch extends JamKerja
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_jenis' => $this->id_jenis,
             'jam_masuk' => $this->jam_masuk,
             'jam_pulang' => $this->jam_pulang,
             'mulai_cekin' => $this->mulai_cekin,
             'akhir_cekout' => $this->akhir_cekout,
         ]);
 
-        $query->andFilterWhere(['like', 'nama_jamker', $this->nama_jamker]);
+        $query->andFilterWhere(['like', 'no_hari', $this->no_hari])
+                ->andFilterWhere(['like','jenis_jamkerja.nama_jenis', $this->jenisJamker]);
 
         return $dataProvider;
     }

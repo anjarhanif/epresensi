@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\JenisJamkerja;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\JamKerja */
@@ -12,7 +13,12 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'nama_jamker')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'id_jenis')->dropDownList(JenisJamkerja::getListJenisJamkerja(),[
+        'prompt' => '[Pilih Jenis Jam Kerja]',
+        'style' => 'width : 300px',
+    ]) ?>
+
+    <?= $form->field($model, 'no_hari')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'jam_masuk')->textInput() ?>
 

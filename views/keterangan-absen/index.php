@@ -26,12 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :6%']],
             //'id',
             [
-            'attribute'=>'pin',
-            'label'=>'PIN',
-            'value'=>function ($model) {return (int)$model->userinfo->badgenumber;},
-            'contentOptions'=>['style'=>'width :8%']
+                'attribute'=>'pin',
+                'label'=>'PIN',
+                'value'=>function ($model) {return (int)$model->userinfo->badgenumber;},
+                'contentOptions'=>['style'=>'width :7%']
             ],
-            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :30%']],
+            ['attribute'=>'username','value'=>'userinfo.name','contentOptions'=>['style'=>'width :20%']],
             ['attribute'=>'statusid', 'contentOptions'=>['style'=>'width :6%']],
             [
                 'attribute'=>'tgl_awal',

@@ -224,12 +224,14 @@ class Report {
             } else $deptids = $skpd;
         }
         
+        /*
         $tglAwal = new \DateTime($model->tglAwal);
         if(in_array($tglAwal->format('w'),[1,2,3,4])) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'senin-kamis'])->one();
         }elseif($tglAwal->format('w') == 5) {
             $jamKerja = JamKerja::find()->where(['nama_jamker'=>'jumat'])->one();
         }
+        */
         
         $renAwal = new \DateTime($model->tglAwal);
         if($model->tglAkhir == NULL) {

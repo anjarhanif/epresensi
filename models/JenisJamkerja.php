@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "jenis_jamkerja".
@@ -43,5 +44,10 @@ class JenisJamkerja extends \yii\db\ActiveRecord
             'nama_jenis' => 'Nama Jenis',
             'keterangan' => 'Keterangan',
         ];
+    }
+    
+    public static function getListJenisJamkerja() {
+        $droptions = JenisJamkerja::find()->all();
+        return ArrayHelper::map($droptions, 'id', 'nama_jenis');
     }
 }

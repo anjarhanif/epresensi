@@ -21,17 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'options' => ['style'=>'width : 75%'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn','contentOptions'=>['style'=>'width :5%']],
+            ['class' => 'yii\grid\SerialColumn'],
+            
+            //'id',
+            //'id_jenis',
+            ['attribute' => 'jenisJamker', 'value'=>'jenisJamkerja.nama_jenis', 'contentOptions' => ['style'=>'width : 30%']],
+            'no_hari',
+            ['attribute' => 'jam_masuk', 'contentOptions' => ['style'=>'width : 20%']],
+            ['attribute' => 'jam_pulang', 'contentOptions' => ['style'=>'width : 20%']],
+            // 'mulai_cekin',
+            // 'akhir_cekout',
 
-            ['attribute'=>'id','contentOptions'=>['style'=>'width : 7%']],
-            'nama_jamker',
-            ['attribute'=>'jam_masuk', 'contentOptions'=>['style'=>'width : 10%']],
-            ['attribute'=>'jam_pulang', 'contentOptions'=>['style'=>'width : 10%']],
-            ['attribute'=>'mulai_cekin','contentOptions'=>['style'=>'width : 10%']],
-            ['attribute'=>'akhir_cekout','contentOptions'=>['style'=>'width : 10%']],
-
-            ['class' => 'yii\grid\ActionColumn','contentOptions'=>['style'=>'width :7%']],
+            ['class' => 'yii\grid\ActionColumn', 'contentOptions' => ['style'=>'width : 8%']],
         ],
     ]); ?>
 </div>

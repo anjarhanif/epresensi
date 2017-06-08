@@ -56,7 +56,11 @@ AppAsset::register($this);
         if($is_admin) {
             $menuItems[] = ['label'=>'Admin', 'items'=> [
                 ['label'=>'Tanggal Libur', 'url'=>['/tgl-libur/index']],
-                ['label'=>'Jam Kerja', 'url'=>['/jam-kerja/index']],
+                ['label'=>'Jam Kerja', 'items' => [
+                    ['label'=>'Jenis Jam Kerja', 'url'=>['/jenis-jamkerja/index']],
+                    ['label'=>'Jam Kerja', 'url'=>['/jam-kerja/index']],
+                    ['label'=>'Tgl Kerja', 'url'=>['/tgl-kerja/index']]
+                ]],
                 //['label'=>'Status Absen', 'url'=>['/status-absen/index']],
                 ['label'=>'User','url'=>['user/index']],
                 ['label'=>'Role', 'url'=>['role/index']],

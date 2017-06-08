@@ -46,7 +46,7 @@ class JamKerja extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_jenis' => 'Id Jenis',
+            'id_jenis' => 'Jenis Jam Kerja',
             'no_hari' => 'No Hari',
             'jam_masuk' => 'Jam Masuk',
             'jam_pulang' => 'Jam Pulang',
